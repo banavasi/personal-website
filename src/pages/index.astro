@@ -9,35 +9,348 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 <html lang="en">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<style>
+			main {
+				max-width: 900px;
+			}
+			
+			.hero-section {
+				padding: 8rem 0 4rem 0;
+				text-align: left;
+			}
+			
+			.hero-title {
+				font-size: 4rem;
+				font-weight: 800;
+				margin-bottom: 1.5rem;
+				line-height: 1.1;
+				background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				background-clip: text;
+			}
+			
+			.hero-subtitle {
+				font-size: 2rem;
+				color: var(--accent);
+				margin-bottom: 2rem;
+				font-weight: 600;
+			}
+			
+			.hero-description {
+				font-size: 1.25rem;
+				color: var(--text-secondary);
+				line-height: 1.8;
+				max-width: 700px;
+				margin-bottom: 3rem;
+			}
+			
+			.cta-buttons {
+				display: flex;
+				gap: 1rem;
+				flex-wrap: wrap;
+			}
+			
+			.btn {
+				display: inline-flex;
+				align-items: center;
+				padding: 0.875rem 2rem;
+				border-radius: 8px;
+				font-weight: 600;
+				font-size: 1rem;
+				text-decoration: none;
+				transition: all 0.2s ease;
+				cursor: pointer;
+			}
+			
+			.btn-primary {
+				background: var(--accent);
+				color: white;
+			}
+			
+			.btn-primary:hover {
+				background: var(--accent-light);
+				transform: translateY(-2px);
+				box-shadow: var(--box-shadow-lg);
+			}
+			
+			.btn-secondary {
+				background: var(--bg-secondary);
+				color: var(--text-primary);
+				border: 1px solid var(--border-color);
+			}
+			
+			.btn-secondary:hover {
+				background: var(--bg-tertiary);
+				border-color: var(--accent);
+			}
+			
+			.section {
+				padding: 4rem 0;
+				border-top: 1px solid var(--border-color);
+			}
+			
+			.section-title {
+				font-size: 2.5rem;
+				margin-bottom: 1rem;
+				color: var(--text-primary);
+			}
+			
+			.section-subtitle {
+				font-size: 1.125rem;
+				color: var(--text-tertiary);
+				margin-bottom: 3rem;
+			}
+			
+			.about-content {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 3rem;
+				align-items: start;
+			}
+			
+			.about-text {
+				font-size: 1.125rem;
+				line-height: 1.8;
+			}
+			
+			.skills-list {
+				display: flex;
+				flex-direction: column;
+				gap: 1rem;
+			}
+			
+			.skill-item {
+				padding: 1.25rem;
+				background: var(--bg-secondary);
+				border: 1px solid var(--border-color);
+				border-radius: 12px;
+				transition: all 0.2s ease;
+			}
+			
+			.skill-item:hover {
+				border-color: var(--accent);
+				transform: translateX(8px);
+			}
+			
+			.skill-title {
+				font-size: 1.125rem;
+				font-weight: 600;
+				color: var(--text-primary);
+				margin-bottom: 0.5rem;
+			}
+			
+			.skill-description {
+				color: var(--text-tertiary);
+				margin: 0;
+			}
+			
+			.nav-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+				gap: 2rem;
+			}
+			
+			.nav-card {
+				padding: 2rem;
+				background: var(--bg-secondary);
+				border: 1px solid var(--border-color);
+				border-radius: 16px;
+				text-decoration: none;
+				transition: all 0.3s ease;
+				display: block;
+			}
+			
+			.nav-card:hover {
+				border-color: var(--accent);
+				transform: translateY(-8px);
+				box-shadow: var(--box-shadow-lg);
+			}
+			
+			.nav-icon {
+				font-size: 2.5rem;
+				margin-bottom: 1rem;
+			}
+			
+			.nav-title {
+				font-size: 1.5rem;
+				color: var(--text-primary);
+				margin-bottom: 0.5rem;
+			}
+			
+			.nav-description {
+				color: var(--text-secondary);
+				margin: 0;
+			}
+			
+			.projects-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+				gap: 2rem;
+			}
+			
+			.project-card {
+				padding: 2rem;
+				background: var(--bg-secondary);
+				border: 1px solid var(--border-color);
+				border-radius: 16px;
+				transition: all 0.3s ease;
+			}
+			
+			.project-card:hover {
+				border-color: var(--accent);
+				transform: translateY(-8px);
+				box-shadow: var(--box-shadow-lg);
+			}
+			
+			.project-title {
+				font-size: 1.5rem;
+				color: var(--text-primary);
+				margin-bottom: 1rem;
+			}
+			
+			.project-description {
+				color: var(--text-secondary);
+				margin-bottom: 1.5rem;
+				line-height: 1.6;
+			}
+			
+			.project-tags {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.5rem;
+			}
+			
+			.tag {
+				padding: 0.375rem 0.875rem;
+				background: var(--bg-tertiary);
+				border: 1px solid var(--border-color);
+				border-radius: 6px;
+				font-size: 0.875rem;
+				color: var(--text-secondary);
+			}
+			
+			.contact-section {
+				text-align: center;
+				padding: 5rem 0;
+			}
+			
+			.contact-title {
+				font-size: 3rem;
+				margin-bottom: 1rem;
+			}
+			
+			.contact-text {
+				font-size: 1.25rem;
+				color: var(--text-secondary);
+				max-width: 600px;
+				margin: 0 auto 3rem auto;
+			}
+			
+			.social-links {
+				display: flex;
+				justify-content: center;
+				gap: 1.5rem;
+				flex-wrap: wrap;
+			}
+			
+			@media (max-width: 768px) {
+				.hero-title {
+					font-size: 2.5rem;
+				}
+				
+				.hero-subtitle {
+					font-size: 1.5rem;
+				}
+				
+				.hero-description {
+					font-size: 1.125rem;
+				}
+				
+				.hero-section {
+					padding: 4rem 0 3rem 0;
+				}
+				
+				.about-content {
+					grid-template-columns: 1fr;
+					gap: 2rem;
+				}
+				
+				.section-title {
+					font-size: 2rem;
+				}
+				
+				.contact-title {
+					font-size: 2rem;
+				}
+				
+				.nav-grid {
+					grid-template-columns: 1fr;
+				}
+			}
+		</style>
 	</head>
 	<body>
 		<Header />
 		<main>
-			<h1>👋 Hello, I'm Banavasi!</h1>
-			<p>
-				Welcome to my personal website! I'm a software developer passionate about building elegant
-				solutions and sharing knowledge with the community.
-			</p>
-			<p>
-				This is my corner of the internet where I share my thoughts, document my learning journey,
-				and showcase projects I'm working on. Whether you're here to read my blog posts, learn
-				more about me, or explore my work, I'm glad you stopped by!
-			</p>
-			<h2>What You'll Find Here</h2>
-			<ul>
-				<li><strong>Blog Posts:</strong> Technical articles, tutorials, and insights about software development</li>
-				<li><strong>Projects:</strong> Showcases of my work and side projects</li>
-				<li><strong>About Me:</strong> Learn more about my background and interests</li>
-			</ul>
-			<p>
-				Feel free to explore the <a href="/blog">blog section</a> to read my latest posts, or
-				check out the <a href="/about">about page</a> to learn more about me and my journey.
-			</p>
-			<p>
-				Let's connect! You can find me on various social platforms using the links in the header
-				and footer. I'm always happy to chat about technology, collaborate on interesting projects,
-				or simply connect with fellow developers.
-			</p>
+			<!-- Hero Section -->
+			<section class="hero-section">
+				<h1 class="hero-title">Shashank Shandilya</h1>
+				<p class="hero-subtitle">Senior Technical Lead • Solutions Architect • AI & Automation Strategist</p>
+				<p class="hero-description">
+					Transforming business challenges into scalable, intelligent digital ecosystems. 
+					Building high-performance platforms, leading engineering teams, and architecting AI-driven systems.
+				</p>
+				<div class="cta-buttons">
+					<a href="https://www.linkedin.com/in/shashank-shandilya-v" target="_blank" class="btn btn-primary">LinkedIn</a>
+					<a href="/contact" class="btn btn-secondary">Contact Me</a>
+					<a href="/about" class="btn btn-secondary">About Me</a>
+				</div>
+			</section>
+
+			<!-- Quick Navigation -->
+			<section class="section">
+				<h2 class="section-title">Explore</h2>
+				<p class="section-subtitle">Navigate through different sections</p>
+				
+				<div class="nav-grid">
+					<a href="/about" class="nav-card">
+						<div class="nav-icon">👋</div>
+						<h3 class="nav-title">About Me</h3>
+						<p class="nav-description">Learn more about my background and journey</p>
+					</a>
+					
+					<a href="/projects" class="nav-card">
+						<div class="nav-icon">💼</div>
+						<h3 class="nav-title">Projects</h3>
+						<p class="nav-description">Check out my work and side projects</p>
+					</a>
+					
+					<a href="/skills" class="nav-card">
+						<div class="nav-icon">🛠️</div>
+						<h3 class="nav-title">Skills & Tools</h3>
+						<p class="nav-description">Technologies and tools I work with</p>
+					</a>
+					
+					<a href="/experience" class="nav-card">
+						<div class="nav-icon">💻</div>
+						<h3 class="nav-title">Experience</h3>
+						<p class="nav-description">My professional journey and roles</p>
+					</a>
+					
+					<a href="/education" class="nav-card">
+						<div class="nav-icon">🎓</div>
+						<h3 class="nav-title">Education</h3>
+						<p class="nav-description">Academic background and learning</p>
+					</a>
+					
+					<a href="/contact" class="nav-card">
+						<div class="nav-icon">📬</div>
+						<h3 class="nav-title">Contact</h3>
+						<p class="nav-description">Get in touch with me</p>
+					</a>
+				</div>
+			</section>
 		</main>
 		<Footer />
 	</body>

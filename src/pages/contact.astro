@@ -1,0 +1,205 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Contact | ${SITE_TITLE}`} description="Get in touch with me" />
+		<style>
+			main {
+				max-width: 900px;
+			}
+			
+			.page-header {
+				padding: 4rem 0 3rem 0;
+				text-align: center;
+			}
+			
+			.page-title {
+				font-size: 3.5rem;
+				font-weight: 800;
+				margin-bottom: 1rem;
+				color: var(--text-primary);
+			}
+			
+			.page-subtitle {
+				font-size: 1.5rem;
+				color: var(--text-tertiary);
+				margin-bottom: 2rem;
+			}
+			
+			.intro-text {
+				font-size: 1.125rem;
+				color: var(--text-secondary);
+				line-height: 1.8;
+				margin-bottom: 3rem;
+			}
+			
+			.contact-methods {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+				gap: 2rem;
+				margin-bottom: 4rem;
+			}
+			
+			.contact-card {
+				padding: 2rem;
+				background: var(--bg-secondary);
+				border: 1px solid var(--border-color);
+				border-radius: 16px;
+				text-align: center;
+				transition: all 0.3s ease;
+			}
+			
+			.contact-card:hover {
+				border-color: var(--accent);
+				transform: translateY(-8px);
+			}
+			
+			.contact-icon {
+				font-size: 2.5rem;
+				margin-bottom: 1rem;
+			}
+			
+			.contact-title {
+				font-size: 1.25rem;
+				color: var(--text-primary);
+				margin-bottom: 0.5rem;
+				font-weight: 700;
+			}
+			
+			.contact-link {
+				color: var(--accent);
+				text-decoration: none;
+				transition: color 0.2s ease;
+			}
+			
+			.contact-link:hover {
+				color: var(--accent-light);
+			}
+			
+			.cta-buttons {
+				display: flex;
+				justify-content: center;
+				gap: 1rem;
+				flex-wrap: wrap;
+				margin-bottom: 4rem;
+			}
+			
+			.btn {
+				display: inline-flex;
+				align-items: center;
+				padding: 0.875rem 2rem;
+				border-radius: 8px;
+				font-weight: 600;
+				font-size: 1rem;
+				text-decoration: none;
+				transition: all 0.2s ease;
+			}
+			
+			.btn-primary {
+				background: var(--accent);
+				color: white;
+			}
+			
+			.btn-primary:hover {
+				background: var(--accent-light);
+				transform: translateY(-2px);
+			}
+			
+			.btn-secondary {
+				background: var(--bg-secondary);
+				color: var(--text-primary);
+				border: 1px solid var(--border-color);
+			}
+			
+			.btn-secondary:hover {
+				background: var(--bg-tertiary);
+				border-color: var(--accent);
+			}
+			
+			.nav-links {
+				display: flex;
+				justify-content: space-between;
+				padding: 2rem 0;
+				border-top: 1px solid var(--border-color);
+			}
+			
+			.nav-link {
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+				color: var(--text-secondary);
+				text-decoration: none;
+				transition: color 0.2s ease;
+			}
+			
+			.nav-link:hover {
+				color: var(--accent);
+			}
+			
+			@media (max-width: 768px) {
+				.page-title {
+					font-size: 2.5rem;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="page-header">
+				<h1 class="page-title">Contact</h1>
+				<p class="page-subtitle">Let's connect and build something amazing together!</p>
+			</section>
+
+			<p class="intro-text">
+				I'm always interested in connecting with fellow engineers, collaborating on innovative projects,
+				or discussing technology and architecture. Whether you're looking to collaborate, need technical 
+				consultation, or just want to have a conversation about engineering leadership and AI-driven systems, 
+				feel free to reach out through any of the methods below.
+			</p>
+
+			<div class="contact-methods">
+				<div class="contact-card">
+					<div class="contact-icon">💼</div>
+					<h3 class="contact-title">LinkedIn</h3>
+					<a href="https://www.linkedin.com/in/shashank-shandilya-v/" target="_blank" class="contact-link">Connect with me</a>
+				</div>
+				
+				<div class="contact-card">
+					<div class="contact-icon">💻</div>
+					<h3 class="contact-title">GitHub</h3>
+					<a href="https://github.com/banavasi" target="_blank" class="contact-link">View my work</a>
+				</div>
+				
+				<div class="contact-card">
+					<div class="contact-icon">📧</div>
+					<h3 class="contact-title">Email</h3>
+					<a href="mailto:contact@shashank-shandilya.dev" class="contact-link">Send message</a>
+				</div>
+			</div>
+
+			<div class="cta-buttons">
+				<a href="https://www.linkedin.com/in/shashank-shandilya-v/" target="_blank" class="btn btn-primary">Connect on LinkedIn</a>
+				<a href="https://github.com/banavasi" target="_blank" class="btn btn-secondary">View GitHub</a>
+			</div>
+
+			<div class="nav-links">
+				<a href="/education" class="nav-link">
+					<span>←</span>
+					<span>Education</span>
+				</a>
+				<a href="/" class="nav-link">
+					<span>Home</span>
+					<span>→</span>
+				</a>
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>

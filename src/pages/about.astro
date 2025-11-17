@@ -1,58 +1,134 @@
 ---
-import Layout from '../layouts/BlogPost.astro';
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE } from '../consts';
 ---
 
-<Layout
-	title="About Me"
-	description="Learn more about Banavasi - software developer, tech enthusiast, and lifelong learner"
-	pubDate={new Date('November 17 2024')}
-	heroImage="/blog-placeholder-about.jpg"
->
-	<h2>Hello, I'm Banavasi! 👋</h2>
-	
-	<p>
-		I'm a passionate software developer with a deep interest in building efficient, scalable, and 
-		user-friendly applications. My journey in technology has been driven by curiosity and a constant 
-		desire to learn and grow.
-	</p>
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`About Me | ${SITE_TITLE}`} description="Learn more about Shashank Shandilya" />
+		<style>
+			main {
+				max-width: 1000px;
+			}
+			
+			.page-header {
+				padding: 4rem 0 3rem 0;
+			}
+			
+			.page-title {
+				font-size: 3.5rem;
+				font-weight: 800;
+				margin-bottom: 1rem;
+				color: var(--text-primary);
+			}
+			
+			.page-subtitle {
+				font-size: 1.5rem;
+				color: var(--text-tertiary);
+				margin-bottom: 3rem;
+			}
+			
+			.content {
+				font-size: 1.125rem;
+				color: var(--text-secondary);
+				line-height: 1.8;
+			}
+			
+			.content h2 {
+				color: var(--text-primary);
+				margin-top: 3rem;
+				margin-bottom: 1rem;
+			}
+			
+			.content p {
+				margin-bottom: 1.5rem;
+			}
+			
+			.nav-links {
+				display: flex;
+				justify-content: space-between;
+				padding: 2rem 0;
+				margin-top: 4rem;
+				border-top: 1px solid var(--border-color);
+			}
+			
+			.nav-link {
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+				color: var(--text-secondary);
+				text-decoration: none;
+				transition: color 0.2s ease;
+			}
+			
+			.nav-link:hover {
+				color: var(--accent);
+			}
+			
+			@media (max-width: 768px) {
+				.page-title {
+					font-size: 2.5rem;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="page-header">
+				<h1 class="page-title">About Shashank</h1>
+				<p class="page-subtitle">More than just a title—let's dive deeper!</p>
+			</section>
 
-	<h2>My Background</h2>
-	
-	<p>
-		Throughout my career, I've worked on various projects spanning different domains and technologies. 
-		I enjoy tackling complex problems and finding elegant solutions that make a real difference. 
-		Whether it's building web applications, optimizing performance, or exploring new frameworks, 
-		I'm always eager to expand my skill set.
-	</p>
+			<div class="content">
+				<p>
+					I'm a Senior Technical Lead and Solutions Architect with 8+ years of experience designing and scaling 
+					intelligent digital ecosystems. My journey at OneOrigin has been a continuous evolution—from UI engineering 
+					to leading cross-functional teams delivering AI-driven automation, microservices, and cloud-native platforms.
+				</p>
 
-	<h2>What I Do</h2>
-	
-	<p>
-		My expertise includes full-stack development, with a focus on modern web technologies. I'm 
-		particularly interested in:
-	</p>
-	
-	<ul>
-		<li>Web Development (Frontend & Backend)</li>
-		<li>Cloud Computing and DevOps</li>
-		<li>Software Architecture and Design Patterns</li>
-		<li>Open Source Contributions</li>
-	</ul>
+				<p>
+					I architect and scale enterprise-grade digital systems merging AI, automation, cloud-native engineering, 
+					and high-performance design. My expertise spans AI automation, microservices, cloud architecture, 
+					multi-tenant systems, DevOps, and accessibility-first engineering.
+				</p>
 
-	<h2>Beyond Code</h2>
-	
-	<p>
-		When I'm not coding, you can find me exploring new technologies, reading tech blogs, or 
-		contributing to the developer community. I believe in continuous learning and sharing knowledge 
-		with others. This blog is my way of documenting what I learn and helping others on their journey.
-	</p>
+				<h2>What I Do</h2>
+				
+				<p>
+					At OneOrigin, I've architected and scaled enterprise cloud/web platforms, boosted release velocity by 40%, 
+					and built AI automation frameworks that cut manual operations by 60%. I've designed multi-tenant systems 
+					serving thousands of users and mentored 10+ engineers, helping them grow into strategic technical leaders.
+				</p>
 
-	<h2>Let's Connect</h2>
-	
-	<p>
-		I'm always interested in connecting with fellow developers, collaborating on interesting projects, 
-		or simply having a chat about technology. Feel free to reach out through any of the social links 
-		on this site. Whether you have questions, suggestions, or just want to say hi, I'd love to hear 
-		from you!
-	</p>
-</Layout>
+				<h2>My Approach</h2>
+
+				<p>
+					I believe in transforming business challenges into scalable, intelligent digital solutions. Whether it's 
+					migrating monoliths to microservices, integrating AI modules for automation, or building high-availability 
+					systems, I approach each challenge with strategic thinking and hands-on execution.
+				</p>
+
+				<p>
+					My leadership philosophy centers on mentorship, collaboration, and driving measurable outcomes. I lead by 
+					example and inspire ownership across teams, elevating both technical capabilities and delivery outcomes.
+				</p>
+			</div>
+
+			<div class="nav-links">
+				<a href="/" class="nav-link">
+					<span>←</span>
+					<span>Introduction</span>
+				</a>
+				<a href="/projects" class="nav-link">
+					<span>Projects</span>
+					<span>→</span>
+				</a>
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
