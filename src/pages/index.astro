@@ -9,35 +9,212 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 <html lang="en">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<style>
+			.hero-section {
+				padding: 4rem 0 3rem 0;
+				text-align: center;
+			}
+			.hero-section h1 {
+				font-size: 3.5rem;
+				margin-bottom: 1rem;
+				background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				background-clip: text;
+			}
+			.hero-section .subtitle {
+				font-size: 1.5rem;
+				color: rgb(var(--gray));
+				margin-bottom: 2rem;
+			}
+			.section {
+				padding: 3rem 0;
+				border-top: 1px solid rgb(var(--gray-light));
+			}
+			.section h2 {
+				text-align: center;
+				margin-bottom: 2rem;
+			}
+			.skills-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+				gap: 1.5rem;
+				margin-top: 2rem;
+			}
+			.skill-card {
+				padding: 1.5rem;
+				background: white;
+				border-radius: 8px;
+				box-shadow: var(--box-shadow);
+				transition: transform 0.2s;
+			}
+			.skill-card:hover {
+				transform: translateY(-5px);
+			}
+			.skill-card h3 {
+				margin-top: 0;
+				color: var(--accent);
+			}
+			.projects-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+				gap: 2rem;
+				margin-top: 2rem;
+			}
+			.project-card {
+				padding: 2rem;
+				background: white;
+				border-radius: 8px;
+				box-shadow: var(--box-shadow);
+				transition: transform 0.2s;
+			}
+			.project-card:hover {
+				transform: translateY(-5px);
+			}
+			.project-card h3 {
+				margin-top: 0;
+				color: var(--accent);
+			}
+			.project-card p {
+				color: rgb(var(--gray));
+			}
+			.project-tags {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.5rem;
+				margin-top: 1rem;
+			}
+			.tag {
+				padding: 0.25rem 0.75rem;
+				background: rgb(var(--gray-light));
+				border-radius: 4px;
+				font-size: 0.875rem;
+				color: rgb(var(--gray-dark));
+			}
+			.contact-section {
+				text-align: center;
+				padding: 3rem 0;
+			}
+			.contact-links {
+				display: flex;
+				justify-content: center;
+				gap: 1.5rem;
+				margin-top: 2rem;
+			}
+			.contact-links a {
+				padding: 0.75rem 1.5rem;
+				background: var(--accent);
+				color: white;
+				border-radius: 8px;
+				text-decoration: none;
+				transition: background 0.2s;
+			}
+			.contact-links a:hover {
+				background: var(--accent-dark);
+			}
+			@media (max-width: 720px) {
+				.hero-section h1 {
+					font-size: 2.5rem;
+				}
+				.hero-section .subtitle {
+					font-size: 1.25rem;
+				}
+			}
+		</style>
 	</head>
 	<body>
 		<Header />
 		<main>
-			<h1>👋 Hello, I'm Banavasi!</h1>
-			<p>
-				Welcome to my personal website! I'm a software developer passionate about building elegant
-				solutions and sharing knowledge with the community.
-			</p>
-			<p>
-				This is my corner of the internet where I share my thoughts, document my learning journey,
-				and showcase projects I'm working on. Whether you're here to read my blog posts, learn
-				more about me, or explore my work, I'm glad you stopped by!
-			</p>
-			<h2>What You'll Find Here</h2>
-			<ul>
-				<li><strong>Blog Posts:</strong> Technical articles, tutorials, and insights about software development</li>
-				<li><strong>Projects:</strong> Showcases of my work and side projects</li>
-				<li><strong>About Me:</strong> Learn more about my background and interests</li>
-			</ul>
-			<p>
-				Feel free to explore the <a href="/blog">blog section</a> to read my latest posts, or
-				check out the <a href="/about">about page</a> to learn more about me and my journey.
-			</p>
-			<p>
-				Let's connect! You can find me on various social platforms using the links in the header
-				and footer. I'm always happy to chat about technology, collaborate on interesting projects,
-				or simply connect with fellow developers.
-			</p>
+			<!-- Hero Section -->
+			<section class="hero-section">
+				<h1>👋 Hello, I'm Banavasi!</h1>
+				<p class="subtitle">Software Developer | Problem Solver | Tech Enthusiast</p>
+				<p>
+					I'm passionate about building elegant solutions and sharing knowledge with the community.
+					Welcome to my corner of the internet where I showcase my work and share my journey.
+				</p>
+			</section>
+
+			<!-- Skills Section -->
+			<section class="section">
+				<h2>Skills & Expertise</h2>
+				<div class="skills-grid">
+					<div class="skill-card">
+						<h3>🌐 Web Development</h3>
+						<p>Building modern, responsive web applications with the latest frameworks and technologies.</p>
+					</div>
+					<div class="skill-card">
+						<h3>☁️ Cloud & DevOps</h3>
+						<p>Deploying and managing applications on cloud platforms with CI/CD automation.</p>
+					</div>
+					<div class="skill-card">
+						<h3>🔧 Software Architecture</h3>
+						<p>Designing scalable, maintainable systems with clean code principles and best practices.</p>
+					</div>
+					<div class="skill-card">
+						<h3>🤝 Open Source</h3>
+						<p>Contributing to open source projects and building tools for the developer community.</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- Projects Section -->
+			<section class="section">
+				<h2>Featured Projects</h2>
+				<div class="projects-grid">
+					<div class="project-card">
+						<h3>Personal Website</h3>
+						<p>A modern, minimalist personal website built with Astro and deployed on Cloudflare Workers.</p>
+						<div class="project-tags">
+							<span class="tag">Astro</span>
+							<span class="tag">TypeScript</span>
+							<span class="tag">Cloudflare</span>
+						</div>
+					</div>
+					<div class="project-card">
+						<h3>Tech Blog</h3>
+						<p>A collection of technical articles, tutorials, and insights about software development.</p>
+						<div class="project-tags">
+							<span class="tag">Writing</span>
+							<span class="tag">Markdown</span>
+							<span class="tag">MDX</span>
+						</div>
+					</div>
+					<div class="project-card">
+						<h3>Open Source Contributions</h3>
+						<p>Active contributor to various open source projects and maintainer of developer tools.</p>
+						<div class="project-tags">
+							<span class="tag">GitHub</span>
+							<span class="tag">Collaboration</span>
+							<span class="tag">Community</span>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Blog Preview -->
+			<section class="section">
+				<h2>Latest from the Blog</h2>
+				<p style="text-align: center; color: rgb(var(--gray));">
+					I write about software development, technology trends, and my learning experiences.
+					<br />
+					<a href="/blog" style="color: var(--accent); font-weight: bold;">View all posts →</a>
+				</p>
+			</section>
+
+			<!-- Contact Section -->
+			<section class="contact-section">
+				<h2>Let's Connect</h2>
+				<p>
+					I'm always interested in connecting with fellow developers, collaborating on projects,
+					or simply having a chat about technology.
+				</p>
+				<div class="contact-links">
+					<a href="https://github.com/banavasi" target="_blank">GitHub</a>
+					<a href="/about">About Me</a>
+					<a href="/blog">Read Blog</a>
+				</div>
+			</section>
 		</main>
 		<Footer />
 	</body>

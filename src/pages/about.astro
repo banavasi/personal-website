@@ -8,6 +8,41 @@ import Layout from '../layouts/BlogPost.astro';
 	pubDate={new Date('November 17 2024')}
 	heroImage="/blog-placeholder-about.jpg"
 >
+	<style>
+		.timeline {
+			margin: 2rem 0;
+		}
+		.timeline-item {
+			padding-left: 2rem;
+			border-left: 3px solid var(--accent);
+			margin-bottom: 2rem;
+			position: relative;
+		}
+		.timeline-item::before {
+			content: '';
+			position: absolute;
+			left: -8px;
+			top: 0;
+			width: 13px;
+			height: 13px;
+			border-radius: 50%;
+			background: var(--accent);
+		}
+		.tech-list {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.5rem;
+			margin: 1rem 0;
+		}
+		.tech-badge {
+			padding: 0.5rem 1rem;
+			background: rgb(var(--gray-light));
+			border-radius: 6px;
+			font-size: 0.9rem;
+			color: rgb(var(--gray-dark));
+		}
+	</style>
+
 	<h2>Hello, I'm Banavasi! 👋</h2>
 	
 	<p>
@@ -28,16 +63,38 @@ import Layout from '../layouts/BlogPost.astro';
 	<h2>What I Do</h2>
 	
 	<p>
-		My expertise includes full-stack development, with a focus on modern web technologies. I'm 
-		particularly interested in:
+		My expertise includes full-stack development, with a focus on modern web technologies. Here are 
+		some of the key areas I work with:
 	</p>
 	
-	<ul>
-		<li>Web Development (Frontend & Backend)</li>
-		<li>Cloud Computing and DevOps</li>
-		<li>Software Architecture and Design Patterns</li>
-		<li>Open Source Contributions</li>
-	</ul>
+	<div class="tech-list">
+		<span class="tech-badge">JavaScript/TypeScript</span>
+		<span class="tech-badge">React & Astro</span>
+		<span class="tech-badge">Node.js</span>
+		<span class="tech-badge">Cloud Platforms</span>
+		<span class="tech-badge">DevOps & CI/CD</span>
+		<span class="tech-badge">Git & GitHub</span>
+	</div>
+
+	<h2>My Journey</h2>
+	
+	<div class="timeline">
+		<div class="timeline-item">
+			<h3>Current Focus</h3>
+			<p>Building modern web applications and contributing to open source projects. Focusing on creating 
+			efficient, maintainable, and scalable solutions.</p>
+		</div>
+		<div class="timeline-item">
+			<h3>Continuous Learning</h3>
+			<p>Exploring new technologies, frameworks, and best practices. Always staying up-to-date with 
+			the latest developments in software engineering.</p>
+		</div>
+		<div class="timeline-item">
+			<h3>Community Involvement</h3>
+			<p>Sharing knowledge through blog posts, contributing to open source, and helping other developers 
+			on their journey.</p>
+		</div>
+	</div>
 
 	<h2>Beyond Code</h2>
 	
