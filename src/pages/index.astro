@@ -3,352 +3,292 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { Button } from '../components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
+import { Badge } from '../components/ui/badge';
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<style>
-			main {
-				max-width: 900px;
-			}
-			
-			.hero-section {
-				padding: 8rem 0 4rem 0;
-				text-align: left;
-			}
-			
-			.hero-title {
-				font-size: 4rem;
-				font-weight: 800;
-				margin-bottom: 1.5rem;
-				line-height: 1.1;
-				background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
-				-webkit-background-clip: text;
-				-webkit-text-fill-color: transparent;
-				background-clip: text;
-			}
-			
-			.hero-subtitle {
-				font-size: 2rem;
-				color: var(--accent);
-				margin-bottom: 2rem;
-				font-weight: 600;
-			}
-			
-			.hero-description {
-				font-size: 1.25rem;
-				color: var(--text-secondary);
-				line-height: 1.8;
-				max-width: 700px;
-				margin-bottom: 3rem;
-			}
-			
-			.cta-buttons {
-				display: flex;
-				gap: 1rem;
-				flex-wrap: wrap;
-			}
-			
-			.btn {
-				display: inline-flex;
-				align-items: center;
-				padding: 0.875rem 2rem;
-				border-radius: 8px;
-				font-weight: 600;
-				font-size: 1rem;
-				text-decoration: none;
-				transition: all 0.2s ease;
-				cursor: pointer;
-			}
-			
-			.btn-primary {
-				background: var(--accent);
-				color: white;
-			}
-			
-			.btn-primary:hover {
-				background: var(--accent-light);
-				transform: translateY(-2px);
-				box-shadow: var(--box-shadow-lg);
-			}
-			
-			.btn-secondary {
-				background: var(--bg-secondary);
-				color: var(--text-primary);
-				border: 1px solid var(--border-color);
-			}
-			
-			.btn-secondary:hover {
-				background: var(--bg-tertiary);
-				border-color: var(--accent);
-			}
-			
-			.section {
-				padding: 4rem 0;
-				border-top: 1px solid var(--border-color);
-			}
-			
-			.section-title {
-				font-size: 2.5rem;
-				margin-bottom: 1rem;
-				color: var(--text-primary);
-			}
-			
-			.section-subtitle {
-				font-size: 1.125rem;
-				color: var(--text-tertiary);
-				margin-bottom: 3rem;
-			}
-			
-			.about-content {
-				display: grid;
-				grid-template-columns: 1fr 1fr;
-				gap: 3rem;
-				align-items: start;
-			}
-			
-			.about-text {
-				font-size: 1.125rem;
-				line-height: 1.8;
-			}
-			
-			.skills-list {
-				display: flex;
-				flex-direction: column;
-				gap: 1rem;
-			}
-			
-			.skill-item {
-				padding: 1.25rem;
-				background: var(--bg-secondary);
-				border: 1px solid var(--border-color);
-				border-radius: 12px;
-				transition: all 0.2s ease;
-			}
-			
-			.skill-item:hover {
-				border-color: var(--accent);
-				transform: translateX(8px);
-			}
-			
-			.skill-title {
-				font-size: 1.125rem;
-				font-weight: 600;
-				color: var(--text-primary);
-				margin-bottom: 0.5rem;
-			}
-			
-			.skill-description {
-				color: var(--text-tertiary);
-				margin: 0;
-			}
-			
-			.nav-grid {
-				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-				gap: 2rem;
-			}
-			
-			.nav-card {
-				padding: 2rem;
-				background: var(--bg-secondary);
-				border: 1px solid var(--border-color);
-				border-radius: 16px;
-				text-decoration: none;
-				transition: all 0.3s ease;
-				display: block;
-			}
-			
-			.nav-card:hover {
-				border-color: var(--accent);
-				transform: translateY(-8px);
-				box-shadow: var(--box-shadow-lg);
-			}
-			
-			.nav-icon {
-				font-size: 2.5rem;
-				margin-bottom: 1rem;
-			}
-			
-			.nav-title {
-				font-size: 1.5rem;
-				color: var(--text-primary);
-				margin-bottom: 0.5rem;
-			}
-			
-			.nav-description {
-				color: var(--text-secondary);
-				margin: 0;
-			}
-			
-			.projects-grid {
-				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-				gap: 2rem;
-			}
-			
-			.project-card {
-				padding: 2rem;
-				background: var(--bg-secondary);
-				border: 1px solid var(--border-color);
-				border-radius: 16px;
-				transition: all 0.3s ease;
-			}
-			
-			.project-card:hover {
-				border-color: var(--accent);
-				transform: translateY(-8px);
-				box-shadow: var(--box-shadow-lg);
-			}
-			
-			.project-title {
-				font-size: 1.5rem;
-				color: var(--text-primary);
-				margin-bottom: 1rem;
-			}
-			
-			.project-description {
-				color: var(--text-secondary);
-				margin-bottom: 1.5rem;
-				line-height: 1.6;
-			}
-			
-			.project-tags {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 0.5rem;
-			}
-			
-			.tag {
-				padding: 0.375rem 0.875rem;
-				background: var(--bg-tertiary);
-				border: 1px solid var(--border-color);
-				border-radius: 6px;
-				font-size: 0.875rem;
-				color: var(--text-secondary);
-			}
-			
-			.contact-section {
-				text-align: center;
-				padding: 5rem 0;
-			}
-			
-			.contact-title {
-				font-size: 3rem;
-				margin-bottom: 1rem;
-			}
-			
-			.contact-text {
-				font-size: 1.25rem;
-				color: var(--text-secondary);
-				max-width: 600px;
-				margin: 0 auto 3rem auto;
-			}
-			
-			.social-links {
-				display: flex;
-				justify-content: center;
-				gap: 1.5rem;
-				flex-wrap: wrap;
-			}
-			
-			@media (max-width: 768px) {
-				.hero-title {
-					font-size: 2.5rem;
-				}
-				
-				.hero-subtitle {
-					font-size: 1.5rem;
-				}
-				
-				.hero-description {
-					font-size: 1.125rem;
-				}
-				
-				.hero-section {
-					padding: 4rem 0 3rem 0;
-				}
-				
-				.about-content {
-					grid-template-columns: 1fr;
-					gap: 2rem;
-				}
-				
-				.section-title {
-					font-size: 2rem;
-				}
-				
-				.contact-title {
-					font-size: 2rem;
-				}
-				
-				.nav-grid {
-					grid-template-columns: 1fr;
-				}
-			}
-		</style>
 	</head>
-	<body>
+	<body class="bg-background text-foreground antialiased">
 		<Header />
-		<main>
+		<main class="w-full">
 			<!-- Hero Section -->
-			<section class="hero-section">
-				<h1 class="hero-title">Shashank Shandilya</h1>
-				<p class="hero-subtitle">Senior Technical Lead • Solutions Architect • AI & Automation Strategist</p>
-				<p class="hero-description">
-					Transforming business challenges into scalable, intelligent digital ecosystems. 
-					Building high-performance platforms, leading engineering teams, and architecting AI-driven systems.
-				</p>
-				<div class="cta-buttons">
-					<a href="https://www.linkedin.com/in/shashank-shandilya-v" target="_blank" class="btn btn-primary">LinkedIn</a>
-					<a href="/contact" class="btn btn-secondary">Contact Me</a>
-					<a href="/about" class="btn btn-secondary">About Me</a>
+			<section class="min-h-[calc(100vh-4rem)] flex items-center justify-center px-4 sm:px-6 lg:px-8">
+				<div class="max-w-5xl mx-auto text-center space-y-12 py-20">
+					<div class="space-y-6">
+						<div class="inline-block">
+							<Badge variant="outline" className="text-sm px-4 py-2 border-white/20 text-white" client:load>
+								Senior Technical Lead & Solutions Architect
+							</Badge>
+						</div>
+						<h1 class="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight text-white leading-tight">
+							Shashank Shandilya
+						</h1>
+						<p class="text-xl sm:text-2xl lg:text-3xl text-gray-300 max-w-3xl mx-auto leading-relaxed mt-6">
+							Transforming business challenges into <span class="text-white font-semibold">scalable, intelligent digital ecosystems</span>
+						</p>
+					</div>
+
+					<p class="text-base sm:text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
+						Building high-performance platforms, leading engineering teams, and architecting AI-driven systems with 8+ years of expertise
+					</p>
+
+					<div class="flex flex-wrap items-center justify-center gap-4 pt-2">
+						<Button size="lg" className="text-base h-12 px-8" client:load asChild>
+							<a href="/about">About Me</a>
+						</Button>
+						<Button size="lg" variant="outline" className="text-base h-12 px-8" client:load asChild>
+							<a href="/projects">View Projects</a>
+						</Button>
+						<Button size="lg" variant="outline" className="text-base h-12 px-8" client:load asChild>
+							<a href="https://www.linkedin.com/in/shashank-shandilya-v" target="_blank" rel="noopener noreferrer">
+								<svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+									<path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+								</svg>
+								LinkedIn
+							</a>
+						</Button>
+					</div>
+
+					<!-- Quick Stats -->
+					<div class="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-16 max-w-4xl mx-auto">
+						<div class="p-6 rounded-lg bg-muted/50 border border-border/50 hover:border-primary/50 transition-colors">
+							<div class="text-4xl font-bold text-white mb-2">8+</div>
+							<div class="text-sm text-muted-foreground">Years Experience</div>
+						</div>
+						<div class="p-6 rounded-lg bg-muted/50 border border-border/50 hover:border-primary/50 transition-colors">
+							<div class="text-4xl font-bold text-white mb-2">40%</div>
+							<div class="text-sm text-muted-foreground">Faster Releases</div>
+						</div>
+						<div class="p-6 rounded-lg bg-muted/50 border border-border/50 hover:border-primary/50 transition-colors">
+							<div class="text-4xl font-bold text-white mb-2">60%</div>
+							<div class="text-sm text-muted-foreground">Reduced Manual Work</div>
+						</div>
+						<div class="p-6 rounded-lg bg-muted/50 border border-border/50 hover:border-primary/50 transition-colors">
+							<div class="text-4xl font-bold text-white mb-2">10+</div>
+							<div class="text-sm text-muted-foreground">Engineers Mentored</div>
+						</div>
+					</div>
 				</div>
 			</section>
 
-			<!-- Quick Navigation -->
-			<section class="section">
-				<h2 class="section-title">Explore</h2>
-				<p class="section-subtitle">Navigate through different sections</p>
-				
-				<div class="nav-grid">
-					<a href="/about" class="nav-card">
-						<div class="nav-icon">👋</div>
-						<h3 class="nav-title">About Me</h3>
-						<p class="nav-description">Learn more about my background and journey</p>
-					</a>
-					
-					<a href="/projects" class="nav-card">
-						<div class="nav-icon">💼</div>
-						<h3 class="nav-title">Projects</h3>
-						<p class="nav-description">Check out my work and side projects</p>
-					</a>
-					
-					<a href="/skills" class="nav-card">
-						<div class="nav-icon">🛠️</div>
-						<h3 class="nav-title">Skills & Tools</h3>
-						<p class="nav-description">Technologies and tools I work with</p>
-					</a>
-					
-					<a href="/experience" class="nav-card">
-						<div class="nav-icon">💻</div>
-						<h3 class="nav-title">Experience</h3>
-						<p class="nav-description">My professional journey and roles</p>
-					</a>
-					
-					<a href="/education" class="nav-card">
-						<div class="nav-icon">🎓</div>
-						<h3 class="nav-title">Education</h3>
-						<p class="nav-description">Academic background and learning</p>
-					</a>
-					
-					<a href="/contact" class="nav-card">
-						<div class="nav-icon">📬</div>
-						<h3 class="nav-title">Contact</h3>
-						<p class="nav-description">Get in touch with me</p>
-					</a>
+			<!-- What I Do -->
+			<section class="py-24 border-t border-border/50 px-4 sm:px-6 lg:px-8">
+				<div class="max-w-6xl mx-auto">
+					<div class="text-center mb-12">
+						<h2 class="text-3xl sm:text-4xl font-bold mb-4">What I Do</h2>
+						<p class="text-lg text-muted-foreground max-w-2xl mx-auto">
+							Specialized expertise across the full stack of modern software engineering
+						</p>
+					</div>
+
+					<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+						<Card className="transition-all duration-300 hover:shadow-lg hover:-translate-y-1 border-border/50 hover:border-primary/50" client:load>
+							<CardHeader>
+								<div class="text-4xl mb-2">🤖</div>
+								<CardTitle>AI & Automation</CardTitle>
+								<CardDescription>Building intelligent systems that work smarter</CardDescription>
+							</CardHeader>
+							<CardContent>
+								<p class="text-sm text-muted-foreground">
+									Architecting AI-driven automation frameworks, integrating ML models, and reducing manual operations by 60%
+								</p>
+							</CardContent>
+						</Card>
+
+						<Card className="transition-all duration-300 hover:shadow-lg hover:-translate-y-1 border-border/50 hover:border-primary/50" client:load>
+							<CardHeader>
+								<div class="text-4xl mb-2">☁️</div>
+								<CardTitle>Cloud Architecture</CardTitle>
+								<CardDescription>Scalable infrastructure that grows with you</CardDescription>
+							</CardHeader>
+							<CardContent>
+								<p class="text-sm text-muted-foreground">
+									Designing cloud-native platforms, microservices architectures, and multi-tenant systems for enterprise scale
+								</p>
+							</CardContent>
+						</Card>
+
+						<Card className="transition-all duration-300 hover:shadow-lg hover:-translate-y-1 border-border/50 hover:border-primary/50" client:load>
+							<CardHeader>
+								<div class="text-4xl mb-2">🚀</div>
+								<CardTitle>Performance Engineering</CardTitle>
+								<CardDescription>Speed and efficiency at every layer</CardDescription>
+							</CardHeader>
+							<CardContent>
+								<p class="text-sm text-muted-foreground">
+									Optimizing application performance, CI/CD pipelines, and achieving 40% faster release velocity
+								</p>
+							</CardContent>
+						</Card>
+
+						<Card className="transition-all duration-300 hover:shadow-lg hover:-translate-y-1 border-border/50 hover:border-primary/50" client:load>
+							<CardHeader>
+								<div class="text-4xl mb-2">👥</div>
+								<CardTitle>Technical Leadership</CardTitle>
+								<CardDescription>Empowering teams to excel</CardDescription>
+							</CardHeader>
+							<CardContent>
+								<p class="text-sm text-muted-foreground">
+									Leading distributed teams, mentoring engineers, and establishing best practices that drive results
+								</p>
+							</CardContent>
+						</Card>
+
+						<Card className="transition-all duration-300 hover:shadow-lg hover:-translate-y-1 border-border/50 hover:border-primary/50" client:load>
+							<CardHeader>
+								<div class="text-4xl mb-2">🏗️</div>
+								<CardTitle>System Design</CardTitle>
+								<CardDescription>Architecture that stands the test of time</CardDescription>
+							</CardHeader>
+							<CardContent>
+								<p class="text-sm text-muted-foreground">
+									Creating robust, maintainable systems serving 50K+ users with high availability and fault tolerance
+								</p>
+							</CardContent>
+						</Card>
+
+						<Card className="transition-all duration-300 hover:shadow-lg hover:-translate-y-1 border-border/50 hover:border-primary/50" client:load>
+							<CardHeader>
+								<div class="text-4xl mb-2">♿</div>
+								<CardTitle>Accessibility First</CardTitle>
+								<CardDescription>Inclusive design for everyone</CardDescription>
+							</CardHeader>
+							<CardContent>
+								<p class="text-sm text-muted-foreground">
+									Championing WCAG compliance and building accessible interfaces that work for all users
+								</p>
+							</CardContent>
+						</Card>
+					</div>
+				</div>
+			</section>
+
+			<!-- Explore Sections -->
+			<section class="py-24 border-t border-border/50 px-4 sm:px-6 lg:px-8">
+				<div class="max-w-6xl mx-auto">
+					<div class="text-center mb-12">
+						<h2 class="text-3xl sm:text-4xl font-bold mb-4">Explore More</h2>
+						<p class="text-lg text-muted-foreground max-w-2xl mx-auto">
+							Dive deeper into my background, experience, and projects
+						</p>
+					</div>
+
+					<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+						<a href="/experience" class="group">
+							<Card className="h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-2 border-border/50 hover:border-primary/50" client:load>
+								<CardHeader>
+									<div class="text-5xl mb-3 group-hover:scale-110 transition-transform">💼</div>
+									<CardTitle className="text-2xl">Experience</CardTitle>
+									<CardDescription>8+ years of professional journey</CardDescription>
+								</CardHeader>
+								<CardContent>
+									<p class="text-muted-foreground">
+										From intern to Senior Technical Lead at OneOrigin, discover my career progression and achievements
+									</p>
+								</CardContent>
+							</Card>
+						</a>
+
+						<a href="/skills" class="group">
+							<Card className="h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-2 border-border/50 hover:border-primary/50" client:load>
+								<CardHeader>
+									<div class="text-5xl mb-3 group-hover:scale-110 transition-transform">🛠️</div>
+									<CardTitle className="text-2xl">Skills & Tools</CardTitle>
+									<CardDescription>Full-stack technical expertise</CardDescription>
+								</CardHeader>
+								<CardContent>
+									<p class="text-muted-foreground">
+										Technologies, frameworks, and tools I use to build scalable, modern applications
+									</p>
+								</CardContent>
+							</Card>
+						</a>
+
+						<a href="/projects" class="group">
+							<Card className="h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-2 border-border/50 hover:border-primary/50" client:load>
+								<CardHeader>
+									<div class="text-5xl mb-3 group-hover:scale-110 transition-transform">🚀</div>
+									<CardTitle className="text-2xl">Projects</CardTitle>
+									<CardDescription>Featured work & contributions</CardDescription>
+								</CardHeader>
+								<CardContent>
+									<p class="text-muted-foreground">
+										Explore the projects I've built and the impact they've made
+									</p>
+								</CardContent>
+							</Card>
+						</a>
+
+						<a href="/education" class="group">
+							<Card className="h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-2 border-border/50 hover:border-primary/50" client:load>
+								<CardHeader>
+									<div class="text-5xl mb-3 group-hover:scale-110 transition-transform">🎓</div>
+									<CardTitle className="text-2xl">Education</CardTitle>
+									<CardDescription>Academic foundation</CardDescription>
+								</CardHeader>
+								<CardContent>
+									<p class="text-muted-foreground">
+										My educational background and continuous learning journey
+									</p>
+								</CardContent>
+							</Card>
+						</a>
+
+						<a href="/about" class="group">
+							<Card className="h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-2 border-border/50 hover:border-primary/50" client:load>
+								<CardHeader>
+									<div class="text-5xl mb-3 group-hover:scale-110 transition-transform">👋</div>
+									<CardTitle className="text-2xl">About Me</CardTitle>
+									<CardDescription>Get to know me better</CardDescription>
+								</CardHeader>
+								<CardContent>
+									<p class="text-muted-foreground">
+										My story, approach, and what drives me as an engineer and leader
+									</p>
+								</CardContent>
+							</Card>
+						</a>
+
+						<a href="/contact" class="group">
+							<Card className="h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-2 border-border/50 hover:border-primary/50" client:load>
+								<CardHeader>
+									<div class="text-5xl mb-3 group-hover:scale-110 transition-transform">📬</div>
+									<CardTitle className="text-2xl">Contact</CardTitle>
+									<CardDescription>Let's connect</CardDescription>
+								</CardHeader>
+								<CardContent>
+									<p class="text-muted-foreground">
+										Reach out for collaboration, opportunities, or just to say hello
+									</p>
+								</CardContent>
+							</Card>
+						</a>
+					</div>
+				</div>
+			</section>
+
+			<!-- CTA Section -->
+			<section class="py-24 border-t border-border/50 px-4 sm:px-6 lg:px-8">
+				<div class="max-w-3xl mx-auto text-center space-y-8">
+					<h2 class="text-3xl sm:text-4xl font-bold">Let's Build Something Amazing</h2>
+					<p class="text-lg text-muted-foreground">
+						Whether you're looking for technical leadership, architecture expertise, or someone to bring your vision to life—let's talk.
+					</p>
+					<div class="flex flex-wrap items-center justify-center gap-4 pt-4">
+						<Button size="lg" client:load asChild>
+							<a href="/contact">Get In Touch</a>
+						</Button>
+						<Button size="lg" variant="outline" client:load asChild>
+							<a href="https://github.com/banavasi" target="_blank" rel="noopener noreferrer">
+								View GitHub
+							</a>
+						</Button>
+					</div>
 				</div>
 			</section>
 		</main>

@@ -3,173 +3,206 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE_TITLE } from '../consts';
+import { SkillCard } from '../components/SkillCard';
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
 	<head>
-		<BaseHead title={`Skills & Tools | ${SITE_TITLE}`} description="My technical skills and tools" />
-		<style>
-			main {
-				max-width: 1200px;
-			}
-			
-			.page-header {
-				padding: 4rem 0 3rem 0;
-			}
-			
-			.page-title {
-				font-size: 3.5rem;
-				font-weight: 800;
-				margin-bottom: 1rem;
-				color: var(--text-primary);
-			}
-			
-			.page-subtitle {
-				font-size: 1.5rem;
-				color: var(--text-tertiary);
-				margin-bottom: 2rem;
-			}
-			
-			.intro-text {
-				font-size: 1.125rem;
-				color: var(--text-secondary);
-				line-height: 1.8;
-				max-width: 900px;
-				margin-bottom: 3rem;
-			}
-			
-			.skills-container {
-				margin-bottom: 4rem;
-			}
-			
-			.skills-grid {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 1rem;
-			}
-			
-			.skill-badge {
-				display: inline-flex;
-				align-items: center;
-				gap: 0.5rem;
-				padding: 0.75rem 1.5rem;
-				background: var(--bg-secondary);
-				border: 1px solid var(--border-color);
-				border-radius: 8px;
-				color: var(--text-primary);
-				font-weight: 500;
-				transition: all 0.2s ease;
-			}
-			
-			.skill-badge:hover {
-				border-color: var(--accent);
-				transform: translateY(-2px);
-			}
-			
-			.nav-links {
-				display: flex;
-				justify-content: space-between;
-				padding: 2rem 0;
-				border-top: 1px solid var(--border-color);
-			}
-			
-			.nav-link {
-				display: flex;
-				align-items: center;
-				gap: 0.5rem;
-				color: var(--text-secondary);
-				text-decoration: none;
-				transition: color 0.2s ease;
-			}
-			
-			.nav-link:hover {
-				color: var(--accent);
-			}
-			
-			@media (max-width: 768px) {
-				.page-title {
-					font-size: 2.5rem;
-				}
-			}
-		</style>
+		<BaseHead title={`Skills | ${SITE_TITLE}`} description="My technical skills and expertise" />
 	</head>
-	<body>
+	<body class="bg-background text-foreground antialiased">
 		<Header />
-		<main>
-			<section class="page-header">
-				<h1 class="page-title">Skills & Tools</h1>
-				<p class="page-subtitle">Learned by coding all night and debugging all day!</p>
+		<main class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+			<!-- Page Header -->
+			<section class="py-16 sm:py-20">
+				<div class="max-w-3xl">
+					<h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 bg-gradient-to-r from-white via-white/90 to-white/70 bg-clip-text text-transparent">
+						Skills & Expertise
+					</h1>
+					<p class="text-xl text-muted-foreground leading-relaxed">
+						A comprehensive toolkit built over 8+ years—from front-end finesse to cloud architecture, AI integration to DevOps automation.
+					</p>
+				</div>
 			</section>
 
-			<p class="intro-text">
-				As a Senior Technical Lead and Solutions Architect, I specialize in building scalable, intelligent 
-				digital systems that merge AI, automation, cloud-native engineering, and high-performance design. 
-				My expertise spans leadership, architecture, and hands-on engineering across the full stack.
-			</p>
+			<!-- Skills Grid -->
+			<section class="pb-20">
+				<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+					<SkillCard
+						client:load
+						title="Frontend Development"
+						description="Building responsive, accessible, and performant user interfaces"
+						icon="🎨"
+						skills={[
+							"React", "TypeScript", "Next.js", "Astro",
+							"Tailwind CSS", "shadcn/ui", "HTML5", "CSS3",
+							"JavaScript (ES6+)", "Webpack", "Vite"
+						]}
+					/>
 
-			<div class="skills-container">
-				<h3 style="color: var(--text-primary); font-size: 1.5rem; margin-bottom: 1.5rem;">Leadership & Strategy</h3>
-				<div class="skills-grid">
-					<span class="skill-badge">Technical Leadership</span>
-					<span class="skill-badge">Architecture Strategy</span>
-					<span class="skill-badge">Mentorship</span>
-					<span class="skill-badge">Cross-functional Collaboration</span>
+					<SkillCard
+						client:load
+						title="Backend Development"
+						description="Scalable server-side applications and APIs"
+						icon="⚙️"
+						skills={[
+							"Node.js", "Python", "Express.js", "FastAPI",
+							"RESTful APIs", "GraphQL", "Microservices",
+							"Serverless", "WebSockets"
+						]}
+					/>
+
+					<SkillCard
+						client:load
+						title="Cloud & Infrastructure"
+						description="Cloud-native architecture and deployment"
+						icon="☁️"
+						skills={[
+							"AWS", "Azure", "Google Cloud", "Cloudflare",
+							"Docker", "Kubernetes", "Terraform",
+							"Infrastructure as Code", "CDN"
+						]}
+					/>
+
+					<SkillCard
+						client:load
+						title="AI & Machine Learning"
+						description="Intelligent automation and ML integration"
+						icon="🤖"
+						skills={[
+							"LLMs Integration", "OpenAI API", "Langchain",
+							"AI Automation", "Prompt Engineering",
+							"ML Model Integration", "Predictive Analytics"
+						]}
+					/>
+
+					<SkillCard
+						client:load
+						title="Database & Data"
+						description="Data modeling, storage, and optimization"
+						icon="💾"
+						skills={[
+							"PostgreSQL", "MongoDB", "Redis", "MySQL",
+							"Database Design", "Query Optimization",
+							"Data Migration", "Caching Strategies"
+						]}
+					/>
+
+					<SkillCard
+						client:load
+						title="DevOps & CI/CD"
+						description="Automated pipelines and deployment strategies"
+						icon="🚀"
+						skills={[
+							"GitHub Actions", "GitLab CI", "Jenkins",
+							"Continuous Integration", "Continuous Deployment",
+							"Monitoring", "Logging", "Observability"
+						]}
+					/>
+
+					<SkillCard
+						client:load
+						title="Architecture & Design"
+						description="System design and architectural patterns"
+						icon="🏗️"
+						skills={[
+							"Microservices", "Event-Driven Architecture",
+							"Domain-Driven Design", "API Design",
+							"Scalability Patterns", "High Availability",
+							"Multi-tenant Systems"
+						]}
+					/>
+
+					<SkillCard
+						client:load
+						title="Testing & Quality"
+						description="Ensuring reliability and maintainability"
+						icon="✅"
+						skills={[
+							"Jest", "Cypress", "Playwright", "Vitest",
+							"Unit Testing", "Integration Testing",
+							"E2E Testing", "TDD", "Code Reviews"
+						]}
+					/>
+
+					<SkillCard
+						client:load
+						title="Leadership & Collaboration"
+						description="Team building and project management"
+						icon="👥"
+						skills={[
+							"Technical Leadership", "Mentoring",
+							"Agile/Scrum", "Code Reviews",
+							"Cross-functional Collaboration",
+							"Stakeholder Management", "Documentation"
+						]}
+					/>
+
+					<SkillCard
+						client:load
+						title="Security & Compliance"
+						description="Building secure and compliant systems"
+						icon="🔒"
+						skills={[
+							"OWASP Top 10", "OAuth 2.0", "JWT",
+							"Encryption", "Security Best Practices",
+							"GDPR Compliance", "Penetration Testing"
+						]}
+					/>
+
+					<SkillCard
+						client:load
+						title="Performance Optimization"
+						description="Speed, efficiency, and resource management"
+						icon="⚡"
+						skills={[
+							"Performance Profiling", "Code Optimization",
+							"Caching Strategies", "Lazy Loading",
+							"Bundle Optimization", "CDN Configuration",
+							"Load Balancing"
+						]}
+					/>
+
+					<SkillCard
+						client:load
+						title="Accessibility"
+						description="Inclusive design for all users"
+						icon="♿"
+						skills={[
+							"WCAG 2.1", "ARIA", "Screen Reader Testing",
+							"Keyboard Navigation", "Semantic HTML",
+							"Color Contrast", "Accessible Forms"
+						]}
+					/>
 				</div>
-			</div>
+			</section>
 
-			<div class="skills-container">
-				<h3 style="color: var(--text-primary); font-size: 1.5rem; margin-bottom: 1.5rem;">AI & Automation</h3>
-				<div class="skills-grid">
-					<span class="skill-badge">Intelligent Automation</span>
-					<span class="skill-badge">AI Frameworks</span>
-					<span class="skill-badge">Decision Systems</span>
+			<!-- Tools & Technologies -->
+			<section class="py-16 border-t border-border/50">
+				<h2 class="text-3xl font-bold mb-8">Tools & Technologies</h2>
+				<div class="flex flex-wrap gap-3">
+					{["Git", "VS Code", "Figma", "Postman", "Jira", "Confluence", "Slack", "Linear", "Notion", "Datadog", "Sentry", "New Relic", "Grafana", "Prometheus"].map((tool) => (
+						<span class="px-4 py-2 bg-muted/50 border border-border/50 rounded-lg text-sm hover:border-primary/50 transition-colors">
+							{tool}
+						</span>
+					))}
 				</div>
-			</div>
+			</section>
 
-			<div class="skills-container">
-				<h3 style="color: var(--text-primary); font-size: 1.5rem; margin-bottom: 1.5rem;">Frontend Engineering</h3>
-				<div class="skills-grid">
-					<span class="skill-badge">React</span>
-					<span class="skill-badge">Vue</span>
-					<span class="skill-badge">Svelte</span>
-					<span class="skill-badge">TypeScript</span>
-					<span class="skill-badge">Accessibility</span>
-					<span class="skill-badge">High-performance UI</span>
+			<!-- Navigation -->
+			<section class="py-12 border-t border-border/50">
+				<div class="flex justify-between items-center flex-wrap gap-4">
+					<a href="/projects" class="text-muted-foreground hover:text-primary transition-colors flex items-center gap-2">
+						<span>←</span>
+						<span>Projects</span>
+					</a>
+					<a href="/experience" class="text-muted-foreground hover:text-primary transition-colors flex items-center gap-2">
+						<span>Experience</span>
+						<span>→</span>
+					</a>
 				</div>
-			</div>
-
-			<div class="skills-container">
-				<h3 style="color: var(--text-primary); font-size: 1.5rem; margin-bottom: 1.5rem;">Backend & Architecture</h3>
-				<div class="skills-grid">
-					<span class="skill-badge">Node.js</span>
-					<span class="skill-badge">Express</span>
-					<span class="skill-badge">Microservices</span>
-					<span class="skill-badge">Multi-tenant Architecture</span>
-				</div>
-			</div>
-
-			<div class="skills-container">
-				<h3 style="color: var(--text-primary); font-size: 1.5rem; margin-bottom: 1.5rem;">Cloud & DevOps</h3>
-				<div class="skills-grid">
-					<span class="skill-badge">AWS</span>
-					<span class="skill-badge">Docker</span>
-					<span class="skill-badge">GitHub Actions</span>
-					<span class="skill-badge">CI/CD</span>
-					<span class="skill-badge">Infrastructure Automation</span>
-				</div>
-			</div>
-
-			<div class="nav-links">
-				<a href="/projects" class="nav-link">
-					<span>←</span>
-					<span>Projects</span>
-				</a>
-				<a href="/experience" class="nav-link">
-					<span>Experience</span>
-					<span>→</span>
-				</a>
-			</div>
+			</section>
 		</main>
 		<Footer />
 	</body>

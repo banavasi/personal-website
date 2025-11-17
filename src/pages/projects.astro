@@ -3,138 +3,91 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE_TITLE } from '../consts';
+import { ProjectCard } from '../components/ProjectCard';
+import { Card, CardContent } from '../components/ui/card';
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
 	<head>
-		<BaseHead title={`Projects | ${SITE_TITLE}`} description="A showcase of my projects and work" />
-		<style>
-			main {
-				max-width: 1200px;
-			}
-			
-			.page-header {
-				padding: 4rem 0 3rem 0;
-			}
-			
-			.page-title {
-				font-size: 3.5rem;
-				font-weight: 800;
-				margin-bottom: 1rem;
-				color: var(--text-primary);
-			}
-			
-			.page-subtitle {
-				font-size: 1.5rem;
-				color: var(--text-tertiary);
-				margin-bottom: 2rem;
-			}
-			
-			.projects-grid {
-				display: grid;
-				grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-				gap: 2rem;
-				margin-bottom: 4rem;
-			}
-			
-			.project-card {
-				padding: 2rem;
-				background: var(--bg-secondary);
-				border: 1px solid var(--border-color);
-				border-radius: 16px;
-				transition: all 0.3s ease;
-			}
-			
-			.project-card:hover {
-				border-color: var(--accent);
-				transform: translateY(-8px);
-				box-shadow: var(--box-shadow-lg);
-			}
-			
-			.project-title {
-				font-size: 1.5rem;
-				color: var(--text-primary);
-				margin-bottom: 1rem;
-			}
-			
-			.project-description {
-				color: var(--text-secondary);
-				margin-bottom: 1.5rem;
-				line-height: 1.6;
-			}
-			
-			.project-link {
-				color: var(--accent);
-				text-decoration: none;
-				font-weight: 600;
-				transition: color 0.2s ease;
-			}
-			
-			.project-link:hover {
-				color: var(--accent-light);
-			}
-			
-			.nav-links {
-				display: flex;
-				justify-content: space-between;
-				padding: 2rem 0;
-				border-top: 1px solid var(--border-color);
-			}
-			
-			.nav-link {
-				display: flex;
-				align-items: center;
-				gap: 0.5rem;
-				color: var(--text-secondary);
-				text-decoration: none;
-				transition: color 0.2s ease;
-			}
-			
-			.nav-link:hover {
-				color: var(--accent);
-			}
-			
-			@media (max-width: 768px) {
-				.page-title {
-					font-size: 2.5rem;
-				}
-				
-				.projects-grid {
-					grid-template-columns: 1fr;
-				}
-			}
-		</style>
+		<BaseHead title={`Projects | ${SITE_TITLE}`} description="Featured projects and work" />
 	</head>
-	<body>
+	<body class="bg-background text-foreground antialiased">
 		<Header />
-		<main>
-			<section class="page-header">
-				<h1 class="page-title">Projects</h1>
-				<p class="page-subtitle">A lot of ideas, but some are still under construction!</p>
+		<main class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+			<!-- Page Header -->
+			<section class="py-16 sm:py-20">
+				<div class="max-w-3xl">
+					<h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 bg-gradient-to-r from-white via-white/90 to-white/70 bg-clip-text text-transparent">
+						Projects & Work
+					</h1>
+					<p class="text-xl text-muted-foreground leading-relaxed">
+						A showcase of featured projects, contributions, and the impact they've made. Each project represents a unique challenge solved with innovative solutions.
+					</p>
+				</div>
 			</section>
 
-			<div class="projects-grid">
-				<!-- Projects will be added here -->
-				<div class="project-card">
-					<h3 class="project-title">Coming Soon</h3>
-					<p class="project-description">
-						Project details will be added soon. Stay tuned for updates!
-					</p>
-					<a href="#" class="project-link">Learn More...</a>
-				</div>
-			</div>
+			<!-- Placeholder Note -->
+			<section class="pb-20">
+				<Card client:load className="border-primary/50 bg-primary/5">
+					<CardContent className="pt-6">
+						<div class="text-center py-12">
+							<div class="text-6xl mb-6">🚧</div>
+							<h2 class="text-2xl font-bold mb-4">Projects Coming Soon</h2>
+							<p class="text-lg text-muted-foreground max-w-2xl mx-auto">
+								I'm currently curating a selection of my best work to showcase here. Check back soon to see detailed case studies of enterprise platforms, AI automation frameworks, and open-source contributions.
+							</p>
+							<p class="text-muted-foreground mt-6">
+								In the meantime, feel free to explore my <a href="https://github.com/banavasi" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">GitHub profile</a> for open-source contributions.
+							</p>
+						</div>
+					</CardContent>
+				</Card>
+			</section>
 
-			<div class="nav-links">
-				<a href="/about" class="nav-link">
-					<span>←</span>
-					<span>About</span>
-				</a>
-				<a href="/skills" class="nav-link">
-					<span>Skills & Tools</span>
-					<span>→</span>
-				</a>
-			</div>
+			<!-- Example Project Template (commented out for future use) -->
+			<!--
+			<section class="pb-20">
+				<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+					<ProjectCard
+						client:load
+						title="AI Automation Platform"
+						description="Enterprise AI automation framework reducing manual operations by 60%. Built with Python, LangChain, and microservices architecture."
+						technologies={["Python", "LangChain", "FastAPI", "Docker", "AWS", "PostgreSQL"]}
+						githubUrl="https://github.com/username/project"
+						liveUrl="https://project.com"
+					/>
+
+					<ProjectCard
+						client:load
+						title="Cloud-Native Multi-tenant Platform"
+						description="Scalable SaaS platform serving thousands of users with 99.9% uptime. Features role-based access, real-time analytics, and automated deployments."
+						technologies={["React", "Node.js", "MongoDB", "Redis", "Kubernetes", "AWS"]}
+					/>
+
+					<ProjectCard
+						client:load
+						title="Performance Monitoring Dashboard"
+						description="Real-time monitoring and analytics platform providing insights into system performance and user behavior."
+						technologies={["Next.js", "TypeScript", "Grafana", "Prometheus", "InfluxDB"]}
+					/>
+				</div>
+			</section>
+			-->
+
+			<!-- Navigation -->
+			<section class="py-12 border-t border-border/50">
+				<div class="flex justify-between items-center flex-wrap gap-4">
+					<a href="/about" class="text-muted-foreground hover:text-primary transition-colors flex items-center gap-2">
+						<span>←</span>
+						<span>About</span>
+					</a>
+					<a href="/skills" class="text-muted-foreground hover:text-primary transition-colors flex items-center gap-2">
+						<span>Skills</span>
+						<span>→</span>
+					</a>
+				</div>
+			</section>
 		</main>
 		<Footer />
 	</body>

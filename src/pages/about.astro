@@ -3,131 +3,148 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE_TITLE } from '../consts';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
 	<head>
 		<BaseHead title={`About Me | ${SITE_TITLE}`} description="Learn more about Shashank Shandilya" />
-		<style>
-			main {
-				max-width: 1000px;
-			}
-			
-			.page-header {
-				padding: 4rem 0 3rem 0;
-			}
-			
-			.page-title {
-				font-size: 3.5rem;
-				font-weight: 800;
-				margin-bottom: 1rem;
-				color: var(--text-primary);
-			}
-			
-			.page-subtitle {
-				font-size: 1.5rem;
-				color: var(--text-tertiary);
-				margin-bottom: 3rem;
-			}
-			
-			.content {
-				font-size: 1.125rem;
-				color: var(--text-secondary);
-				line-height: 1.8;
-			}
-			
-			.content h2 {
-				color: var(--text-primary);
-				margin-top: 3rem;
-				margin-bottom: 1rem;
-			}
-			
-			.content p {
-				margin-bottom: 1.5rem;
-			}
-			
-			.nav-links {
-				display: flex;
-				justify-content: space-between;
-				padding: 2rem 0;
-				margin-top: 4rem;
-				border-top: 1px solid var(--border-color);
-			}
-			
-			.nav-link {
-				display: flex;
-				align-items: center;
-				gap: 0.5rem;
-				color: var(--text-secondary);
-				text-decoration: none;
-				transition: color 0.2s ease;
-			}
-			
-			.nav-link:hover {
-				color: var(--accent);
-			}
-			
-			@media (max-width: 768px) {
-				.page-title {
-					font-size: 2.5rem;
-				}
-			}
-		</style>
 	</head>
-	<body>
+	<body class="bg-background text-foreground antialiased">
 		<Header />
-		<main>
-			<section class="page-header">
-				<h1 class="page-title">About Shashank</h1>
-				<p class="page-subtitle">More than just a title—let's dive deeper!</p>
+		<main class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+			<!-- Page Header -->
+			<section class="py-16 sm:py-20">
+				<h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-white via-white/90 to-white/70 bg-clip-text text-transparent">
+					About Shashank
+				</h1>
+				<p class="text-2xl text-muted-foreground mb-8">
+					More than just a title—let's dive deeper!
+				</p>
 			</section>
 
-			<div class="content">
-				<p>
-					I'm a Senior Technical Lead and Solutions Architect with 8+ years of experience designing and scaling 
-					intelligent digital ecosystems. My journey at OneOrigin has been a continuous evolution—from UI engineering 
+			<!-- Main Content -->
+			<section class="prose prose-invert prose-lg max-w-none pb-12">
+				<p class="text-lg text-muted-foreground leading-relaxed mb-6">
+					I'm a <span class="text-primary font-semibold">Senior Technical Lead and Solutions Architect</span> with 8+ years of experience designing and scaling
+					intelligent digital ecosystems. My journey at OneOrigin has been a continuous evolution—from UI engineering
 					to leading cross-functional teams delivering AI-driven automation, microservices, and cloud-native platforms.
 				</p>
 
-				<p>
-					I architect and scale enterprise-grade digital systems merging AI, automation, cloud-native engineering, 
-					and high-performance design. My expertise spans AI automation, microservices, cloud architecture, 
+				<p class="text-lg text-muted-foreground leading-relaxed mb-6">
+					I architect and scale enterprise-grade digital systems merging AI, automation, cloud-native engineering,
+					and high-performance design. My expertise spans AI automation, microservices, cloud architecture,
 					multi-tenant systems, DevOps, and accessibility-first engineering.
 				</p>
 
-				<h2>What I Do</h2>
-				
-				<p>
-					At OneOrigin, I've architected and scaled enterprise cloud/web platforms, boosted release velocity by 40%, 
-					and built AI automation frameworks that cut manual operations by 60%. I've designed multi-tenant systems 
+				<h2 class="text-3xl font-bold mb-4 mt-12">What I Do</h2>
+
+				<p class="text-lg text-muted-foreground leading-relaxed mb-6">
+					At OneOrigin, I've architected and scaled enterprise cloud/web platforms, boosted release velocity by 40%,
+					and built AI automation frameworks that cut manual operations by 60%. I've designed multi-tenant systems
 					serving thousands of users and mentored 10+ engineers, helping them grow into strategic technical leaders.
 				</p>
 
-				<h2>My Approach</h2>
+				<h2 class="text-3xl font-bold mb-4 mt-12">My Approach</h2>
 
-				<p>
-					I believe in transforming business challenges into scalable, intelligent digital solutions. Whether it's 
-					migrating monoliths to microservices, integrating AI modules for automation, or building high-availability 
+				<p class="text-lg text-muted-foreground leading-relaxed mb-6">
+					I believe in transforming business challenges into scalable, intelligent digital solutions. Whether it's
+					migrating monoliths to microservices, integrating AI modules for automation, or building high-availability
 					systems, I approach each challenge with strategic thinking and hands-on execution.
 				</p>
 
-				<p>
-					My leadership philosophy centers on mentorship, collaboration, and driving measurable outcomes. I lead by 
+				<p class="text-lg text-muted-foreground leading-relaxed mb-6">
+					My leadership philosophy centers on mentorship, collaboration, and driving measurable outcomes. I lead by
 					example and inspire ownership across teams, elevating both technical capabilities and delivery outcomes.
 				</p>
-			</div>
+			</section>
 
-			<div class="nav-links">
-				<a href="/" class="nav-link">
-					<span>←</span>
-					<span>Introduction</span>
-				</a>
-				<a href="/projects" class="nav-link">
-					<span>Projects</span>
-					<span>→</span>
-				</a>
-			</div>
+			<!-- Core Values -->
+			<section class="py-16 border-t border-border/50">
+				<h2 class="text-3xl font-bold mb-8">Core Values</h2>
+				<div class="grid sm:grid-cols-2 gap-6">
+					<Card client:load className="border-border/50">
+						<CardHeader>
+							<CardTitle className="flex items-center gap-2">
+								<span>🎯</span>
+								<span>Excellence</span>
+							</CardTitle>
+						</CardHeader>
+						<CardContent>
+							<p class="text-muted-foreground">
+								Committed to delivering high-quality, maintainable solutions that stand the test of time
+							</p>
+						</CardContent>
+					</Card>
+
+					<Card client:load className="border-border/50">
+						<CardHeader>
+							<CardTitle className="flex items-center gap-2">
+								<span>🤝</span>
+								<span>Collaboration</span>
+							</CardTitle>
+						</CardHeader>
+						<CardContent>
+							<p class="text-muted-foreground">
+								Building great products requires great teams—I value open communication and shared ownership
+							</p>
+						</CardContent>
+					</Card>
+
+					<Card client:load className="border-border/50">
+						<CardHeader>
+							<CardTitle className="flex items-center gap-2">
+								<span>📚</span>
+								<span>Continuous Learning</span>
+							</CardTitle>
+						</CardHeader>
+						<CardContent>
+							<p class="text-muted-foreground">
+								Technology evolves rapidly—I stay current through constant learning and experimentation
+							</p>
+						</CardContent>
+					</Card>
+
+					<Card client:load className="border-border/50">
+						<CardHeader>
+							<CardTitle className="flex items-center gap-2">
+								<span>💡</span>
+								<span>Innovation</span>
+							</CardTitle>
+						</CardHeader>
+						<CardContent>
+							<p class="text-muted-foreground">
+								Pushing boundaries by exploring new technologies and finding creative solutions to complex problems
+							</p>
+						</CardContent>
+					</Card>
+				</div>
+			</section>
+
+			<!-- Beyond Work -->
+			<section class="py-16 border-t border-border/50">
+				<h2 class="text-3xl font-bold mb-8">Beyond Work</h2>
+				<p class="text-lg text-muted-foreground leading-relaxed mb-6">
+					When I'm not architecting systems or debugging code, I enjoy exploring new technologies through side projects,
+					contributing to open-source communities, and staying active in tech forums. I believe in giving back to the
+					community that has helped me grow throughout my career.
+				</p>
+			</section>
+
+			<!-- Navigation -->
+			<section class="py-12 border-t border-border/50">
+				<div class="flex justify-between items-center flex-wrap gap-4">
+					<a href="/" class="text-muted-foreground hover:text-primary transition-colors flex items-center gap-2">
+						<span>←</span>
+						<span>Home</span>
+					</a>
+					<a href="/projects" class="text-muted-foreground hover:text-primary transition-colors flex items-center gap-2">
+						<span>Projects</span>
+						<span>→</span>
+					</a>
+				</div>
+			</section>
 		</main>
 		<Footer />
 	</body>
