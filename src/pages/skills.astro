@@ -1,0 +1,176 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Skills & Tools | ${SITE_TITLE}`} description="My technical skills and tools" />
+		<style>
+			main {
+				max-width: 1200px;
+			}
+			
+			.page-header {
+				padding: 4rem 0 3rem 0;
+			}
+			
+			.page-title {
+				font-size: 3.5rem;
+				font-weight: 800;
+				margin-bottom: 1rem;
+				color: var(--text-primary);
+			}
+			
+			.page-subtitle {
+				font-size: 1.5rem;
+				color: var(--text-tertiary);
+				margin-bottom: 2rem;
+			}
+			
+			.intro-text {
+				font-size: 1.125rem;
+				color: var(--text-secondary);
+				line-height: 1.8;
+				max-width: 900px;
+				margin-bottom: 3rem;
+			}
+			
+			.skills-container {
+				margin-bottom: 4rem;
+			}
+			
+			.skills-grid {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 1rem;
+			}
+			
+			.skill-badge {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.5rem;
+				padding: 0.75rem 1.5rem;
+				background: var(--bg-secondary);
+				border: 1px solid var(--border-color);
+				border-radius: 8px;
+				color: var(--text-primary);
+				font-weight: 500;
+				transition: all 0.2s ease;
+			}
+			
+			.skill-badge:hover {
+				border-color: var(--accent);
+				transform: translateY(-2px);
+			}
+			
+			.nav-links {
+				display: flex;
+				justify-content: space-between;
+				padding: 2rem 0;
+				border-top: 1px solid var(--border-color);
+			}
+			
+			.nav-link {
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+				color: var(--text-secondary);
+				text-decoration: none;
+				transition: color 0.2s ease;
+			}
+			
+			.nav-link:hover {
+				color: var(--accent);
+			}
+			
+			@media (max-width: 768px) {
+				.page-title {
+					font-size: 2.5rem;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="page-header">
+				<h1 class="page-title">Skills & Tools</h1>
+				<p class="page-subtitle">Learned by coding all night and debugging all day!</p>
+			</section>
+
+			<p class="intro-text">
+				As a Senior Technical Lead and Solutions Architect, I specialize in building scalable, intelligent 
+				digital systems that merge AI, automation, cloud-native engineering, and high-performance design. 
+				My expertise spans leadership, architecture, and hands-on engineering across the full stack.
+			</p>
+
+			<div class="skills-container">
+				<h3 style="color: var(--text-primary); font-size: 1.5rem; margin-bottom: 1.5rem;">Leadership & Strategy</h3>
+				<div class="skills-grid">
+					<span class="skill-badge">Technical Leadership</span>
+					<span class="skill-badge">Architecture Strategy</span>
+					<span class="skill-badge">Mentorship</span>
+					<span class="skill-badge">Cross-functional Collaboration</span>
+				</div>
+			</div>
+
+			<div class="skills-container">
+				<h3 style="color: var(--text-primary); font-size: 1.5rem; margin-bottom: 1.5rem;">AI & Automation</h3>
+				<div class="skills-grid">
+					<span class="skill-badge">Intelligent Automation</span>
+					<span class="skill-badge">AI Frameworks</span>
+					<span class="skill-badge">Decision Systems</span>
+				</div>
+			</div>
+
+			<div class="skills-container">
+				<h3 style="color: var(--text-primary); font-size: 1.5rem; margin-bottom: 1.5rem;">Frontend Engineering</h3>
+				<div class="skills-grid">
+					<span class="skill-badge">React</span>
+					<span class="skill-badge">Vue</span>
+					<span class="skill-badge">Svelte</span>
+					<span class="skill-badge">TypeScript</span>
+					<span class="skill-badge">Accessibility</span>
+					<span class="skill-badge">High-performance UI</span>
+				</div>
+			</div>
+
+			<div class="skills-container">
+				<h3 style="color: var(--text-primary); font-size: 1.5rem; margin-bottom: 1.5rem;">Backend & Architecture</h3>
+				<div class="skills-grid">
+					<span class="skill-badge">Node.js</span>
+					<span class="skill-badge">Express</span>
+					<span class="skill-badge">Microservices</span>
+					<span class="skill-badge">Multi-tenant Architecture</span>
+				</div>
+			</div>
+
+			<div class="skills-container">
+				<h3 style="color: var(--text-primary); font-size: 1.5rem; margin-bottom: 1.5rem;">Cloud & DevOps</h3>
+				<div class="skills-grid">
+					<span class="skill-badge">AWS</span>
+					<span class="skill-badge">Docker</span>
+					<span class="skill-badge">GitHub Actions</span>
+					<span class="skill-badge">CI/CD</span>
+					<span class="skill-badge">Infrastructure Automation</span>
+				</div>
+			</div>
+
+			<div class="nav-links">
+				<a href="/projects" class="nav-link">
+					<span>←</span>
+					<span>Projects</span>
+				</a>
+				<a href="/experience" class="nav-link">
+					<span>Experience</span>
+					<span>→</span>
+				</a>
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>

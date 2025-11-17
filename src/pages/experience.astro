@@ -1,0 +1,220 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Experience | ${SITE_TITLE}`} description="My professional experience" />
+		<style>
+			main {
+				max-width: 1200px;
+			}
+			
+			.page-header {
+				padding: 4rem 0 3rem 0;
+			}
+			
+			.page-title {
+				font-size: 3.5rem;
+				font-weight: 800;
+				margin-bottom: 1rem;
+				color: var(--text-primary);
+			}
+			
+			.page-subtitle {
+				font-size: 1.5rem;
+				color: var(--text-tertiary);
+				margin-bottom: 2rem;
+			}
+			
+			.intro-text {
+				font-size: 1.125rem;
+				color: var(--text-secondary);
+				line-height: 1.8;
+				max-width: 900px;
+				margin-bottom: 4rem;
+			}
+			
+			.timeline {
+				position: relative;
+				margin-bottom: 4rem;
+			}
+			
+			.timeline-item {
+				position: relative;
+				padding-left: 3rem;
+				margin-bottom: 3rem;
+			}
+			
+			.timeline-item::before {
+				content: '';
+				position: absolute;
+				left: 0;
+				top: 0.5rem;
+				width: 1rem;
+				height: 1rem;
+				border-radius: 50%;
+				background: var(--accent);
+			}
+			
+			.timeline-item::after {
+				content: '';
+				position: absolute;
+				left: 0.4375rem;
+				top: 1.5rem;
+				bottom: -3rem;
+				width: 2px;
+				background: var(--border-color);
+			}
+			
+			.timeline-item:last-child::after {
+				display: none;
+			}
+			
+			.experience-header {
+				display: flex;
+				align-items: center;
+				gap: 1rem;
+				margin-bottom: 0.5rem;
+				flex-wrap: wrap;
+			}
+			
+			.experience-title {
+				font-size: 1.5rem;
+				color: var(--text-primary);
+				margin: 0;
+			}
+			
+			.experience-badge {
+				padding: 0.25rem 0.75rem;
+				background: var(--accent);
+				color: white;
+				border-radius: 6px;
+				font-size: 0.875rem;
+				font-weight: 600;
+			}
+			
+			.experience-date {
+				color: var(--text-tertiary);
+				font-size: 0.95rem;
+				margin-bottom: 1rem;
+			}
+			
+			.experience-description {
+				color: var(--text-secondary);
+				line-height: 1.7;
+			}
+			
+			.nav-links {
+				display: flex;
+				justify-content: space-between;
+				padding: 2rem 0;
+				border-top: 1px solid var(--border-color);
+			}
+			
+			.nav-link {
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+				color: var(--text-secondary);
+				text-decoration: none;
+				transition: color 0.2s ease;
+			}
+			
+			.nav-link:hover {
+				color: var(--accent);
+			}
+			
+			@media (max-width: 768px) {
+				.page-title {
+					font-size: 2.5rem;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="page-header">
+				<h1 class="page-title">Experience</h1>
+				<p class="page-subtitle">You need it to get the job, but the job's what gives it!</p>
+			</section>
+
+			<p class="intro-text">
+				Throughout my journey as a developer, I have had the opportunity to work with cutting-edge technologies
+				while also mastering the fine art of debugging at 2 AM. From building dynamic web applications to
+				deciphering cryptic error messages, my experience has been a mix of structured learning and
+				spontaneous problem-solving. Each project and internship has sharpened my ability to write clean code,
+				collaborate effectively, and most importantly—fix bugs before they fix me.
+			</p>
+
+			<div class="timeline">
+				<div class="timeline-item">
+					<div class="experience-header">
+						<h3 class="experience-title">Senior Technical Lead • OneOrigin</h3>
+						<span class="experience-badge">Latest</span>
+					</div>
+					<p class="experience-date">2023 - Present</p>
+					<p class="experience-description">
+						Architected and scaled enterprise cloud/web platforms, boosting release velocity by 40%. 
+						Built AI automation frameworks cutting manual operations by 60%. Designed multi-tenant 
+						systems for thousands of users and mentored 10+ engineers, helping them grow into strategic 
+						technical leaders.
+					</p>
+				</div>
+
+				<div class="timeline-item">
+					<div class="experience-header">
+						<h3 class="experience-title">Senior Software Engineer • OneOrigin</h3>
+					</div>
+					<p class="experience-date">2022 - 2023</p>
+					<p class="experience-description">
+						Migrated monolith to microservices architecture, achieving 50% faster deployments. Integrated 
+						AI modules for automation and insights, increasing UX engagement by 25%. Delivered projects 
+						under budget with CI/CD improvements and infrastructure optimization.
+					</p>
+				</div>
+
+				<div class="timeline-item">
+					<div class="experience-header">
+						<h3 class="experience-title">Technical Team Lead • OneOrigin</h3>
+					</div>
+					<p class="experience-date">2020 - 2022</p>
+					<p class="experience-description">
+						Led distributed teams building high-availability systems. Owned SDLC for platforms with 
+						50K+ active users. Reduced production incidents by 35% with automation and monitoring 
+						improvements. Established engineering best practices and mentored junior developers.
+					</p>
+				</div>
+
+				<div class="timeline-item">
+					<div class="experience-header">
+						<h3 class="experience-title">Intern • cityon.net</h3>
+					</div>
+					<p class="experience-date">2016</p>
+					<p class="experience-description">
+						Early UI development work, building foundations in CSS, JavaScript (ES6), and modern 
+						web development practices. Contributed to responsive web interfaces and learned 
+						collaborative software development workflows.
+					</p>
+				</div>
+			</div>
+
+			<div class="nav-links">
+				<a href="/skills" class="nav-link">
+					<span>←</span>
+					<span>Skills & Tools</span>
+				</a>
+				<a href="/education" class="nav-link">
+					<span>Education</span>
+					<span>→</span>
+				</a>
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
