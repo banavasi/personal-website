@@ -1,13 +1,17 @@
 // @ts-check
-
-import tailwindcss from '@tailwindcss/vite';
-import { defineConfig } from 'astro/config';
-
-import react from '@astrojs/react';
+import { defineConfig } from "astro/config";
+import mdx from "@astrojs/mdx";
+import sitemap from "@astrojs/sitemap";
+import react from "@astrojs/react";
+import tailwindcss from "@tailwindcss/vite";
+import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://shashankshandilya.com', // Update with actual domain when available
+  site: "https://example.com",
+  output: "server",
+  adapter: cloudflare(),
+  integrations: [mdx(), sitemap(), react()],
   vite: {
       plugins: [tailwindcss()],
 	},

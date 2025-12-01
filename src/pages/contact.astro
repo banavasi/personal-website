@@ -32,30 +32,31 @@ import { Textarea } from '../components/ui/textarea';
 							<CardDescription className="text-gray-400">Fill out the form and I'll get back to you as soon as possible</CardDescription>
 						</CardHeader>
 						<CardContent>
-							<form class="space-y-6">
+							<form class="space-y-6" id="contact-form">
 								<div class="space-y-2">
 									<label for="name" class="text-sm font-medium text-gray-300">Name</label>
-									<Input client:load id="name" type="text" placeholder="Your name" required className="bg-black/20 border-white/10 text-white placeholder:text-gray-500" />
+									<Input client:load id="name" name="name" type="text" placeholder="Your name" required className="bg-black/20 border-white/10 text-white placeholder:text-gray-500" />
 								</div>
 
 								<div class="space-y-2">
 									<label for="email" class="text-sm font-medium text-gray-300">Email</label>
-									<Input client:load id="email" type="email" placeholder="your.email@example.com" required className="bg-black/20 border-white/10 text-white placeholder:text-gray-500" />
+									<Input client:load id="email" name="email" type="email" placeholder="your.email@example.com" required className="bg-black/20 border-white/10 text-white placeholder:text-gray-500" />
 								</div>
 
 								<div class="space-y-2">
 									<label for="subject" class="text-sm font-medium text-gray-300">Subject</label>
-									<Input client:load id="subject" type="text" placeholder="What's this about?" required className="bg-black/20 border-white/10 text-white placeholder:text-gray-500" />
+									<Input client:load id="subject" name="subject" type="text" placeholder="What's this about?" required className="bg-black/20 border-white/10 text-white placeholder:text-gray-500" />
 								</div>
 
 								<div class="space-y-2">
 									<label for="message" class="text-sm font-medium text-gray-300">Message</label>
-									<Textarea client:load id="message" placeholder="Your message..." rows={6} required className="bg-black/20 border-white/10 text-white placeholder:text-gray-500" />
+									<Textarea client:load id="message" name="message" placeholder="Your message..." rows={6} required className="bg-black/20 border-white/10 text-white placeholder:text-gray-500" />
 								</div>
 
-								<Button client:load type="submit" size="lg" className="w-full bg-white text-black hover:bg-gray-200">
+								<Button client:load type="submit" size="lg" className="w-full bg-white text-black hover:bg-gray-200" id="submit-button">
 									Send Message
 								</Button>
+                                <p id="form-status" class="text-center text-sm hidden"></p>
 							</form>
 						</CardContent>
 					</Card>
@@ -191,4 +192,61 @@ import { Textarea } from '../components/ui/textarea';
 		duration: 1,
 		ease: 'power3.out'
 	});
+	// Form Submission
+	const form = document.getElementById('contact-form') as HTMLFormElement;
+	const submitButton = document.getElementById('submit-button') as HTMLButtonElement;
+	const statusMessage = document.getElementById('form-status') as HTMLParagraphElement;
+
+	if (form) {
+		form.addEventListener('submit', async (e) => {
+			e.preventDefault();
+			
+			// Disable button and show loading state
+			if (submitButton) {
+				submitButton.disabled = true;
+				submitButton.textContent = 'Sending...';
+			}
+			
+			if (statusMessage) {
+				statusMessage.classList.add('hidden');
+				statusMessage.classList.remove('text-green-400', 'text-red-400');
+			}
+
+			const formData = new FormData(form);
+			formData.append('url', window.location.href);
+
+			try {
+				const response = await fetch('/api/contact', {
+					method: 'POST',
+					body: formData,
+				});
+
+				const result = await response.json() as { message: string };
+
+				if (response.ok) {
+					if (statusMessage) {
+						statusMessage.textContent = 'Message sent successfully!';
+						statusMessage.classList.remove('hidden');
+						statusMessage.classList.add('text-green-400');
+					}
+					form.reset();
+				} else {
+					throw new Error(result.message || 'Failed to send message');
+				}
+			} catch (error) {
+				console.error('Error:', error);
+				if (statusMessage) {
+					statusMessage.textContent = error instanceof Error ? error.message : 'Something went wrong. Please try again.';
+					statusMessage.classList.remove('hidden');
+					statusMessage.classList.add('text-red-400');
+				}
+			} finally {
+				// Re-enable button
+				if (submitButton) {
+					submitButton.disabled = false;
+					submitButton.textContent = 'Send Message';
+				}
+			}
+		});
+	}
 </script>
