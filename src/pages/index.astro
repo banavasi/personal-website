@@ -1,20 +1,79 @@
 ---
-import MainLayout from "@/layouts/main.astro";
-import HeroSection from "@/components/PageHome/HeroSection.astro";
-import MarqueeSection from "@/components/PageHome/MarqueeSection.astro";
-import CoreSystemsSection from "@/components/PageHome/CoreSystemsSection.astro";
-import SystemArchitectureSection from "@/components/PageHome/SystemArchitectureSection.astro";
-import { homeContent } from "@/content/home";
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroSectionOne from '../components/ui/hero-section-demo-1';
+import { SkillsMarquee } from '../components/ui/skills-marquee';
+import FeaturesSectionDemo3 from '../components/ui/features-section-demo-3';
+import BentoGridThirdDemo from '../components/ui/bento-grid-demo-3';
+import DottedGlowBackgroundDemoSecond from '../components/ui/dotted-glow-background-demo-2';
 
-const content = {
-  title: "Shashank Shandilya | Senior Technical Lead | AI & Cloud Architecture Expert",
-  description: "Senior Technical Lead with 8+ years building AI-powered automation, cloud-native platforms, and scalable microservices. Expert in Python, TypeScript, AWS, Kubernetes, and leading high-performing engineering teams to deliver enterprise solutions.",
-};
+const features = [
+  {
+    title: "AI & Automation",
+    description: "Architecting AI-driven automation frameworks, integrating ML models, and reducing manual operations by 60%",
+    icon: "🤖",
+    link: "/projects"
+  },
+  {
+    title: "Cloud Architecture",
+    description: "Designing cloud-native platforms, microservices architectures, and multi-tenant systems for enterprise scale",
+    icon: "☁️",
+    link: "/projects"
+  },
+  {
+    title: "Performance Engineering",
+    description: "Optimizing application performance, CI/CD pipelines, and achieving 40% faster release velocity",
+    icon: "🚀",
+    link: "/projects"
+  },
+  {
+    title: "Technical Leadership",
+    description: "Leading distributed teams, mentoring engineers, and establishing best practices that drive results",
+    icon: "👥",
+    link: "/experience"
+  },
+  {
+    title: "System Design",
+    description: "Creating robust, maintainable systems serving 50K+ users with high availability and fault tolerance",
+    icon: "🏗️",
+    link: "/projects"
+  },
+  {
+    title: "Accessibility First",
+    description: "Championing WCAG compliance and building accessible interfaces that work for all users",
+    icon: "♿",
+    link: "/skills"
+  }
+];
+
+const exploreItems = [
+  { href: "/experience", icon: "💼", title: "Experience", desc: "8+ years of professional journey", detail: "From intern to Senior Technical Lead at OneOrigin, discover my career progression and achievements" },
+  { href: "/skills", icon: "🛠️", title: "Skills & Tools", desc: "Full-stack technical expertise", detail: "Technologies, frameworks, and tools I use to build scalable, modern applications" },
+  { href: "/projects", icon: "🚀", title: "Projects", desc: "Featured work & contributions", detail: "Explore the projects I've built and the impact they've made" },
+  { href: "/education", icon: "🎓", title: "Education", desc: "Academic foundation", detail: "My educational background and continuous learning journey" },
+  { href: "/about", icon: "👋", title: "About Me", desc: "Get to know me better", detail: "My story, approach, and what drives me as an engineer and leader" },
+  { href: "/contact", icon: "📬", title: "Contact", desc: "Let's connect", detail: "Reach out for collaboration, opportunities, or just to say hello" }
+];
 ---
 
-<MainLayout content={content}>
-  <HeroSection />
-  <MarqueeSection />
-  <CoreSystemsSection />
-  <SystemArchitectureSection />
-</MainLayout>
+<BaseLayout>
+  <!-- Hero Section - Full Width -->
+  <HeroSectionOne client:load />
+
+  <!-- Skills Marquee -->
+  <SkillsMarquee client:load />
+
+  <!-- Content Container -->
+  <div class="relative w-full overflow-hidden bg-black/[0.96] antialiased bg-grid-white/[0.02] relative z-0">
+    
+    <!-- What I Do Section -->
+    <FeaturesSectionDemo3 client:load />
+
+    <!-- Explore Section -->
+    <BentoGridThirdDemo client:load />
+
+    <!-- CTA Section -->
+    <DottedGlowBackgroundDemoSecond client:load />
+
+  </div>
+</BaseLayout>
+
