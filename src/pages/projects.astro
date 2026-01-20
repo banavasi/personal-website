@@ -1,94 +1,154 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { SITE_TITLE } from '../consts';
-import { ProjectCard } from '../components/ProjectCard';
-import { Card, CardContent } from '../components/ui/card';
+import MainLayout from "@/layouts/main.astro";
+import { Github, ExternalLink } from "lucide-react";
+import { projectsContent } from "@/content/projects";
+
+const content = {
+  title: "Projects Portfolio | Shashank Shandilya - AI, Cloud & Full-Stack Solutions",
+  description: "Explore my portfolio of AI-powered automation systems, cloud-native platforms, and full-stack applications. Experience in building scalable enterprise solutions with React, Python, AWS, and modern technologies.",
+};
 ---
 
-<!doctype html>
-<html lang="en" class="dark">
-	<head>
-		<BaseHead title={`Projects | ${SITE_TITLE}`} description="Featured projects and work" />
-	</head>
-	<body class="bg-background text-foreground antialiased">
-		<Header />
-		<main class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-			<!-- Page Header -->
-			<section class="py-16 sm:py-20">
-				<div class="max-w-3xl">
-					<h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 bg-gradient-to-r from-white via-white/90 to-white/70 bg-clip-text text-transparent">
-						Projects & Work
-					</h1>
-					<p class="text-xl text-muted-foreground leading-relaxed">
-						A showcase of featured projects, contributions, and the impact they've made. Each project represents a unique challenge solved with innovative solutions.
-					</p>
-				</div>
-			</section>
+<MainLayout content={content}>
+  <!-- Projects Header -->
+  <section class="container mx-auto px-4 py-12">
+    <div class="mb-16 border-b-4 border-black dark:border-white pb-8 flex flex-col md:flex-row justify-between items-end gap-6">
+      <div>
+        <h1 class="font-display font-bold text-6xl md:text-8xl mb-4">
+          {projectsContent.header.title}
+        </h1>
+        <p class="font-mono text-xl md:text-2xl max-w-2xl">
+          {projectsContent.header.description}
+        </p>
+      </div>
+      <div class="font-mono font-bold text-xl bg-neon-green border-2 border-black dark:border-white px-4 py-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]">
+        {projectsContent.projects.length} WORKS
+      </div>
+    </div>
 
-			<!-- Placeholder Note -->
-			<section class="pb-20">
-				<Card client:load className="border-primary/50 bg-primary/5">
-					<CardContent className="pt-6">
-						<div class="text-center py-12">
-							<div class="text-6xl mb-6">🚧</div>
-							<h2 class="text-2xl font-bold mb-4">Projects Coming Soon</h2>
-							<p class="text-lg text-muted-foreground max-w-2xl mx-auto">
-								I'm currently curating a selection of my best work to showcase here. Check back soon to see detailed case studies of enterprise platforms, AI automation frameworks, and open-source contributions.
-							</p>
-							<p class="text-muted-foreground mt-6">
-								In the meantime, feel free to explore my <a href="https://github.com/banavasi" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">GitHub profile</a> for open-source contributions.
-							</p>
-						</div>
-					</CardContent>
-				</Card>
-			</section>
+    <!-- Projects Grid -->
+    <div class="grid grid-cols-1 gap-16">
+      {projectsContent.projects.map((project) => {
+        const accentBorderColors = {
+          green: "border-neon-green",
+          blue: "border-electric-blue", 
+          red: "border-alert-red",
+          none: "border-black dark:border-white",
+        };
+        
+        const accentOverlayColors = {
+          green: "bg-neon-green",
+          blue: "bg-electric-blue",
+          red: "bg-alert-red", 
+          none: "bg-gray-500",
+        };
+        
+        const borderColor = accentBorderColors[project.accent];
+        const overlayColor = accentOverlayColors[project.accent];
+        
+        return (
+          <article class={`border-4 ${borderColor} bg-white dark:bg-black overflow-hidden flex flex-col lg:flex-row group transition-all hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]`}>
+            
+            {/* Image Section - Left Side */}
+            <div class={`lg:w-1/2 border-b-4 lg:border-b-0 lg:border-r-4 ${borderColor} bg-gray-100 dark:bg-zinc-900 relative min-h-[300px]`}>
+              {project.image ? (
+                <>
+                  <img 
+                    src={project.image}
+                    alt={project.title}
+                    class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                  />
+                  <div class={`absolute inset-0 opacity-20 mix-blend-multiply transition-opacity duration-300 group-hover:opacity-0 ${overlayColor}`} />
+                  {project.featured && (
+                    <div class="absolute top-4 left-4 bg-neon-green text-black font-mono font-bold text-xs px-3 py-1.5 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                      ⭐ FEATURED
+                    </div>
+                  )}
+                </>
+              ) : (
+                <div class="absolute inset-0 flex items-center justify-center bg-concrete dark:bg-zinc-900">
+                  <div class="font-display font-bold text-4xl text-gray-300 uppercase rotate-12">
+                    {project.title}
+                  </div>
+                </div>
+              )}
+            </div>
 
-			<!-- Example Project Template (commented out for future use) -->
-			<!--
-			<section class="pb-20">
-				<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-					<ProjectCard
-						client:load
-						title="AI Automation Platform"
-						description="Enterprise AI automation framework reducing manual operations by 60%. Built with Python, LangChain, and microservices architecture."
-						technologies={["Python", "LangChain", "FastAPI", "Docker", "AWS", "PostgreSQL"]}
-						githubUrl="https://github.com/username/project"
-						liveUrl="https://project.com"
-					/>
+            {/* Content Section - Right Side */}
+            <div class="lg:w-1/2 p-8 lg:p-12 flex flex-col justify-between">
+              <div>
+                {/* Header with Period/Role and Icon Buttons */}
+                <div class="flex justify-between items-start mb-6">
+                  <div class="font-mono text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    {project.period} • {project.role}
+                  </div>
+                  <div class="flex gap-2">
+                    {/* GitHub Button */}
+                    {project.githubUrl && project.githubUrl !== "#" ? (
+                      <a 
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="h-10 w-10 flex items-center justify-center border-4 border-black dark:border-white bg-white dark:bg-black hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[2px] hover:translate-y-[2px]"
+                        aria-label="View on GitHub"
+                      >
+                        <Github className="h-5 w-5" />
+                      </a>
+                    ) : (
+                      <div class="h-10 w-10 flex items-center justify-center border-4 border-black dark:border-white bg-gray-100 dark:bg-zinc-900 opacity-50 cursor-not-allowed">
+                        <Github className="h-5 w-5" />
+                      </div>
+                    )}
+                    
+                    {/* Live Site Button */}
+                    {project.liveUrl && project.liveUrl !== "#" ? (
+                      <a 
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="h-10 w-10 flex items-center justify-center border-4 border-black dark:border-white bg-white dark:bg-black hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[2px] hover:translate-y-[2px]"
+                        aria-label="View live site"
+                      >
+                        <ExternalLink className="h-5 w-5" />
+                      </a>
+                    ) : (
+                      <div class="h-10 w-10 flex items-center justify-center border-4 border-black dark:border-white bg-gray-100 dark:bg-zinc-900 opacity-50 cursor-not-allowed">
+                        <ExternalLink className="h-5 w-5" />
+                      </div>
+                    )}
+                  </div>
+                </div>
+                
+                {/* Project Title */}
+                <h2 class="font-display font-bold text-4xl mb-6 group-hover:text-neon-green transition-colors">
+                  {project.title}
+                </h2>
+                
+                {/* Description */}
+                <p class="font-body text-lg mb-8 leading-relaxed text-gray-700 dark:text-gray-300">
+                  {project.description}
+                </p>
+              </div>
 
-					<ProjectCard
-						client:load
-						title="Cloud-Native Multi-tenant Platform"
-						description="Scalable SaaS platform serving thousands of users with 99.9% uptime. Features role-based access, real-time analytics, and automated deployments."
-						technologies={["React", "Node.js", "MongoDB", "Redis", "Kubernetes", "AWS"]}
-					/>
-
-					<ProjectCard
-						client:load
-						title="Performance Monitoring Dashboard"
-						description="Real-time monitoring and analytics platform providing insights into system performance and user behavior."
-						technologies={["Next.js", "TypeScript", "Grafana", "Prometheus", "InfluxDB"]}
-					/>
-				</div>
-			</section>
-			-->
-
-			<!-- Navigation -->
-			<section class="py-12 border-t border-border/50">
-				<div class="flex justify-between items-center flex-wrap gap-4">
-					<a href="/about" class="text-muted-foreground hover:text-primary transition-colors flex items-center gap-2">
-						<span>←</span>
-						<span>About</span>
-					</a>
-					<a href="/skills" class="text-muted-foreground hover:text-primary transition-colors flex items-center gap-2">
-						<span>Skills</span>
-						<span>→</span>
-					</a>
-				</div>
-			</section>
-		</main>
-		<Footer />
-	</body>
-</html>
+              {/* Technologies Section */}
+              <div>
+                <div class="font-mono font-bold text-xs mb-3 uppercase text-gray-400">
+                  Technologies
+                </div>
+                <div class="flex flex-wrap gap-2">
+                  {project.tags.map((tag) => (
+                    <span 
+                      class="border-2 border-black dark:border-white px-3 py-1 font-mono text-sm font-bold hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors cursor-default"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  </section>
+</MainLayout>

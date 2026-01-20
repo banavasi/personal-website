@@ -1,0 +1,207 @@
+export const resumeData = {
+  personal: {
+    name: "Shashank Shandilya",
+    title: "Senior Technical Lead & Solutions Architect",
+    image: "/images/shashankshandilya.png",
+    bio: "8+ years building AI-powered automation, cloud-native platforms, and scalable systems that drive business impact. Leading technical vision and execution of enterprise-grade solutions.",
+    contact: [
+      {
+        icon: "Mail",
+        label: "Email",
+        value: "contact@shashankshandilya.me",
+        href: "mailto:contact@shashankshandilya.me",
+      },
+      {
+        icon: "Linkedin",
+        label: "LinkedIn",
+        value: "/in/shashankshandilya",
+        href: "https://linkedin.com/in/shashankshandilya",
+      },
+      {
+        icon: "Github",
+        label: "GitHub",
+        value: "/banavasi",
+        href: "https://github.com/banavasi",
+      },
+      {
+        icon: "MapPin",
+        label: "Location",
+        value: "Scottsdale, Arizona",
+        href: "",
+      },
+    ],
+  },
+  experience: [
+    {
+      period: "2023 - Present",
+      title: "Senior Technical Lead",
+      company: "OneOrigin",
+      location: "Scottsdale, AZ",
+      type: "Full Time",
+      highlights: [
+        "Architected and scaled cloud/web platforms serving thousands of users, boosting release velocity by 40%",
+        "Built AI automation frameworks that reduced manual operations by 60% through intelligent process optimization",
+        "Designed and implemented multi-tenant systems with enterprise-grade security and scalability",
+        "Mentored 10+ engineers, helping them grow into strategic technical leaders and subject matter experts",
+        "Established engineering best practices and technical standards adopted across the organization",
+        "Led cross-functional teams in delivering high-impact projects under budget and ahead of schedule",
+      ],
+    },
+    {
+      period: "2022 - 2023",
+      title: "Senior Software Engineer",
+      company: "OneOrigin",
+      location: "Scottsdale, AZ",
+      type: "Full Time",
+      highlights: [
+        "Migrated monolithic applications to microservices architecture, achieving 50% faster deployment cycles",
+        "Integrated AI modules for intelligent automation and predictive insights, increasing UX engagement by 25%",
+        "Optimized CI/CD pipelines and infrastructure, delivering projects consistently under budget",
+        "Implemented observability and monitoring solutions that reduced mean time to resolution by 40%",
+        "Led technical architecture reviews and established code quality standards",
+        "Collaborated with product teams to translate business requirements into scalable technical solutions",
+      ],
+    },
+    {
+      period: "2020 - 2022",
+      title: "Technical Team Lead",
+      company: "OneOrigin",
+      location: "Scottsdale, AZ",
+      type: "Full Time",
+      highlights: [
+        "Led distributed teams across time zones in building and maintaining high-availability systems",
+        "Owned the complete SDLC for platforms with 50K+ active users and 99.9% uptime SLA",
+        "Reduced production incidents by 35% through proactive monitoring and automation improvements",
+        "Established engineering best practices including code reviews, testing standards, and documentation",
+        "Mentored junior developers, helping them advance their careers and technical skills",
+        "Coordinated with stakeholders to align technical roadmap with business objectives",
+      ],
+    },
+    {
+      period: "2018 - 2020",
+      title: "Software Engineer",
+      company: "OneOrigin",
+      location: "Scottsdale, AZ",
+      type: "Full Time",
+      highlights: [
+        "Built responsive web applications using React, TypeScript, and modern CSS frameworks",
+        "Implemented accessibility-first design principles achieving WCAG AA compliance",
+        "Developed RESTful APIs and microservices using Node.js and Python",
+        "Collaborated with design teams to create intuitive, user-friendly interfaces",
+        "Participated in agile ceremonies and contributed to sprint planning and retrospectives",
+      ],
+    },
+    {
+      period: "2017 - 2018",
+      title: "UI Developer",
+      company: "OneOrigin",
+      location: "Scottsdale, AZ",
+      type: "Full Time",
+      highlights: [
+        "Developed pixel-perfect UI components using HTML5, CSS3, and JavaScript (ES6+)",
+        "Collaborated with senior developers to learn best practices and coding standards",
+        "Implemented responsive designs ensuring cross-browser compatibility",
+        "Contributed to the component library used across multiple products",
+      ],
+    },
+    {
+      period: "2016",
+      title: "Intern - UI Development",
+      company: "cityon.net",
+      location: "Remote",
+      type: "Internship",
+      highlights: [
+        "Built responsive web interfaces using CSS, JavaScript, and modern frameworks",
+        "Learned version control (Git) and collaborative development workflows",
+        "Participated in code reviews and received mentorship from senior developers",
+        "Gained hands-on experience with real-world projects and client requirements",
+      ],
+    },
+  ],
+  education: [
+    {
+      period: "2014 - 2017",
+      degree: "Master of Computer Applications (MCA)",
+      institution: "Sri Jayachamarajendra College of Engineering (SJCE), Mysore",
+      gpa: "8.7 CGPA",
+      achievements: [
+        "Ranked 41st in PGCET (Post Graduate Common Entrance Test)",
+        "First of class - Top academic performer",
+        "Specialized in Advanced Algorithms, Cloud Computing, and Software Architecture"
+      ],
+    },
+  ],
+  certifications: [
+    {
+      title: "AWS Certified Solutions Architect - Professional",
+      issuer: "Amazon Web Services (AWS)",
+      date: "Target: Q2 2026",
+      credential: "In Progress",
+      description: "Advanced cloud architecture, security, and cost optimization for enterprise solutions"
+    },
+  ],
+  skills: {
+    languages: ["Python", "TypeScript", "JavaScript", "Node.js", "Go", "SQL", "Bash", "HTML5", "CSS3"],
+    infrastructure: ["AWS", "Azure", "Google Cloud", "Kubernetes", "Docker", "Terraform", "Jenkins", "GitLab CI", "GitHub Actions", "Nginx", "Cloudflare"],
+    dataAI: ["PostgreSQL", "MongoDB", "Redis", "MySQL", "ElasticSearch", "PyTorch", "OpenAI API", "LangChain", "Prompt Engineering", "ML Model Integration"],
+    frameworks: ["React", "Next.js", "Vue.js", "Astro", "FastAPI", "Django", "Express", "Tailwind CSS", "shadcn/ui"],
+    devops: ["CI/CD", "Continuous Integration", "Continuous Deployment", "Monitoring", "Logging", "Observability", "Datadog", "Sentry", "New Relic", "Grafana", "Prometheus"],
+    architecture: ["Microservices", "Event-Driven Architecture", "Domain-Driven Design", "API Design", "Scalability Patterns", "High Availability", "Multi-tenant Systems"],
+    testing: ["Jest", "Cypress", "Playwright", "Vitest", "Unit Testing", "Integration Testing", "E2E Testing", "TDD"],
+    security: ["OWASP Top 10", "OAuth 2.0", "JWT", "Encryption", "GDPR Compliance", "Security Best Practices"],
+    softSkills: ["Technical Leadership", "Mentoring", "Agile/Scrum", "Code Reviews", "Cross-functional Collaboration", "Stakeholder Management", "Documentation"],
+  },
+  tools: [
+    { name: "VS Code", icon: "💻" },
+    { name: "Git", icon: "🔧" },
+    { name: "Figma", icon: "🎨" },
+    { name: "Postman", icon: "🔧" },
+    { name: "Jira", icon: "📋" },
+    { name: "Confluence", icon: "📝" },
+    { name: "Slack", icon: "💬" },
+    { name: "Linear", icon: "📊" },
+  ],
+  languages: [
+    { name: "English", level: 100 },
+    { name: "Hindi", level: 100 },
+    { name: "Marathi", level: 80 },
+  ],
+  achievements: [
+    { value: "40%", label: "Faster Release Velocity" },
+    { value: "60%", label: "Reduced Manual Operations" },
+    { value: "50K+", label: "Active Users Served" },
+    { value: "35%", label: "Fewer Production Incidents" },
+    { value: "10+", label: "Engineers Mentored" },
+    { value: "99.9%", label: "Uptime SLA Maintained" },
+  ],
+  expertise: [
+    {
+      title: "Cloud Architecture",
+      items: ["Multi-tenant SaaS", "Microservices", "Serverless", "High Availability"],
+    },
+    {
+      title: "AI/ML Integration", 
+      items: ["LLM Integration", "Automation Frameworks", "Predictive Analytics", "NLP"],
+    },
+    {
+      title: "Leadership",
+      items: ["Team Building", "Technical Mentoring", "Agile/Scrum", "Cross-functional"],
+    },
+  ],
+  keywords: [
+    // Primary Technical Skills
+    "Senior Technical Lead", "Solutions Architect", "Full Stack Developer",
+    "AI Automation", "Machine Learning", "Cloud Architecture",
+    // Technologies (ATS Keywords)
+    "Python", "TypeScript", "JavaScript", "React", "Node.js",
+    "AWS", "Azure", "Kubernetes", "Docker", "Terraform",
+    "PostgreSQL", "MongoDB", "Redis", "Microservices",
+    "CI/CD", "DevOps", "System Design", "API Development",
+    // Leadership & Soft Skills  
+    "Technical Leadership", "Team Management", "Agile", "Scrum",
+    "Code Review", "Mentoring", "Stakeholder Management",
+    // Impact Keywords
+    "Scalability", "Performance Optimization", "High Availability",
+    "Security", "GDPR", "Multi-tenant", "SaaS"
+  ],
+};

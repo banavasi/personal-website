@@ -1,0 +1,114 @@
+---
+import { NeoCard } from "@/components/NeoCard";
+import { homeContent } from "@/content/home";
+
+const { systemArchitecture } = homeContent;
+---
+
+<section class="py-20 border-t-4 border-black dark:border-white">
+  <div class="container mx-auto px-4">
+    <h2 class="font-display font-bold text-5xl md:text-6xl mb-16 text-right">
+      {systemArchitecture.title}
+    </h2>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <!-- Runtime Environment (Experience) -->
+      <div>
+        <h3 class="font-mono font-bold text-2xl mb-8 flex items-center">
+          <span class="w-4 h-4 bg-neon-green mr-4 animate-pulse"></span>
+          {systemArchitecture.runtime.title}
+        </h3>
+
+        <div class="space-y-6">
+          {
+            systemArchitecture.runtime.experience.map((exp) => (
+              <div
+                class={`border-4 ${exp.isCurrent ? "border-neon-green bg-neon-green/10" : "border-black dark:border-white"} p-6 transition-all hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]`}
+              >
+                <div class="flex items-start justify-between mb-3">
+                  <div class="font-mono text-sm font-bold">
+                    {exp.isCurrent ? (
+                      <span class="text-neon-green flex items-center gap-2">
+                        <span class="relative flex h-3 w-3">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon-green opacity-75" />
+                          <span class="relative inline-flex rounded-full h-3 w-3 bg-neon-green" />
+                        </span>
+                        {exp.status}
+                      </span>
+                    ) : (
+                      <span class="text-gray-500">{exp.status}</span>
+                    )}
+                  </div>
+                  <div class="font-mono text-xs text-gray-500">
+                    {exp.period}
+                  </div>
+                </div>
+                <h4 class="font-display font-bold text-3xl mb-1">
+                  {exp.company}
+                </h4>
+                <p class="font-mono text-lg mb-3">{exp.role}</p>
+                <p class="font-body text-gray-600 dark:text-gray-400">
+                  {exp.description}
+                </p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Installed Packages (Skills) -->
+      <div>
+        <h3 class="font-mono font-bold text-2xl mb-8 flex items-center">
+          <span class="w-4 h-4 bg-alert-red mr-4"></span>
+          {systemArchitecture.packages.title}
+        </h3>
+
+        <div class="grid grid-cols-1 gap-6">
+          {
+            systemArchitecture.packages.categories.map((category) => {
+              const accentColors = {
+                green: "text-neon-green",
+                blue: "text-electric-blue",
+                red: "text-alert-red",
+                none: "text-black dark:text-white",
+              };
+
+              const hoverBorders = {
+                green: "hover:border-neon-green",
+                blue: "hover:border-electric-blue",
+                red: "hover:border-alert-red",
+                none: "hover:border-gray-400",
+              };
+
+              return (
+                <NeoCard
+                  client:load
+                  className={
+                    category.accentColor === "green"
+                      ? "bg-black text-white dark:bg-white dark:text-black"
+                      : ""
+                  }
+                >
+                  <h4
+                    class={`font-mono font-bold ${accentColors[category.accentColor]} mb-4 border-b ${category.accentColor === "green" ? "border-gray-700 dark:border-gray-300" : "border-gray-200 dark:border-gray-700"} pb-2`}
+                  >
+                    {category.name}
+                  </h4>
+                  <div class="flex flex-wrap gap-2">
+                    {category.skills.map((skill) => (
+                      <span
+                        class={`${category.accentColor === "green" ? "bg-white text-black dark:bg-black dark:text-white" : "bg-gray-100 dark:bg-gray-800 text-black dark:text-white"} px-3 py-1 font-mono text-sm font-bold border-2 border-transparent ${hoverBorders[category.accentColor]} cursor-default transition-colors`}
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </NeoCard>
+              );
+            })
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
