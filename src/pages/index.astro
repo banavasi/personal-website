@@ -1,35 +1,28 @@
 ---
-import "../styles/global.css";
-// Component Imports
+import MainLayout from "@/layouts/main.astro";
 import { Button } from "@/components/ui/button";
+import { homeContent } from "@/content/home";
 
-// Full Astro Component Syntax:
-// https://docs.astro.build/basics/astro-components/
+const content = {
+  title: "Shashank Shandilya - Senior Technical Lead & Developer",
+  description: homeContent.hero.description,
+};
 ---
 
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <meta name="generator" content={Astro.generator} />
-        <title>Astro + TailwindCSS</title>
-    </head>
+<MainLayout content={content}>
+  <div class="grid place-items-center h-screen content-center">
+    <Button>Shadcn Button in Astro!</Button>
+    <a href="/markdown-page" class="p-4 underline">
+      Markdown is also supported...
+    </a>
+  </div>
+</MainLayout>
 
-    <body>
-        <div class="grid place-items-center h-screen content-center">
-            <Button>Shadcn Button in Astro!</Button>
-            <a href="/markdown-page" class="p-4 underline"
-                >Markdown is also supported...</a
-            >
-        </div>
-    </body>
-    <script>
-        import confetti from "canvas-confetti";
-        const button = document.body.querySelector("button");
+<script>
+  import confetti from "canvas-confetti";
+  const button = document.body.querySelector("button");
 
-        if (button) {
-            button.addEventListener("click", () => confetti());
-        }
-    </script>
-</html>
+  if (button) {
+    button.addEventListener("click", () => confetti());
+  }
+</script>

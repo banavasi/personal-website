@@ -1,16 +1,29 @@
 ---
 import '../styles/global.css';
+import { Header } from '@/components/Header';
+import Footer from '@/components/Footer.astro';
+
 const { content } = Astro.props;
 ---
 
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="description" content={content.description || "Shashank Shandilya - Senior Technical Lead & Full-Stack Developer"} />
 		<title>{content.title}</title>
 	</head>
-	<body>
-		<slot />
+	<body class="min-h-screen bg-background text-foreground font-body selection:bg-neon-green selection:text-black">
+		<!-- Header with mobile menu -->
+		<Header client:load />
+		
+		<!-- Main Content -->
+		<main class="pt-20 min-h-[calc(100vh-80px)]">
+			<slot />
+		</main>
+		
+		<!-- Footer -->
+		<Footer />
 	</body>
 </html>
