@@ -4,6 +4,7 @@ import HeroSection from "@/components/PageHome/HeroSection.astro";
 import MarqueeSection from "@/components/PageHome/MarqueeSection.astro";
 import CoreSystemsSection from "@/components/PageHome/CoreSystemsSection.astro";
 import SystemArchitectureSection from "@/components/PageHome/SystemArchitectureSection.astro";
+import { ClientLogos } from "@/components/ClientLogos";
 import { getHomePageContent } from "@/lib/cms/content-service";
 import { getYearsOfExperience } from "@/lib/utils";
 
@@ -21,5 +22,6 @@ const content = {
   <HeroSection content={homePageContent.hero} />
   <MarqueeSection text={homePageContent.hero.marqueeText} />
   <CoreSystemsSection content={homePageContent.coreSystems} />
+  <ClientLogos client:load />
   <SystemArchitectureSection content={homePageContent.systemArchitecture} />
 </MainLayout>

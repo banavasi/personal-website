@@ -110,6 +110,25 @@ export const projectsContent = {
       liveUrl: "https://apply.apps.asu.edu",
     },
     {
+      title: "ASU Online Platform",
+      role: "Frontend Developer",
+      period: "2017 - Present",
+      description:
+        "Contributing to ASU Online, Arizona State University's flagship online education platform serving 96,700+ students across 350+ degree programs. Built with modern web technologies to deliver accessible, high-quality online learning experiences. Platform ranked #1 in innovation and Top 10 for online bachelor's programs in 2025. Supports massive scale with responsive design, internationalization, and accessibility compliance.",
+      tags: [
+        "Vue.js",
+        "EdTech",
+        "Higher Education",
+        "Online Learning",
+        "Accessibility",
+        "Large Scale",
+      ],
+      image: "/images/project-asu-online.png",
+      accent: "blue" as const,
+      githubUrl: "",
+      liveUrl: "https://asuonline.asu.edu",
+    },
+    {
       title: "ASU Starbucks College Achievement Plan",
       role: "Developer",
       period: "Partnership since 2014",
