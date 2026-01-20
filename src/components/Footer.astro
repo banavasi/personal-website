@@ -1,0 +1,51 @@
+---
+import { layoutContent } from "@/content/layout";
+import { Github, Linkedin, Mail } from "lucide-react";
+
+const { footer } = layoutContent;
+
+// Icon component mapping
+const iconComponents = {
+  Github,
+  Linkedin,
+  Mail,
+};
+---
+
+<footer class="border-t-4 border-black dark:border-white bg-black text-white py-12">
+  <div class="container mx-auto">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+      <!-- Brand & Tagline -->
+      <div>
+        <h2 class="font-display font-bold text-3xl mb-2">{footer.name}</h2>
+        <p class="font-mono text-gray-400">{footer.tagline}</p>
+      </div>
+
+      <!-- Social Links -->
+      <div class="flex gap-4">
+        {footer.socialLinks.map((social) => {
+          const IconComponent = iconComponents[social.icon as keyof typeof iconComponents];
+          return (
+            <a
+              href={social.href}
+              target={social.href.startsWith("http") ? "_blank" : undefined}
+              rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
+              class="hover:text-neon-green transition-colors"
+              aria-label={social.label}
+            >
+              <IconComponent className="h-6 w-6" />
+            </a>
+          );
+        })}
+      </div>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="mt-12 pt-8 border-t border-gray-800 font-mono text-sm text-gray-500 flex flex-col md:flex-row justify-between gap-4">
+      <p>© {footer.copyright.year} {footer.copyright.name}. {footer.copyright.rights}</p>
+      <p>
+        {footer.designNote} <span class="text-neon-green">{footer.designStyle}</span>
+      </p>
+    </div>
+  </div>
+</footer>
