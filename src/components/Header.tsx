@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Menu, X, Github } from "lucide-react";
 import { NeoButton } from "./NeoButton";
+import { ThemeToggle } from "./ThemeToggle";
 import { layoutContent } from "@/content/layout";
 
 export function Header() {
@@ -49,6 +50,7 @@ export function Header() {
                 {item.name}
               </a>
             ))}
+            <ThemeToggle />
             <a
               href={footer.socialLinks[0].href}
               target="_blank"
@@ -56,24 +58,27 @@ export function Header() {
               aria-label={footer.socialLinks[0].label}
             >
               <NeoButton variant="outline" size="icon" className="border-2">
-                <Github className="h-5 w-5" />
+                <Github className="h-5 w-5 text-black dark:text-white" />
               </NeoButton>
             </a>
           </nav>
 
           {/* Mobile Menu Toggle */}
-          <button
-            className="md:hidden p-2 border-2 border-black dark:border-white active:bg-neon-green transition-colors"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Toggle menu"
-            aria-expanded={isMenuOpen}
-          >
-            {isMenuOpen ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <Menu className="h-6 w-6" />
-            )}
-          </button>
+          <div className="flex items-center gap-2 md:hidden">
+            <ThemeToggle />
+            <button
+              className="p-2 border-2 border-black dark:border-white active:bg-neon-green transition-colors"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label="Toggle menu"
+              aria-expanded={isMenuOpen}
+            >
+              {isMenuOpen ? (
+                <X className="h-6 w-6 text-black dark:text-white" />
+              ) : (
+                <Menu className="h-6 w-6 text-black dark:text-white" />
+              )}
+            </button>
+          </div>
         </div>
       </header>
 
