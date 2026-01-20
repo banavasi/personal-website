@@ -1,0 +1,84 @@
+---
+import MainLayout from "@/layouts/main.astro";
+
+const content = {
+  title: "404 - Page Not Found",
+  description: "The page you're looking for doesn't exist.",
+};
+---
+
+<MainLayout content={content}>
+  <div class="min-h-[calc(100vh-80px)] flex items-center justify-center px-4 bg-concrete dark:bg-zinc-900">
+    <div class="max-w-2xl w-full">
+      <!-- Error Card -->
+      <div class="border-8 border-black dark:border-white bg-white dark:bg-black shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] dark:shadow-[16px_16px_0px_0px_rgba(255,255,255,1)] p-8 md:p-12">
+        
+        <!-- Error Code -->
+        <div class="mb-8">
+          <div class="font-display font-black text-9xl md:text-[12rem] leading-none bg-alert-red text-black inline-block px-6 py-4 border-8 border-black transform -rotate-2">
+            404
+          </div>
+        </div>
+
+        <!-- Error Message -->
+        <div class="space-y-6">
+          <h1 class="font-display font-black text-4xl md:text-5xl">
+            PAGE_NOT_FOUND
+          </h1>
+          
+          <p class="font-mono text-lg">
+            <span class="text-alert-red font-bold">ERROR:</span> The requested resource does not exist in the current runtime environment.
+          </p>
+
+          <div class="border-4 border-black dark:border-white bg-concrete dark:bg-zinc-800 p-4 font-mono text-sm">
+            <p class="text-neon-green">$ ls /pages/{"{requested_path}"}</p>
+            <p class="text-alert-red">ls: cannot access '/pages/{"{requested_path}"}': No such file or directory</p>
+          </div>
+
+          <!-- Suggestions -->
+          <div class="space-y-3">
+            <p class="font-mono text-sm font-bold">
+              SUGGESTED_ACTIONS:
+            </p>
+            <ul class="space-y-2 font-mono text-sm pl-6">
+              <li class="flex items-start gap-2">
+                <span class="text-neon-green font-bold">●</span>
+                <span>Check the URL for typos</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-electric-blue font-bold">●</span>
+                <span>Navigate back to the home page</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-alert-red font-bold">●</span>
+                <span>Contact support if you believe this is an error</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- CTA Buttons -->
+          <div class="flex flex-wrap gap-4 pt-4">
+            <a 
+              href="/" 
+              class="inline-flex items-center justify-center h-12 px-6 py-2 font-mono font-bold uppercase bg-neon-green text-black border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
+            >
+              GO HOME
+            </a>
+            <a 
+              href="/contact" 
+              class="inline-flex items-center justify-center h-12 px-6 py-2 font-mono font-bold uppercase bg-electric-blue text-black border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
+            >
+              CONTACT
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Floating Decorative Elements -->
+      <div class="relative">
+        <div class="absolute -top-4 -right-4 w-16 h-16 bg-neon-green border-4 border-black transform rotate-12 hidden md:block"></div>
+        <div class="absolute -bottom-4 -left-4 w-12 h-12 bg-electric-blue border-4 border-black transform -rotate-12 hidden md:block"></div>
+      </div>
+    </div>
+  </div>
+</MainLayout>

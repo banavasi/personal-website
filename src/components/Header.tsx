@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Menu, X, Github } from "lucide-react";
 import { NeoButton } from "./NeoButton";
@@ -6,11 +6,18 @@ import { layoutContent } from "@/content/layout";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [currentPath, setCurrentPath] = useState("/");
   const { navigation, footer } = layoutContent;
 
-  // Get current path for active link highlighting
-  const currentPath =
-    typeof window !== "undefined" ? window.location.pathname : "/";
+  // Update current path on mount and when route changes
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      // Normalize path by removing trailing slash (except for root)
+      const path = window.location.pathname;
+      const normalizedPath = path === "/" ? "/" : path.replace(/\/$/, "");
+      setCurrentPath(normalizedPath);
+    }
+  }, []);
 
   return (
     <>

@@ -82,6 +82,33 @@ export const homeContent = {
             "Led distributed teams across time zones in building and maintaining high-availability systems with 50K+ active users and 99.9% uptime SLA.",
           isCurrent: false,
         },
+        {
+          status: "PREVIOUS",
+          company: "OneOrigin",
+          role: "Software Engineer",
+          period: "2018 - 2020",
+          description:
+            "Developed full-stack features for enterprise platforms, focusing on performance, accessibility, and user experience.",
+          isCurrent: false,
+        },
+        {
+          status: "PREVIOUS",
+          company: "OneOrigin",
+          role: "UI Developer",
+          period: "2017 - 2018",
+          description:
+            "Started journey at OneOrigin focusing on front-end development and learning the foundations of modern web engineering.",
+          isCurrent: false,
+        },
+        {
+          status: "PREVIOUS",
+          company: "cityon.net",
+          role: "Intern - UI Development",
+          period: "2016",
+          description:
+            "First professional experience where I learned the fundamentals of web development and collaborative software engineering.",
+          isCurrent: false,
+        },
       ],
     },
     packages: {

@@ -16,9 +16,16 @@ const iconComponents = {
   <div class="container mx-auto">
     <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
       <!-- Brand & Tagline -->
-      <div>
-        <h2 class="font-display font-bold text-3xl mb-2">{footer.name}</h2>
-        <p class="font-mono text-gray-400">{footer.tagline}</p>
+      <div class="flex items-center gap-4">
+        <img 
+          src="/logo-white.svg" 
+          alt="Shashank Shandilya Logo" 
+          class="w-12 h-12 object-contain"
+        />
+        <div>
+          <h2 class="font-display font-bold text-3xl mb-2">{footer.name}</h2>
+          <p class="font-mono text-gray-400">{footer.tagline}</p>
+        </div>
       </div>
 
       <!-- Social Links -->

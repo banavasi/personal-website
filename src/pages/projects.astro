@@ -1,112 +1,152 @@
 ---
 import MainLayout from "@/layouts/main.astro";
-import { Badge } from "@/components/ui/badge";
+import { Github, ExternalLink } from "lucide-react";
 import { projectsContent } from "@/content/projects";
 
 const content = {
-  title: "Shashank Shandilya - Projects",
-  description: projectsContent.header.description,
+  title: "Projects Portfolio | Shashank Shandilya - AI, Cloud & Full-Stack Solutions",
+  description: "Explore my portfolio of AI-powered automation systems, cloud-native platforms, and full-stack applications. Experience in building scalable enterprise solutions with React, Python, AWS, and modern technologies.",
 };
 ---
 
 <MainLayout content={content}>
   <!-- Projects Header -->
-  <section class="container mx-auto px-4 py-20">
-    <div class="max-w-4xl">
-      <h1 class="font-display font-bold text-6xl md:text-8xl mb-6 tracking-tight">
-        {projectsContent.header.title}
-      </h1>
-      <p class="font-mono text-xl md:text-2xl border-l-4 border-neon-green pl-6">
-        {projectsContent.header.description}
-      </p>
+  <section class="container mx-auto px-4 py-12">
+    <div class="mb-16 border-b-4 border-black dark:border-white pb-8 flex flex-col md:flex-row justify-between items-end gap-6">
+      <div>
+        <h1 class="font-display font-bold text-6xl md:text-8xl mb-4">
+          {projectsContent.header.title}
+        </h1>
+        <p class="font-mono text-xl md:text-2xl max-w-2xl">
+          {projectsContent.header.description}
+        </p>
+      </div>
+      <div class="font-mono font-bold text-xl bg-neon-green border-2 border-black dark:border-white px-4 py-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]">
+        {projectsContent.projects.length} WORKS
+      </div>
     </div>
-  </section>
 
-  <!-- Projects Grid -->
-  <section class="container mx-auto px-4 pb-20">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <!-- Projects Grid -->
+    <div class="grid grid-cols-1 gap-16">
       {projectsContent.projects.map((project) => {
         const accentBorderColors = {
           green: "border-neon-green",
-          blue: "border-electric-blue",
+          blue: "border-electric-blue", 
           red: "border-alert-red",
           none: "border-black dark:border-white",
         };
         
+        const accentOverlayColors = {
+          green: "bg-neon-green",
+          blue: "bg-electric-blue",
+          red: "bg-alert-red", 
+          none: "bg-gray-500",
+        };
+        
         const borderColor = accentBorderColors[project.accent];
+        const overlayColor = accentOverlayColors[project.accent];
         
         return (
-          <div
-            class={`group relative border-4 ${borderColor} bg-white dark:bg-black overflow-hidden transition-all hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]`}
-          >
-            {/* Project Image */}
-            <div class="aspect-video bg-concrete dark:bg-zinc-900 flex items-center justify-center overflow-hidden relative">
+          <article class={`border-4 ${borderColor} bg-white dark:bg-black overflow-hidden flex flex-col lg:flex-row group transition-all hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]`}>
+            
+            {/* Image Section - Left Side */}
+            <div class={`lg:w-1/2 border-b-4 lg:border-b-0 lg:border-r-4 ${borderColor} bg-gray-100 dark:bg-zinc-900 relative min-h-[300px]`}>
               {project.image ? (
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  class="w-full h-full object-cover transition-transform group-hover:scale-105"
-                />
+                <>
+                  <img 
+                    src={project.image}
+                    alt={project.title}
+                    class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                  />
+                  <div class={`absolute inset-0 opacity-20 mix-blend-multiply transition-opacity duration-300 group-hover:opacity-0 ${overlayColor}`} />
+                  {project.featured && (
+                    <div class="absolute top-4 left-4 bg-neon-green text-black font-mono font-bold text-xs px-3 py-1.5 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                      ⭐ FEATURED
+                    </div>
+                  )}
+                </>
               ) : (
-                <span class="font-mono text-muted-foreground">IMAGE_PLACEHOLDER</span>
-              )}
-              {project.featured && (
-                <div class="absolute top-4 right-4 bg-neon-green text-black font-mono font-bold text-xs px-3 py-1 border-2 border-black">
-                  FEATURED
-                </div>
-              )}
-            </div>
-
-            {/* Project Content */}
-            <div class={`p-6 border-t-4 ${borderColor}`}>
-              <div class="flex items-start justify-between mb-3">
-                <div>
-                  <h3 class="font-display font-bold text-2xl mb-1">
+                <div class="absolute inset-0 flex items-center justify-center bg-concrete dark:bg-zinc-900">
+                  <div class="font-display font-bold text-4xl text-gray-300 uppercase rotate-12">
                     {project.title}
-                  </h3>
-                  <div class="font-mono text-sm text-muted-foreground">
-                    {project.role} • {project.period}
                   </div>
                 </div>
+              )}
+            </div>
+
+            {/* Content Section - Right Side */}
+            <div class="lg:w-1/2 p-8 lg:p-12 flex flex-col justify-between">
+              <div>
+                {/* Header with Period/Role and Icon Buttons */}
+                <div class="flex justify-between items-start mb-6">
+                  <div class="font-mono text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    {project.period} • {project.role}
+                  </div>
+                  <div class="flex gap-2">
+                    {/* GitHub Button */}
+                    {project.githubUrl && project.githubUrl !== "#" ? (
+                      <a 
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="h-10 w-10 flex items-center justify-center border-4 border-black dark:border-white bg-white dark:bg-black hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[2px] hover:translate-y-[2px]"
+                        aria-label="View on GitHub"
+                      >
+                        <Github className="h-5 w-5" />
+                      </a>
+                    ) : (
+                      <div class="h-10 w-10 flex items-center justify-center border-4 border-black dark:border-white bg-gray-100 dark:bg-zinc-900 opacity-50 cursor-not-allowed">
+                        <Github className="h-5 w-5" />
+                      </div>
+                    )}
+                    
+                    {/* Live Site Button */}
+                    {project.liveUrl && project.liveUrl !== "#" ? (
+                      <a 
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="h-10 w-10 flex items-center justify-center border-4 border-black dark:border-white bg-white dark:bg-black hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[2px] hover:translate-y-[2px]"
+                        aria-label="View live site"
+                      >
+                        <ExternalLink className="h-5 w-5" />
+                      </a>
+                    ) : (
+                      <div class="h-10 w-10 flex items-center justify-center border-4 border-black dark:border-white bg-gray-100 dark:bg-zinc-900 opacity-50 cursor-not-allowed">
+                        <ExternalLink className="h-5 w-5" />
+                      </div>
+                    )}
+                  </div>
+                </div>
+                
+                {/* Project Title */}
+                <h2 class="font-display font-bold text-4xl mb-6 group-hover:text-neon-green transition-colors">
+                  {project.title}
+                </h2>
+                
+                {/* Description */}
+                <p class="font-body text-lg mb-8 leading-relaxed text-gray-700 dark:text-gray-300">
+                  {project.description}
+                </p>
               </div>
 
-              <div class="flex flex-wrap gap-2 mb-4">
-                {project.tags.map((tag) => (
-                  <Badge
-                    variant="secondary"
-                    className="font-mono text-xs border-2 border-black dark:border-white"
-                  >
-                    {tag}
-                  </Badge>
-                ))}
-              </div>
-
-              <p class="font-mono text-sm mb-4">{project.description}</p>
-
-              <div class="flex flex-wrap gap-3">
-                {project.githubUrl && (
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="inline-flex items-center font-mono text-sm font-bold hover:underline"
-                  >
-                    GITHUB →
-                  </a>
-                )}
-                {project.liveUrl && (
-                  <a
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="inline-flex items-center font-mono text-sm font-bold hover:underline"
-                  >
-                    LIVE SITE →
-                  </a>
-                )}
+              {/* Technologies Section */}
+              <div>
+                <div class="font-mono font-bold text-xs mb-3 uppercase text-gray-400">
+                  Technologies
+                </div>
+                <div class="flex flex-wrap gap-2">
+                  {project.tags.map((tag) => (
+                    <span 
+                      class="border-2 border-black dark:border-white px-3 py-1 font-mono text-sm font-bold hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors cursor-default"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
+          </article>
         );
       })}
     </div>
