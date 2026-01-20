@@ -1,15 +1,18 @@
 ---
 import MainLayout from "@/layouts/main.astro";
 import { Badge } from "@/components/ui/badge";
-import { Mail, Linkedin, Github, MapPin, Printer } from "lucide-react";
+import { Mail, Linkedin, Github, MapPin } from "lucide-react";
 import { getResumeData } from "@/lib/cms/content-service";
+import { getYearsOfExperience } from "@/lib/utils";
+import { DownloadPDFButton } from "@/components/DownloadPDFButton";
 
 // Fetch content from CMS with fallback to static
 const resumeData = await getResumeData();
+const yearsOfExperience = getYearsOfExperience(2016);
 
 const content = {
   title: "Shashank Shandilya - Resume | Senior Technical Lead & Solutions Architect",
-  description: "Senior Technical Lead with 8+ years experience in AI automation, cloud architecture, and full-stack development. Expertise in Python, TypeScript, AWS, Kubernetes, and leading high-performing engineering teams.",
+  description: `Senior Technical Lead with ${yearsOfExperience} experience in AI automation, cloud architecture, and full-stack development. Expertise in Python, TypeScript, AWS, Kubernetes, and leading high-performing engineering teams.`,
 };
 
 // Structured Data for SEO
@@ -48,15 +51,9 @@ const personSchema = {
   <!-- Structured Data / JSON-LD for SEO -->
   <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
 
-  <!-- Print Button - Hidden on mobile and in print -->
-  <div class="hidden md:block fixed top-24 right-6 z-50 print:hidden">
-    <button
-      onclick="window.print()"
-      class="flex items-center gap-2 bg-neon-green text-black px-4 py-3 font-mono text-sm font-bold border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
-    >
-      <Printer className="w-5 h-5" />
-      PRINT
-    </button>
+  <!-- Sticky Print/Download Button - Fixed at 75% from top on right side, hidden in print -->
+  <div class="fixed bottom-[25%] right-6 z-50 print:hidden">
+    <DownloadPDFButton client:load />
   </div>
 
   <!-- Resume Container - Single Page Layout -->
@@ -379,13 +376,86 @@ const personSchema = {
 <style>
   @media print {
     @page {
-      margin: 0.5in;
+      margin: 0.25in;
       size: letter;
     }
     
+    /* Force color printing */
+    * {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      color-adjust: exact !important;
+    }
+    
     body {
+      background: white !important;
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
+    }
+    
+    /* Hide elements that shouldn't print - already handled in global.css */
+    
+    /* Main container adjustments */
+    .min-h-screen {
+      min-height: auto !important;
+      padding: 0 !important;
+    }
+    
+    /* Ensure the resume container fits on page */
+    .max-w-5xl {
+      max-width: 100% !important;
+      margin: 0 !important;
+    }
+    
+    /* Preserve borders but make them print-friendly */
+    .border-8 {
+      border-width: 3px !important;
+    }
+    
+    .border-4 {
+      border-width: 2px !important;
+    }
+    
+    /* Preserve background colors for print */
+    .bg-neon-green {
+      background-color: #00ff41 !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    
+    .bg-electric-blue {
+      background-color: #00d9ff !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    
+    .bg-alert-red {
+      background-color: #ff3333 !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    
+    .bg-concrete {
+      background-color: #f0f0f0 !important;
+    }
+    
+    /* Text colors for print */
+    .text-neon-green {
+      color: #00ff41 !important;
+    }
+    
+    .text-electric-blue {
+      color: #00d9ff !important;
+    }
+    
+    .text-alert-red {
+      color: #ff3333 !important;
+    }
+    
+    /* Remove shadows for cleaner print */
+    * {
+      box-shadow: none !important;
+      text-shadow: none !important;
     }
     
     /* Ensure proper page breaks */
@@ -393,21 +463,66 @@ const personSchema = {
       page-break-inside: avoid;
     }
     
-    /* Scale down text slightly for better fit */
-    h1 { font-size: 2rem !important; }
-    h2 { font-size: 1.5rem !important; }
-    h3 { font-size: 1.25rem !important; }
-    
-    /* Remove shadows and thick borders for print */
-    * {
-      box-shadow: none !important;
+    /* Prevent breaking inside sections */
+    .space-y-6 > *,
+    .space-y-4 > *,
+    .space-y-2 > * {
+      page-break-inside: avoid;
     }
     
-    /* Ensure backgrounds print */
-    .bg-neon-green,
-    .bg-electric-blue,
-    .bg-alert-red {
+    /* Allow page breaks between major sections */
+    .mb-8 {
+      page-break-after: auto;
+    }
+    
+    /* Ensure images print */
+    img {
+      max-width: 100% !important;
+      height: auto !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    
+    /* Links should show URLs in print */
+    a[href^="http"]:after {
+      content: " (" attr(href) ")";
+      font-size: 0.75em;
+      color: #666;
+    }
+    
+    a[href^="mailto"]:after {
+      content: " (" attr(href) ")";
+      font-size: 0.75em;
+      color: #666;
+    }
+    
+    /* Ensure badges and buttons print correctly */
+    .inline-flex,
+    .flex {
+      display: flex !important;
+    }
+    
+    /* Dark mode adjustments for print - force light mode */
+    .dark * {
+      color: black !important;
       background-color: white !important;
+      border-color: black !important;
+    }
+    
+    /* Ensure all text is black for readability */
+    .text-white,
+    .dark\\:text-white {
+      color: black !important;
+    }
+    
+    .bg-black,
+    .dark\\:bg-black {
+      background-color: white !important;
+    }
+    
+    .border-white,
+    .dark\\:border-white {
+      border-color: black !important;
     }
   }
 </style>

@@ -1,9 +1,13 @@
+import { getYearsOfExperience } from '../lib/utils';
+
+const yearsOfExperience = getYearsOfExperience(2016);
+
 export const resumeData = {
   personal: {
     name: "Shashank Shandilya",
     title: "Senior Technical Lead & Solutions Architect",
     image: "/images/shashankshandilya.png",
-    bio: "8+ years building AI-powered automation, cloud-native platforms, and scalable systems that drive business impact. Leading technical vision and execution of enterprise-grade solutions.",
+    bio: `${yearsOfExperience} building AI-powered automation, cloud-native platforms, and scalable systems that drive business impact. Leading technical vision and execution of enterprise-grade solutions.`,
     contact: [
       {
         icon: "Mail",

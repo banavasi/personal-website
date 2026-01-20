@@ -1,3 +1,7 @@
+import { getYearsOfExperience } from '../src/lib/utils';
+
+const yearsOfExperience = getYearsOfExperience(2016);
+
 export const aboutContent = {
   header: {
     title: "ABOUT_ME",
@@ -6,7 +10,7 @@ export const aboutContent = {
   bio: {
     title: "BIO",
     paragraphs: [
-      "I am a Senior Technical Lead with 8+ years of expertise in building scalable, high-performance systems. From AI-driven automation to cloud-native platforms, I specialize in architecting solutions that drive real business impact.",
+      `I am a Senior Technical Lead with ${yearsOfExperience} of expertise in building scalable, high-performance systems. From AI-driven automation to cloud-native platforms, I specialize in architecting solutions that drive real business impact.`,
       "Currently at OneOrigin, I lead distributed teams to build intelligent automation frameworks that reduce manual operations and accelerate development cycles. I have designed multi-tenant cloud platforms serving over 50K+ users with high availability.",
       'My technical philosophy centers on "structural honesty"—building systems that are as robust and scalable as they are elegant.',
     ],

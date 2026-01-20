@@ -1,6 +1,6 @@
 ---
 import MainLayout from "@/layouts/main.astro";
-import { Github, ExternalLink } from "lucide-react";
+import { ProjectIcons } from "@/components/ProjectIcons";
 import { getProjectsPageContent } from "@/lib/cms/content-service";
 
 // Fetch content from CMS with fallback to static
@@ -85,41 +85,11 @@ const content = {
                   <div class="font-mono text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                     {project.period} • {project.role}
                   </div>
-                  <div class="flex gap-2">
-                    {/* GitHub Button */}
-                    {project.githubUrl && project.githubUrl !== "#" ? (
-                      <a 
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="h-10 w-10 flex items-center justify-center border-4 border-black dark:border-white bg-white dark:bg-black hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[2px] hover:translate-y-[2px]"
-                        aria-label="View on GitHub"
-                      >
-                        <Github className="h-5 w-5" />
-                      </a>
-                    ) : (
-                      <div class="h-10 w-10 flex items-center justify-center border-4 border-black dark:border-white bg-gray-100 dark:bg-zinc-900 opacity-50 cursor-not-allowed">
-                        <Github className="h-5 w-5" />
-                      </div>
-                    )}
-                    
-                    {/* Live Site Button */}
-                    {project.liveUrl && project.liveUrl !== "#" ? (
-                      <a 
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="h-10 w-10 flex items-center justify-center border-4 border-black dark:border-white bg-white dark:bg-black hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[2px] hover:translate-y-[2px]"
-                        aria-label="View live site"
-                      >
-                        <ExternalLink className="h-5 w-5" />
-                      </a>
-                    ) : (
-                      <div class="h-10 w-10 flex items-center justify-center border-4 border-black dark:border-white bg-gray-100 dark:bg-zinc-900 opacity-50 cursor-not-allowed">
-                        <ExternalLink className="h-5 w-5" />
-                      </div>
-                    )}
-                  </div>
+                  <ProjectIcons 
+                    githubUrl={project.githubUrl} 
+                    liveUrl={project.liveUrl} 
+                    client:load 
+                  />
                 </div>
                 
                 {/* Project Title */}

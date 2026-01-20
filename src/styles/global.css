@@ -232,3 +232,26 @@
         }
     }
 }
+
+/* Print Styles */
+@media print {
+    /* Hide navigation and header elements */
+    header,
+    [class*="Header"],
+    nav:not([class*="resume"]),
+    footer,
+    button[onclick*="print"],
+    .print\\:hidden {
+        display: none !important;
+    }
+    
+    /* Remove padding from main content when printing */
+    main {
+        padding-top: 0 !important;
+    }
+    
+    /* Ensure body has white background for print */
+    body {
+        background: white !important;
+    }
+}

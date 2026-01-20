@@ -1,8 +1,12 @@
+/// <reference types="react" />
+/// <reference types="react-dom" />
 import { useState, useEffect } from "react";
+import type React from "react";
 import { cn } from "@/lib/utils";
-import { Menu, X, Github } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { NeoButton } from "./NeoButton";
 import { ThemeToggle } from "./ThemeToggle";
+import { GithubIcon } from "./GithubIcon";
 import { layoutContent } from "@/content/layout";
 
 export function Header() {
@@ -58,10 +62,16 @@ export function Header() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={footer.socialLinks[0].label}
+              className="inline-block"
             >
-              <NeoButton variant="outline" size="icon" className="border-2 h-10 w-10">
-                <Github className="h-5 w-5 text-black dark:text-white" />
-              </NeoButton>
+              <div className="h-10 w-10 border-2 border-black dark:border-white bg-white dark:bg-black 
+                 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]
+                 hover:translate-x-[2px] hover:translate-y-[2px] 
+                 hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]
+                 active:translate-x-[4px] active:translate-y-[4px] active:shadow-none
+                 transition-all duration-200 flex items-center justify-center p-1.5 cursor-pointer">
+                <GithubIcon className="w-full h-full text-black dark:text-white" />
+              </div>
             </a>
           </nav>
 
@@ -69,7 +79,7 @@ export function Header() {
           <div className="flex items-center gap-2 md:hidden">
             <ThemeToggle />
             <button
-              className="p-2 border-2 border-black dark:border-white active:bg-neon-green transition-colors"
+              className="p-2 border-2 border-black dark:border-white active:bg-neon-green transition-colors ml-2"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label="Toggle menu"
               aria-expanded={isMenuOpen}
@@ -88,7 +98,7 @@ export function Header() {
       {isMenuOpen && (
         <div
           className="fixed inset-0 z-40 bg-background pt-24 px-4 md:hidden overflow-y-auto"
-          onClick={(e) => {
+          onClick={(e: React.MouseEvent<HTMLDivElement>) => {
             // Close menu when clicking on background
             if (e.target === e.currentTarget) {
               setIsMenuOpen(false);

@@ -28,12 +28,7 @@ export function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="relative h-10 w-10 border-2 border-black dark:border-white bg-white dark:bg-black 
-                 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]
-                 hover:translate-x-[2px] hover:translate-y-[2px] 
-                 hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]
-                 active:translate-x-[4px] active:translate-y-[4px] active:shadow-none
-                 transition-all duration-200 flex items-center justify-center"
+      className="relative h-5 w-5 cursor-pointer text-black dark:text-white"
       aria-label="Toggle theme"
       title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
     >

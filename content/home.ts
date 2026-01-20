@@ -1,3 +1,7 @@
+import { getYearsOfExperience } from '../src/lib/utils';
+
+const yearsOfExperience = getYearsOfExperience(2016);
+
 export const homeContent = {
   hero: {
     badge: "SENIOR TECHNICAL LEAD @ ONEORIGIN",
@@ -6,7 +10,7 @@ export const homeContent = {
       line2: "EXCELLENCE",
       line3: "ACROSS THE STACK.",
     },
-    description: "8+ years building AI-powered automation, cloud-native platforms, and scalable systems that drive business impact.",
+    description: `${yearsOfExperience} building AI-powered automation, cloud-native platforms, and scalable systems that drive business impact.`,
     cta: {
       primary: {
         text: "VIEW WORK",
