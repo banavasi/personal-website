@@ -1,0 +1,114 @@
+---
+import MainLayout from "@/layouts/main.astro";
+import { Badge } from "@/components/ui/badge";
+import { projectsContent } from "@/content/projects";
+
+const content = {
+  title: "Shashank Shandilya - Projects",
+  description: projectsContent.header.description,
+};
+---
+
+<MainLayout content={content}>
+  <!-- Projects Header -->
+  <section class="container mx-auto px-4 py-20">
+    <div class="max-w-4xl">
+      <h1 class="font-display font-bold text-6xl md:text-8xl mb-6 tracking-tight">
+        {projectsContent.header.title}
+      </h1>
+      <p class="font-mono text-xl md:text-2xl border-l-4 border-neon-green pl-6">
+        {projectsContent.header.description}
+      </p>
+    </div>
+  </section>
+
+  <!-- Projects Grid -->
+  <section class="container mx-auto px-4 pb-20">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      {projectsContent.projects.map((project) => {
+        const accentBorderColors = {
+          green: "border-neon-green",
+          blue: "border-electric-blue",
+          red: "border-alert-red",
+          none: "border-black dark:border-white",
+        };
+        
+        const borderColor = accentBorderColors[project.accent];
+        
+        return (
+          <div
+            class={`group relative border-4 ${borderColor} bg-white dark:bg-black overflow-hidden transition-all hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]`}
+          >
+            {/* Project Image */}
+            <div class="aspect-video bg-concrete dark:bg-zinc-900 flex items-center justify-center overflow-hidden relative">
+              {project.image ? (
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  class="w-full h-full object-cover transition-transform group-hover:scale-105"
+                />
+              ) : (
+                <span class="font-mono text-muted-foreground">IMAGE_PLACEHOLDER</span>
+              )}
+              {project.featured && (
+                <div class="absolute top-4 right-4 bg-neon-green text-black font-mono font-bold text-xs px-3 py-1 border-2 border-black">
+                  FEATURED
+                </div>
+              )}
+            </div>
+
+            {/* Project Content */}
+            <div class={`p-6 border-t-4 ${borderColor}`}>
+              <div class="flex items-start justify-between mb-3">
+                <div>
+                  <h3 class="font-display font-bold text-2xl mb-1">
+                    {project.title}
+                  </h3>
+                  <div class="font-mono text-sm text-muted-foreground">
+                    {project.role} • {project.period}
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex flex-wrap gap-2 mb-4">
+                {project.tags.map((tag) => (
+                  <Badge
+                    variant="secondary"
+                    className="font-mono text-xs border-2 border-black dark:border-white"
+                  >
+                    {tag}
+                  </Badge>
+                ))}
+              </div>
+
+              <p class="font-mono text-sm mb-4">{project.description}</p>
+
+              <div class="flex flex-wrap gap-3">
+                {project.githubUrl && (
+                  <a
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center font-mono text-sm font-bold hover:underline"
+                  >
+                    GITHUB →
+                  </a>
+                )}
+                {project.liveUrl && (
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center font-mono text-sm font-bold hover:underline"
+                  >
+                    LIVE SITE →
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </section>
+</MainLayout>

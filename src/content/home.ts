@@ -9,8 +9,8 @@ export const homeContent = {
     description: "8+ years building AI-powered automation, cloud-native platforms, and scalable systems that drive business impact.",
     cta: {
       primary: {
-        text: "VIEW WORK",
-        link: "/projects",
+        text: "DOWNLOAD RESUME",
+        link: "/resume.pdf",
       },
       secondary: {
         text: "CONTACT ME",
@@ -50,24 +50,96 @@ export const homeContent = {
       },
     ],
   },
-  selectedWork: {
-    title: "SELECTED_WORK",
-    projects: [
-      {
-        title: "Eitracking System",
-        tags: ["SYSTEM DESIGN", "TRACKING"],
-        description: "A comprehensive system for understanding, maintaining, and implementing tracking ideas. Built to handle complex data streams and provide real-time visualization.",
-        image: "/images/project-eitracking.png",
-        link: "/projects",
-      },
-      {
-        title: "ETF Calculator",
-        tags: ["FINTECH", "ALGORITHMS"],
-        description: "Predictive analytics tool fetching historical stock prices to forecast ETF performance over a 5-year horizon, providing personalized investment recommendations.",
-        image: "/images/project-etf.png",
-        link: "/projects",
-      },
-    ],
-    viewAllText: "VIEW ALL PROJECTS",
+  systemArchitecture: {
+    title: "SYSTEM_ARCHITECTURE",
+    runtime: {
+      title: "RUNTIME_ENVIRONMENT",
+      experience: [
+        {
+          status: "CURRENT",
+          company: "OneOrigin",
+          role: "Senior Technical Lead",
+          period: "2023 - Present",
+          description:
+            "Leading the technical vision and execution of enterprise-grade cloud platforms. Driving AI automation initiatives and mentoring the next generation of technical leaders.",
+          isCurrent: true,
+        },
+        {
+          status: "PREVIOUS",
+          company: "OneOrigin",
+          role: "Senior Software Engineer",
+          period: "2022 - 2023",
+          description:
+            "Spearheaded the migration from monolithic architecture to microservices, integrated AI capabilities, and optimized infrastructure for performance and cost.",
+          isCurrent: false,
+        },
+        {
+          status: "PREVIOUS",
+          company: "OneOrigin",
+          role: "Technical Team Lead",
+          period: "2020 - 2022",
+          description:
+            "Led distributed teams across time zones in building and maintaining high-availability systems with 50K+ active users and 99.9% uptime SLA.",
+          isCurrent: false,
+        },
+      ],
+    },
+    packages: {
+      title: "INSTALLED_PACKAGES",
+      categories: [
+        {
+          name: "LANGUAGES & RUNTIMES",
+          accentColor: "green" as const,
+          skills: [
+            "Python",
+            "TypeScript",
+            "JavaScript",
+            "Node.js",
+            "Go",
+            "SQL",
+            "Bash",
+          ],
+        },
+        {
+          name: "INFRASTRUCTURE",
+          accentColor: "blue" as const,
+          skills: [
+            "AWS",
+            "Kubernetes",
+            "Docker",
+            "Terraform",
+            "Jenkins",
+            "GitLab CI",
+            "Nginx",
+          ],
+        },
+        {
+          name: "DATA & AI",
+          accentColor: "red" as const,
+          skills: [
+            "PostgreSQL",
+            "MongoDB",
+            "Redis",
+            "ElasticSearch",
+            "PyTorch",
+            "OpenAI API",
+            "LangChain",
+          ],
+        },
+        {
+          name: "FRAMEWORKS & TOOLS",
+          accentColor: "none" as const,
+          skills: [
+            "React",
+            "Next.js",
+            "Vue.js",
+            "FastAPI",
+            "Django",
+            "Express",
+            "Astro",
+          ],
+        },
+      ],
+    },
   },
 };

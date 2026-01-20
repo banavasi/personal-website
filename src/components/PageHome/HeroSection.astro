@@ -1,0 +1,154 @@
+---
+import { NeoButton } from "@/components/NeoButton";
+import { homeContent } from "@/content/home";
+
+const { hero } = homeContent;
+---
+
+<section
+    class="relative min-h-[90vh] flex items-center border-b-4 border-black dark:border-white overflow-hidden pb-4"
+>
+    <!-- Abstract Background Elements -->
+    <div class="absolute inset-0 z-0 opacity-10 pointer-events-none">
+        <div
+            class="absolute top-0 left-0 w-full h-full bg-[url('/images/hero-bg.png')] bg-cover bg-center"
+        >
+        </div>
+        <div
+            class="absolute top-20 right-20 w-64 h-64 border-4 border-black rounded-full"
+        >
+        </div>
+        <div class="absolute bottom-40 left-10 w-40 h-40 bg-black rotate-12">
+        </div>
+    </div>
+
+    <div class="container mx-auto px-4 z-10 relative">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <!-- Left Column: Text Content -->
+            <div>
+                <div
+                    class="inline-block bg-neon-green border-2 border-black px-4 py-1 font-mono font-bold mb-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+                >
+                    {hero.badge}
+                </div>
+                <h1
+                    class="font-display font-bold text-6xl md:text-8xl leading-[0.9] mb-8 tracking-tighter"
+                >
+                    {hero.title.line1}
+                    <br />
+                    <span
+                        class="text-stroke-2 text-transparent bg-clip-text bg-black dark:bg-white"
+                    >
+                        {hero.title.line2}
+                    </span>
+                    <br />
+                    {hero.title.line3}
+                </h1>
+                <p
+                    class="font-mono text-xl md:text-2xl mb-10 max-w-2xl bg-white/80 dark:bg-black/80 backdrop-blur-sm p-4 border-l-4 border-neon-green"
+                >
+                    {hero.description}
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a
+                        href={hero.cta.primary.link}
+                        download
+                        class="inline-block"
+                    >
+                        <NeoButton
+                            client:load
+                            size="lg"
+                            className="text-xl w-full"
+                        >
+                            {hero.cta.primary.text}
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="ml-2 inline-block"
+                                ><path
+                                    d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
+                                ></path><polyline points="7 10 12 15 17 10"
+                                ></polyline><line x1="12" x2="12" y1="15" y2="3"
+                                ></line></svg
+                            >
+                        </NeoButton>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Column: Profile Image - Desktop only with 3D hover effect -->
+            <div class="hidden lg:block">
+                <div
+                    class="profile-container relative w-80 h-80 mx-auto perspective-1000"
+                >
+                    <!-- Circular Peephole Frame -->
+                    <div
+                        class="profile-peephole absolute inset-0 border-8 border-black dark:border-white rounded-full shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] dark:shadow-[12px_12px_0px_0px_rgba(255,255,255,1)] bg-concrete dark:bg-zinc-900 overflow-hidden transition-transform duration-500 ease-out"
+                    >
+                        <!-- Image positioned to show face -->
+                        <img
+                            src="/images/shashankshandilya.png"
+                            alt="Shashank Shandilya"
+                            class="absolute w-full h-auto top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 scale-110"
+                        />
+                    </div>
+
+                    <!-- Decorative Corner Elements with reverse movement -->
+                    <div
+                        class="profile-accent accent-tl absolute -top-4 -left-4 w-16 h-16 border-4 border-neon-green transition-transform duration-500 ease-out"
+                    >
+                    </div>
+                    <div
+                        class="profile-accent accent-br absolute -bottom-4 -right-4 w-20 h-20 border-4 border-electric-blue transition-transform duration-500 ease-out"
+                    >
+                    </div>
+
+                    <!-- Small accent circles -->
+                    <div
+                        class="profile-accent accent-tr absolute top-8 -right-8 w-12 h-12 bg-alert-red opacity-60 transition-transform duration-500 ease-out"
+                    >
+                    </div>
+                    <div
+                        class="profile-accent accent-bl absolute -bottom-8 left-8 w-8 h-8 bg-neon-green transition-transform duration-500 ease-out"
+                    >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .perspective-1000 {
+        perspective: 1000px;
+    }
+
+    /* 3D Hover Effect - Tilt the peephole */
+    .profile-container:hover .profile-peephole {
+        transform: rotateY(10deg) rotateX(-5deg) scale(1.05);
+    }
+
+    /* Accent elements move in opposite direction on hover */
+    .profile-container:hover .accent-tl {
+        transform: translate(-8px, -8px);
+    }
+
+    .profile-container:hover .accent-br {
+        transform: translate(8px, 8px);
+    }
+
+    .profile-container:hover .accent-tr {
+        transform: translate(8px, -8px);
+    }
+
+    .profile-container:hover .accent-bl {
+        transform: translate(-8px, 8px);
+    }
+</style>

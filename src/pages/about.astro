@@ -1,0 +1,159 @@
+---
+import MainLayout from "@/layouts/main.astro";
+import { NeoButton } from "@/components/NeoButton";
+import { Badge } from "@/components/ui/badge";
+import { GraduationCap, Award, MapPin, Briefcase } from "lucide-react";
+import { aboutContent } from "@/content/about";
+
+const content = {
+  title: "Shashank Shandilya - About",
+  description: aboutContent.header.subtitle,
+};
+---
+
+<MainLayout content={content}>
+  <!-- About Header -->
+  <section class="container mx-auto px-4 py-20">
+    <div class="max-w-6xl mx-auto">
+      <h1 class="font-display font-bold text-6xl md:text-8xl mb-6 tracking-tight">
+        {aboutContent.header.title}
+      </h1>
+      <p class="font-mono text-xl md:text-2xl border-l-4 border-neon-green pl-6">
+        {aboutContent.header.subtitle}
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Content Grid -->
+  <section class="container mx-auto px-4 pb-20">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12">
+      <!-- Left Column: Profile & Bio -->
+      <div class="lg:col-span-2 space-y-12">
+        <!-- Bio Section -->
+        <div>
+          <h2 class="font-display font-bold text-4xl mb-6">{aboutContent.bio.title}</h2>
+          <div class="space-y-4">
+            {aboutContent.bio.paragraphs.map((paragraph) => (
+              <p class="font-mono text-base leading-relaxed">{paragraph}</p>
+            ))}
+          </div>
+        </div>
+
+        <!-- Experience Section -->
+        <div>
+          <h2 class="font-display font-bold text-4xl mb-6">
+            {aboutContent.experience.title}
+          </h2>
+          <div class="space-y-6">
+            {aboutContent.experience.items.map((item) => (
+              <div class={`border-4 border-black dark:border-white p-6 ${item.isCurrent ? 'bg-neon-green' : 'bg-white dark:bg-black'}`}>
+                <div class="flex items-start justify-between mb-3">
+                  <div>
+                    <h3 class="font-display font-bold text-xl">{item.title}</h3>
+                    <div class="font-mono text-sm mt-1">
+                      {item.company}
+                      {item.location && ` • ${item.location}`}
+                    </div>
+                  </div>
+                  <Badge
+                    variant={item.isCurrent ? "default" : "secondary"}
+                    className="font-mono text-xs border-2 border-black"
+                  >
+                    {item.period}
+                  </Badge>
+                </div>
+                <p class="font-mono text-sm">{item.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Education & Certifications -->
+        <div>
+          <h2 class="font-display font-bold text-4xl mb-6">
+            {aboutContent.education.title}
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {aboutContent.education.items.map((item) => {
+              const icons = { GraduationCap, Award };
+              const Icon = icons[item.icon as keyof typeof icons];
+              const accentBorderColors = {
+                blue: "border-electric-blue",
+                red: "border-alert-red",
+                green: "border-neon-green",
+                none: "border-black dark:border-white",
+              };
+              
+              return (
+                <div class={`border-4 ${accentBorderColors[item.accentColor]} bg-white dark:bg-black p-6`}>
+                  <Icon className="w-10 h-10 mb-4" />
+                  <h3 class="font-display font-bold text-lg mb-2">{item.title}</h3>
+                  <div class="font-mono text-xs text-muted-foreground mb-2">
+                    {item.period}
+                  </div>
+                  <p class="font-mono text-sm">{item.description}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Profile Card & Tech Stack -->
+      <div class="space-y-8">
+        <!-- Profile Card -->
+        <div class="border-4 border-black dark:border-white bg-white dark:bg-black p-6 sticky top-24">
+          <div class="aspect-square bg-concrete dark:bg-zinc-900 mb-6 flex items-center justify-center overflow-hidden">
+            {aboutContent.profile.image ? (
+              <img
+                src={aboutContent.profile.image}
+                alt="Profile"
+                class="w-full h-full object-cover"
+              />
+            ) : (
+              <span class="font-mono text-muted-foreground">PROFILE_IMAGE</span>
+            )}
+          </div>
+          
+          <h3 class="font-display font-bold text-2xl mb-2">Shashank Shandilya</h3>
+          <div class="font-mono text-sm text-muted-foreground mb-4">
+            {aboutContent.profile.role}
+          </div>
+          
+          <div class="flex items-center gap-2 font-mono text-sm mb-6 border-l-4 border-electric-blue pl-4">
+            <MapPin className="w-4 h-4" />
+            <span>{aboutContent.profile.location}</span>
+          </div>
+          
+          <NeoButton client:load href={aboutContent.profile.contactLink} className="w-full">
+            GET IN TOUCH
+          </NeoButton>
+        </div>
+
+        <!-- Tech Stack -->
+        <div class="border-4 border-neon-green bg-white dark:bg-black p-6">
+          <h3 class="font-display font-bold text-2xl mb-6">
+            {aboutContent.techStack.title}
+          </h3>
+          <div class="space-y-6">
+            {aboutContent.techStack.categories.map((category) => (
+              <div>
+                <h4 class="font-mono font-bold text-sm mb-3">{category.name}</h4>
+                <div class="flex flex-wrap gap-2">
+                  {category.skills.map((skill) => (
+                    <Badge
+                      variant="secondary"
+                      className="font-mono text-xs border-2 border-black dark:border-white"
+                    >
+                      {skill}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</MainLayout>

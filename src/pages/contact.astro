@@ -1,0 +1,146 @@
+---
+import MainLayout from "@/layouts/main.astro";
+import { NeoButton } from "@/components/NeoButton";
+import { NeoCard } from "@/components/NeoCard";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Mail, Linkedin, Github, MapPin } from "lucide-react";
+import { contactContent } from "@/content/contact";
+
+const content = {
+  title: "Shashank Shandilya - Contact",
+  description: contactContent.header.description,
+};
+---
+
+<MainLayout content={content}>
+  <!-- Contact Header -->
+  <section class="container mx-auto px-4 py-20">
+    <div class="max-w-6xl mx-auto">
+      <h1 class="font-display font-bold text-6xl md:text-8xl leading-[0.9] mb-6 tracking-tight">
+        {contactContent.header.title.line1}<br />
+        <span class="text-stroke-2 text-transparent bg-clip-text bg-black dark:bg-white">
+          {contactContent.header.title.line2}
+        </span>
+      </h1>
+      <p class="font-mono text-xl md:text-2xl max-w-2xl border-l-4 border-neon-green pl-6">
+        {contactContent.header.description}
+      </p>
+    </div>
+  </section>
+
+  <!-- Contact Content -->
+  <section class="container mx-auto px-4 pb-20">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <!-- Contact Info -->
+      <div>
+        <h2 class="font-display font-bold text-3xl mb-8">CONTACT_INFO</h2>
+        
+        <div class="space-y-4 mb-8">
+          {contactContent.contactInfo.map((info) => {
+            const icons = { Mail, Linkedin, Github };
+            const Icon = icons[info.icon as keyof typeof icons];
+            const accentColors = {
+              blue: "border-electric-blue",
+              green: "border-neon-green",
+              none: "border-black dark:border-white",
+            };
+            
+            return (
+              <a
+                href={info.href}
+                target={info.href.startsWith('http') ? '_blank' : undefined}
+                rel={info.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                class={`block border-4 ${accentColors[info.accentColor]} bg-white dark:bg-black p-6 transition-all hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]`}
+              >
+                <div class="flex items-start gap-4">
+                  <Icon className="w-8 h-8 flex-shrink-0" />
+                  <div>
+                    <div class="font-mono text-xs text-muted-foreground mb-1">
+                      {info.label}
+                    </div>
+                    <div class="font-mono font-bold">{info.value}</div>
+                  </div>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+
+        <div class="flex items-center gap-3 font-mono text-sm border-l-4 border-electric-blue pl-6">
+          <MapPin className="w-5 h-5" />
+          <span>{contactContent.location.text}</span>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div>
+        <h2 class="font-display font-bold text-3xl mb-8">
+          {contactContent.form.title}
+        </h2>
+        
+        <form class="space-y-6" method="POST" action="/api/contact">
+          <div>
+            <label for="name" class="block font-mono text-sm font-bold mb-2">
+              {contactContent.form.fields.name.label}
+            </label>
+            <Input
+              id="name"
+              name="name"
+              type="text"
+              placeholder={contactContent.form.fields.name.placeholder}
+              required
+              className="w-full border-4 border-black dark:border-white font-mono"
+            />
+          </div>
+
+          <div>
+            <label for="email" class="block font-mono text-sm font-bold mb-2">
+              {contactContent.form.fields.email.label}
+            </label>
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              placeholder={contactContent.form.fields.email.placeholder}
+              required
+              className="w-full border-4 border-black dark:border-white font-mono"
+            />
+          </div>
+
+          <div>
+            <label for="subject" class="block font-mono text-sm font-bold mb-2">
+              {contactContent.form.fields.subject.label}
+            </label>
+            <Input
+              id="subject"
+              name="subject"
+              type="text"
+              placeholder={contactContent.form.fields.subject.placeholder}
+              required
+              className="w-full border-4 border-black dark:border-white font-mono"
+            />
+          </div>
+
+          <div>
+            <label for="message" class="block font-mono text-sm font-bold mb-2">
+              {contactContent.form.fields.message.label}
+            </label>
+            <Textarea
+              id="message"
+              name="message"
+              placeholder={contactContent.form.fields.message.placeholder}
+              required
+              rows={6}
+              className="w-full border-4 border-black dark:border-white font-mono resize-none"
+            />
+          </div>
+
+          <NeoButton client:load type="submit" size="lg" className="w-full">
+            {contactContent.form.submitButton.text}
+          </NeoButton>
+        </form>
+      </div>
+    </div>
+  </section>
+</MainLayout>

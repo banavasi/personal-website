@@ -1,6 +1,9 @@
 ---
 import MainLayout from "@/layouts/main.astro";
-import { Button } from "@/components/ui/button";
+import HeroSection from "@/components/PageHome/HeroSection.astro";
+import MarqueeSection from "@/components/PageHome/MarqueeSection.astro";
+import CoreSystemsSection from "@/components/PageHome/CoreSystemsSection.astro";
+import SystemArchitectureSection from "@/components/PageHome/SystemArchitectureSection.astro";
 import { homeContent } from "@/content/home";
 
 const content = {
@@ -10,19 +13,8 @@ const content = {
 ---
 
 <MainLayout content={content}>
-  <div class="grid place-items-center h-screen content-center">
-    <Button>Shadcn Button in Astro!</Button>
-    <a href="/markdown-page" class="p-4 underline">
-      Markdown is also supported...
-    </a>
-  </div>
+  <HeroSection />
+  <MarqueeSection />
+  <CoreSystemsSection />
+  <SystemArchitectureSection />
 </MainLayout>
-
-<script>
-  import confetti from "canvas-confetti";
-  const button = document.body.querySelector("button");
-
-  if (button) {
-    button.addEventListener("click", () => confetti());
-  }
-</script>
