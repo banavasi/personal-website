@@ -2,7 +2,10 @@
 import MainLayout from "@/layouts/main.astro";
 import { Badge } from "@/components/ui/badge";
 import { Mail, Linkedin, Github, MapPin, Printer } from "lucide-react";
-import { resumeData } from "@/content/resume";
+import { getResumeData } from "@/lib/cms/content-service";
+
+// Fetch content from CMS with fallback to static
+const resumeData = await getResumeData();
 
 const content = {
   title: "Shashank Shandilya - Resume | Senior Technical Lead & Solutions Architect",

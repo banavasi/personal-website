@@ -1,8 +1,41 @@
 ---
 import { NeoCard } from "@/components/NeoCard";
 import { homeContent } from "@/content/home";
+import type { AccentColor } from "@/types/content";
 
-const { systemArchitecture } = homeContent;
+interface RuntimeExperience {
+  status: string;
+  company: string;
+  role: string;
+  period: string;
+  description: string;
+  isCurrent: boolean;
+}
+
+interface PackageCategory {
+  name: string;
+  accentColor: AccentColor;
+  skills: string[];
+}
+
+interface Props {
+  content?: {
+    title: string;
+    runtime: {
+      title: string;
+      experience: RuntimeExperience[];
+    };
+    packages: {
+      title: string;
+      categories: PackageCategory[];
+    };
+  };
+}
+
+const { content } = Astro.props;
+
+// Use props or fallback to static content
+const systemArchitecture = content || homeContent.systemArchitecture;
 ---
 
 <section class="py-20 border-t-4 border-black dark:border-white">

@@ -37,14 +37,16 @@ export function Header() {
           </a>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-6">
             {navigation.items.map((item) => (
               <a
                 key={item.path}
                 href={item.path}
                 className={cn(
-                  "font-mono font-bold text-sm md:text-xl hover:underline decoration-4 decoration-neon-green underline-offset-4 transition-all",
-                  currentPath === item.path && "text-neon-green",
+                  "font-mono font-bold text-sm md:text-xl transition-all relative px-3 py-2",
+                  "hover:underline decoration-4 decoration-neon-green underline-offset-4",
+                  currentPath === item.path && 
+                    "text-neon-green underline decoration-neon-green bg-black dark:bg-white dark:text-neon-green border-2 border-black dark:border-white shadow-[2px_2px_0px_0px_rgba(0,255,65,1)]",
                 )}
               >
                 {item.name}
@@ -57,7 +59,7 @@ export function Header() {
               rel="noopener noreferrer"
               aria-label={footer.socialLinks[0].label}
             >
-              <NeoButton variant="outline" size="icon" className="border-2">
+              <NeoButton variant="outline" size="icon" className="border-2 h-10 w-10">
                 <Github className="h-5 w-5 text-black dark:text-white" />
               </NeoButton>
             </a>

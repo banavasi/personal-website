@@ -1,8 +1,36 @@
 ---
 import { NeoButton } from "@/components/NeoButton";
+import type { HeroContent } from "@/types/content";
+
+interface Props {
+  content?: HeroContent;
+}
+
+// Import static content as fallback
 import { homeContent } from "@/content/home";
 
-const { hero } = homeContent;
+const { content } = Astro.props;
+
+// Use props or fallback to static content
+const hero = content ? {
+  badge: content.badge,
+  title: {
+    line1: content.titleLine1,
+    line2: content.titleLine2,
+    line3: content.titleLine3,
+  },
+  description: content.description,
+  cta: {
+    primary: {
+      text: content.ctaPrimaryText,
+      link: content.ctaPrimaryLink,
+    },
+    secondary: {
+      text: content.ctaSecondaryText,
+      link: content.ctaSecondaryLink,
+    },
+  },
+} : homeContent.hero;
 ---
 
 <section

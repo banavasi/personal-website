@@ -1,14 +1,21 @@
 ---
 import { homeContent } from "@/content/home";
 
-const { marquee } = homeContent;
+interface Props {
+  text?: string;
+}
+
+const { text } = Astro.props;
+
+// Use props or fallback to static content
+const marqueeText = text || homeContent.marquee.text;
 ---
 
 <div
     class="bg-neon-green border-b-4 border-black dark:border-white py-4 overflow-hidden whitespace-nowrap"
 >
     <div class="inline-block animate-marquee font-mono font-bold text-xl">
-        {marquee.text}
-        {marquee.text}
+        {marqueeText}
+        {marqueeText}
     </div>
 </div>

@@ -1,0 +1,292 @@
+{
+  "name": "Blog Creation & Publishing Pipeline",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute",
+              "minute": 5
+            }
+          ]
+        },
+        "filters": {
+          "q": "subject:(Re: Daily Blog Ideas) OR subject:(Create Blog) OR subject:(Write Blog)",
+          "readStatus": "unread"
+        },
+        "options": {
+          "format": "resolved"
+        }
+      },
+      "id": "gmail-trigger",
+      "name": "Gmail Trigger - Blog Requests",
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.2,
+      "position": [0, 300],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "GMAIL_CREDENTIAL_ID",
+          "name": "Gmail Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse the email to extract blog request details\nconst email = $input.first().json;\nconst emailBody = email.text || email.snippet || '';\nconst emailSubject = email.subject || '';\n\n// Try to extract the idea number and any additional instructions\nconst ideaNumberMatch = emailBody.match(/idea\\s*#?\\s*(\\d+)/i) || emailBody.match(/number\\s*#?\\s*(\\d+)/i) || emailBody.match(/^\\s*(\\d+)/m);\nconst ideaNumber = ideaNumberMatch ? ideaNumberMatch[1] : null;\n\n// Extract any custom topic if no idea number found\nconst topicMatch = emailBody.match(/topic[:\\s]+([^\\n]+)/i) || emailBody.match(/write about[:\\s]+([^\\n]+)/i);\nconst customTopic = topicMatch ? topicMatch[1].trim() : null;\n\n// Extract additional instructions\nconst additionalInstructions = emailBody\n  .replace(/idea\\s*#?\\s*\\d+/gi, '')\n  .replace(/topic[:\\s]+[^\\n]+/gi, '')\n  .replace(/write about[:\\s]+[^\\n]+/gi, '')\n  .trim();\n\n// Determine the blog topic\nlet blogTopic = '';\nif (customTopic) {\n  blogTopic = customTopic;\n} else if (ideaNumber) {\n  blogTopic = `Idea #${ideaNumber} from the daily blog ideas email`;\n} else {\n  // Use the entire email body as context\n  blogTopic = emailBody.substring(0, 500);\n}\n\nreturn [{\n  json: {\n    originalEmail: email,\n    emailId: email.id,\n    threadId: email.threadId,\n    senderEmail: email.from?.value?.[0]?.address || email.from,\n    ideaNumber: ideaNumber,\n    customTopic: customTopic,\n    blogTopic: blogTopic,\n    additionalInstructions: additionalInstructions,\n    requestedAt: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "parse-email",
+      "name": "Parse Blog Request",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  \"model\": \"anthropic/claude-3.5-sonnet\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are an expert technical blog writer specializing in AI/ML, frontend development, design systems, and technical leadership. Write engaging, well-structured, and SEO-optimized blog posts.\\n\\nYour writing style:\\n- Clear and concise explanations\\n- Use practical examples and code snippets where appropriate\\n- Include actionable takeaways\\n- Maintain a professional yet approachable tone\\n- Structure with clear headings and subheadings\\n- Optimize for readability with short paragraphs\\n\\nAlways include:\\n1. An engaging introduction that hooks the reader\\n2. Well-organized main content with clear sections\\n3. Practical examples or case studies\\n4. A conclusion with key takeaways\\n5. A call-to-action at the end\\n\\nFormat the output as JSON with the following structure:\\n{\\n  \\\"title\\\": \\\"Blog title\\\",\\n  \\\"slug\\\": \\\"url-friendly-slug\\\",\\n  \\\"excerpt\\\": \\\"2-3 sentence summary for preview\\\",\\n  \\\"content\\\": \\\"Full blog content in Markdown format\\\",\\n  \\\"tags\\\": [\\\"tag1\\\", \\\"tag2\\\"],\\n  \\\"seoTitle\\\": \\\"SEO optimized title (50-60 chars)\\\",\\n  \\\"seoDescription\\\": \\\"Meta description (150-160 chars)\\\",\\n  \\\"estimatedReadTime\\\": \\\"X min read\\\",\\n  \\\"linkedinPost\\\": \\\"A compelling LinkedIn post (1-2 paragraphs) promoting this blog with relevant hashtags\\\"\\n}\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Write a comprehensive blog post about the following topic:\\n\\nTopic: \" + $json.blogTopic + \"\\n\\nAdditional Instructions: \" + ($json.additionalInstructions || 'None') + \"\\n\\nPlease write a detailed, engaging blog post (1500-2500 words) with practical insights and examples. Return ONLY valid JSON.\"\n    }\n  ],\n  \"max_tokens\": 4000,\n  \"temperature\": 0.7\n}) }}",
+        "options": {}
+      },
+      "id": "openrouter-write",
+      "name": "OpenRouter - Write Blog",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [500, 300],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "OPENROUTER_CREDENTIAL_ID",
+          "name": "OpenRouter API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const response = $input.first().json;\nconst requestData = $('Parse Blog Request').first().json;\n\nlet blogData;\ntry {\n  // Extract the content from the AI response\n  const content = response.choices[0].message.content;\n  \n  // Try to parse as JSON - handle potential markdown code blocks\n  let jsonString = content;\n  if (content.includes('```json')) {\n    jsonString = content.replace(/```json\\n?/g, '').replace(/```\\n?/g, '');\n  } else if (content.includes('```')) {\n    jsonString = content.replace(/```\\n?/g, '');\n  }\n  \n  blogData = JSON.parse(jsonString.trim());\n} catch (e) {\n  // If parsing fails, create a structured response from raw content\n  const content = response.choices[0].message.content;\n  blogData = {\n    title: 'Blog Post',\n    slug: 'blog-post-' + Date.now(),\n    excerpt: content.substring(0, 200),\n    content: content,\n    tags: ['technology', 'blog'],\n    seoTitle: 'Blog Post',\n    seoDescription: content.substring(0, 160),\n    estimatedReadTime: '5 min read',\n    linkedinPost: 'Check out my latest blog post!'\n  };\n}\n\n// Generate a proper slug if not provided\nif (!blogData.slug || blogData.slug === 'url-friendly-slug') {\n  blogData.slug = blogData.title\n    .toLowerCase()\n    .replace(/[^a-z0-9]+/g, '-')\n    .replace(/^-|-$/g, '')\n    .substring(0, 60);\n}\n\n// Add metadata\nblogData.createdAt = new Date().toISOString();\nblogData.publishedAt = new Date().toISOString();\nblogData.status = 'published';\nblogData.author = 'Shashank Shandilya';\nblogData.requestedBy = requestData.senderEmail;\nblogData.originalTopic = requestData.blogTopic;\n\nreturn [{ json: blogData }];"
+      },
+      "id": "parse-blog",
+      "name": "Parse Blog Content",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [750, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.COCKPIT_CMS_URL }}/api/content/item/blogs",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  \"data\": {\n    \"title\": $json.title,\n    \"slug\": $json.slug,\n    \"excerpt\": $json.excerpt,\n    \"content\": $json.content,\n    \"tags\": $json.tags,\n    \"seoTitle\": $json.seoTitle,\n    \"seoDescription\": $json.seoDescription,\n    \"estimatedReadTime\": $json.estimatedReadTime,\n    \"author\": $json.author,\n    \"publishedAt\": $json.publishedAt,\n    \"status\": \"published\",\n    \"createdAt\": $json.createdAt\n  }\n}) }}",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true
+            }
+          }
+        }
+      },
+      "id": "cockpit-publish",
+      "name": "Publish to Cockpit CMS",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1000, 300],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "COCKPIT_CREDENTIAL_ID",
+          "name": "Cockpit CMS API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const blogData = $('Parse Blog Content').first().json;\nconst cockpitResponse = $input.first().json;\n\n// Construct the blog URL (adjust based on your site structure)\nconst blogUrl = `${$env.WEBSITE_URL || 'https://yoursite.com'}/blog/${blogData.slug}`;\n\n// Format LinkedIn post\nlet linkedinPost = blogData.linkedinPost || '';\n\n// Add the blog URL to the LinkedIn post if not already included\nif (!linkedinPost.includes(blogUrl) && !linkedinPost.includes('http')) {\n  linkedinPost += `\\n\\nRead more: ${blogUrl}`;\n}\n\n// Ensure hashtags are included\nif (!linkedinPost.includes('#')) {\n  const defaultHashtags = ['#technology', '#blog', '#programming', '#ai'];\n  linkedinPost += `\\n\\n${defaultHashtags.join(' ')}`;\n}\n\nreturn [{\n  json: {\n    blogData: blogData,\n    blogUrl: blogUrl,\n    cockpitResponse: cockpitResponse,\n    linkedinPost: linkedinPost,\n    title: blogData.title,\n    slug: blogData.slug\n  }\n}];"
+      },
+      "id": "prepare-linkedin",
+      "name": "Prepare LinkedIn Post",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1250, 300]
+    },
+    {
+      "parameters": {
+        "text": "={{ $json.linkedinPost }}",
+        "additionalFields": {}
+      },
+      "id": "linkedin-post",
+      "name": "Post to LinkedIn",
+      "type": "n8n-nodes-base.linkedIn",
+      "typeVersion": 1,
+      "position": [1500, 200],
+      "credentials": {
+        "linkedInOAuth2Api": {
+          "id": "LINKEDIN_CREDENTIAL_ID",
+          "name": "LinkedIn Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Parse Blog Request').first().json.senderEmail }}",
+        "subject": "Blog Published: {{ $json.title }}",
+        "message": "Your blog has been successfully published!\n\nTitle: {{ $json.title }}\nURL: {{ $json.blogUrl }}\n\nThe post has also been shared on LinkedIn.\n\nThank you for using the Blog Automation Pipeline!",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "id": "confirmation-email",
+      "name": "Send Confirmation Email",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [1500, 400],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "GMAIL_CREDENTIAL_ID",
+          "name": "Gmail Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "messageId": "={{ $('Parse Blog Request').first().json.emailId }}",
+        "labelIds": ["INBOX"],
+        "options": {}
+      },
+      "id": "mark-read",
+      "name": "Mark Email as Read",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [1750, 300],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "GMAIL_CREDENTIAL_ID",
+          "name": "Gmail Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "check-blog-created",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "check-blog-valid",
+      "name": "Check Blog Valid",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [850, 500]
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Parse Blog Request').first().json.senderEmail }}",
+        "subject": "Blog Creation Failed",
+        "message": "Unfortunately, there was an error creating your blog post.\n\nOriginal request:\n{{ $('Parse Blog Request').first().json.blogTopic }}\n\nPlease try again or check the n8n workflow logs for more details.",
+        "options": {}
+      },
+      "id": "error-email",
+      "name": "Send Error Email",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [1100, 600],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "GMAIL_CREDENTIAL_ID",
+          "name": "Gmail Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Store blog in a local JSON for backup/tracking\nconst blogData = $input.first().json;\n\n// Log successful creation\nconsole.log('Blog created successfully:', blogData.title);\nconsole.log('Slug:', blogData.slug);\nconsole.log('Tags:', blogData.tags?.join(', '));\n\nreturn [{ json: blogData }];"
+      },
+      "id": "log-success",
+      "name": "Log Success",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1000, 100]
+    }
+  ],
+  "connections": {
+    "Gmail Trigger - Blog Requests": {
+      "main": [
+        [{ "node": "Parse Blog Request", "type": "main", "index": 0 }]
+      ]
+    },
+    "Parse Blog Request": {
+      "main": [
+        [{ "node": "OpenRouter - Write Blog", "type": "main", "index": 0 }]
+      ]
+    },
+    "OpenRouter - Write Blog": {
+      "main": [
+        [{ "node": "Parse Blog Content", "type": "main", "index": 0 }]
+      ]
+    },
+    "Parse Blog Content": {
+      "main": [
+        [
+          { "node": "Check Blog Valid", "type": "main", "index": 0 },
+          { "node": "Log Success", "type": "main", "index": 0 },
+          { "node": "Publish to Cockpit CMS", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Publish to Cockpit CMS": {
+      "main": [
+        [{ "node": "Prepare LinkedIn Post", "type": "main", "index": 0 }]
+      ]
+    },
+    "Prepare LinkedIn Post": {
+      "main": [
+        [
+          { "node": "Post to LinkedIn", "type": "main", "index": 0 },
+          { "node": "Send Confirmation Email", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Send Confirmation Email": {
+      "main": [
+        [{ "node": "Mark Email as Read", "type": "main", "index": 0 }]
+      ]
+    },
+    "Check Blog Valid": {
+      "main": [
+        [],
+        [{ "node": "Send Error Email", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    { "name": "blog-automation" },
+    { "name": "publishing" },
+    { "name": "content-pipeline" }
+  ],
+  "triggerCount": 1,
+  "pinData": {}
+}

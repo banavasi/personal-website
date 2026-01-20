@@ -1,11 +1,22 @@
 ---
 import { NeoCard } from "@/components/NeoCard";
 import { homeContent } from "@/content/home";
-
-const { coreSystems } = homeContent;
+import type { CoreSystem, AccentColor } from "@/types/content";
 
 // Import icons from lucide-react
 import { Terminal, Code, Database, Layers } from "lucide-react";
+
+interface Props {
+  content?: {
+    title: string;
+    skills: CoreSystem[];
+  };
+}
+
+const { content } = Astro.props;
+
+// Use props or fallback to static content
+const coreSystems = content || homeContent.coreSystems;
 
 const iconMap: Record<string, any> = {
   Terminal,

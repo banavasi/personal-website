@@ -1,7 +1,10 @@
 ---
 import MainLayout from "@/layouts/main.astro";
 import { Github, ExternalLink } from "lucide-react";
-import { projectsContent } from "@/content/projects";
+import { getProjectsPageContent } from "@/lib/cms/content-service";
+
+// Fetch content from CMS with fallback to static
+const projectsContent = await getProjectsPageContent();
 
 const content = {
   title: "Projects Portfolio | Shashank Shandilya - AI, Cloud & Full-Stack Solutions",
