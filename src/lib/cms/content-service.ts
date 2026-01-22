@@ -63,8 +63,10 @@ export async function getExperiences(): Promise<Experience[]> {
     ...exp,
     isCurrent: index === 0,
     order: index,
+    type: exp.type as Experience['type'], // Explicitly cast to fix type error
   }));
 }
+
 
 // ============================================
 // Education
@@ -276,16 +278,16 @@ export async function getHomePageContent() {
     selectedWork:
       featuredProjects.length > 0
         ? {
-            title: 'SELECTED_WORK',
-            projects: featuredProjects.map((p) => ({
-              title: p.title,
-              tags: p.tags,
-              description: p.description,
-              image: p.image,
-              link: p.liveUrl || p.githubUrl || '#',
-            })),
-            viewAllText: 'VIEW ALL PROJECTS',
-          }
+          title: 'SELECTED_WORK',
+          projects: featuredProjects.map((p) => ({
+            title: p.title,
+            tags: p.tags,
+            description: p.description,
+            image: p.image,
+            link: p.liveUrl || p.githubUrl || '#',
+          })),
+          viewAllText: 'VIEW ALL PROJECTS',
+        }
         : undefined,
   };
 }
