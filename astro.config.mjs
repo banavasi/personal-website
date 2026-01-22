@@ -9,8 +9,8 @@ import react from '@astrojs/react';
 export default defineConfig({
   site: 'https://shashankshandilya.com', // Update with actual domain when available
   vite: {
-      plugins: [tailwindcss()],
-	},
+    plugins: [tailwindcss()],
+  },
 
   integrations: [react()],
 });

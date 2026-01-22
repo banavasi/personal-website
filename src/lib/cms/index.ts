@@ -1,3 +1,2 @@
-// CMS Client and Content Service
-export * from "./cockpit";
-export * from "./content-service";
+// Content Service
+export * from './content-service';

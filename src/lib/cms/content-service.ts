@@ -1,11 +1,9 @@
 /**
  * Content Service
- * 
- * Provides a unified API for fetching content from Cockpit CMS
- * with automatic fallback to static content when CMS is unavailable.
+ *
+ * Provides a unified API for fetching content from local static content files.
  */
 
-import * as cockpit from "./cockpit";
 import type {
   Project,
   Experience,
@@ -21,28 +19,21 @@ import type {
   SpokenLanguage,
   ExpertiseArea,
   AccentColor,
-} from "@/types/content";
+} from '@/types/content';
 
-// Import static content as fallbacks
-import { projectsContent as staticProjects } from "@/content/projects";
-import { resumeData as staticResume } from "@/content/resume";
-import { homeContent as staticHome } from "@/content/home";
-import { aboutContent as staticAbout } from "@/content/about";
-import { contactContent as staticContact } from "@/content/contact";
-import { layoutContent as staticLayout } from "@/content/layout";
+// Import static content
+import { projectsContent as staticProjects } from '@/content/projects';
+import { resumeData as staticResume } from '@/content/resume';
+import { homeContent as staticHome } from '@/content/home';
+import { aboutContent as staticAbout } from '@/content/about';
+import { contactContent as staticContact } from '@/content/contact';
+import { layoutContent as staticLayout } from '@/content/layout';
 
 // ============================================
 // Projects
 // ============================================
 
 export async function getProjects(): Promise<Project[]> {
-  const cmsProjects = await cockpit.getProjects();
-  
-  if (cmsProjects && cmsProjects.length > 0) {
-    return cmsProjects;
-  }
-  
-  // Fallback to static content
   return staticProjects.projects.map((p, index) => ({
     ...p,
     order: index,
@@ -50,13 +41,6 @@ export async function getProjects(): Promise<Project[]> {
 }
 
 export async function getFeaturedProjects(): Promise<Project[]> {
-  const cmsProjects = await cockpit.getFeaturedProjects();
-  
-  if (cmsProjects && cmsProjects.length > 0) {
-    return cmsProjects;
-  }
-  
-  // Fallback to static featured projects
   return staticProjects.projects
     .filter((p) => p.featured)
     .slice(0, 4)
@@ -75,13 +59,6 @@ export function getProjectsHeader() {
 // ============================================
 
 export async function getExperiences(): Promise<Experience[]> {
-  const cmsExperiences = await cockpit.getExperiences();
-  
-  if (cmsExperiences && cmsExperiences.length > 0) {
-    return cmsExperiences;
-  }
-  
-  // Fallback to static content
   return staticResume.experience.map((exp, index) => ({
     ...exp,
     isCurrent: index === 0,
@@ -94,13 +71,6 @@ export async function getExperiences(): Promise<Experience[]> {
 // ============================================
 
 export async function getEducation(): Promise<Education[]> {
-  const cmsEducation = await cockpit.getEducation();
-  
-  if (cmsEducation && cmsEducation.length > 0) {
-    return cmsEducation;
-  }
-  
-  // Fallback to static content
   return staticResume.education.map((edu, index) => ({
     ...edu,
     order: index,
@@ -112,13 +82,6 @@ export async function getEducation(): Promise<Education[]> {
 // ============================================
 
 export async function getCertifications(): Promise<Certification[]> {
-  const cmsCerts = await cockpit.getCertifications();
-  
-  if (cmsCerts && cmsCerts.length > 0) {
-    return cmsCerts;
-  }
-  
-  // Fallback to static content
   return staticResume.certifications.map((cert, index) => ({
     ...cert,
     order: index,
@@ -130,30 +93,24 @@ export async function getCertifications(): Promise<Certification[]> {
 // ============================================
 
 export async function getSkillCategories(): Promise<SkillCategory[]> {
-  const cmsSkills = await cockpit.getSkillCategories();
-  
-  if (cmsSkills && cmsSkills.length > 0) {
-    return cmsSkills;
-  }
-  
-  // Fallback to static content - transform from nested object to array
+  // Transform from nested object to array
   const skillsMap: Record<string, { name: string; accentColor: AccentColor }> = {
-    languages: { name: "Languages & Runtimes", accentColor: "green" },
-    infrastructure: { name: "Infrastructure", accentColor: "blue" },
-    dataAI: { name: "Data & AI", accentColor: "red" },
-    frameworks: { name: "Frameworks & Tools", accentColor: "none" },
-    devops: { name: "DevOps", accentColor: "green" },
-    architecture: { name: "Architecture", accentColor: "blue" },
-    testing: { name: "Testing", accentColor: "red" },
-    security: { name: "Security", accentColor: "none" },
-    softSkills: { name: "Soft Skills", accentColor: "green" },
+    languages: { name: 'Languages & Runtimes', accentColor: 'green' },
+    infrastructure: { name: 'Infrastructure', accentColor: 'blue' },
+    dataAI: { name: 'Data & AI', accentColor: 'red' },
+    frameworks: { name: 'Frameworks & Tools', accentColor: 'none' },
+    devops: { name: 'DevOps', accentColor: 'green' },
+    architecture: { name: 'Architecture', accentColor: 'blue' },
+    testing: { name: 'Testing', accentColor: 'red' },
+    security: { name: 'Security', accentColor: 'none' },
+    softSkills: { name: 'Soft Skills', accentColor: 'green' },
   };
 
   return Object.entries(staticResume.skills).map(([key, skills], index) => ({
     name: skillsMap[key]?.name || key,
     slug: key,
     skills: skills as string[],
-    accentColor: skillsMap[key]?.accentColor || "none",
+    accentColor: skillsMap[key]?.accentColor || 'none',
     order: index,
   }));
 }
@@ -163,16 +120,9 @@ export async function getSkillCategories(): Promise<SkillCategory[]> {
 // ============================================
 
 export async function getCoreSystems(): Promise<CoreSystem[]> {
-  const cmsSystems = await cockpit.getCoreSystems();
-  
-  if (cmsSystems && cmsSystems.length > 0) {
-    return cmsSystems;
-  }
-  
-  // Fallback to static content
   return staticHome.coreSystems.skills.map((skill, index) => ({
     ...skill,
-    icon: skill.icon as CoreSystem["icon"],
+    icon: skill.icon as CoreSystem['icon'],
     order: index,
   }));
 }
@@ -182,13 +132,6 @@ export async function getCoreSystems(): Promise<CoreSystem[]> {
 // ============================================
 
 export async function getAchievements(): Promise<Achievement[]> {
-  const cmsAchievements = await cockpit.getAchievements();
-  
-  if (cmsAchievements && cmsAchievements.length > 0) {
-    return cmsAchievements;
-  }
-  
-  // Fallback to static content
   return staticResume.achievements.map((ach, index) => ({
     ...ach,
     order: index,
@@ -200,13 +143,6 @@ export async function getAchievements(): Promise<Achievement[]> {
 // ============================================
 
 export async function getTools(): Promise<Tool[]> {
-  const cmsTools = await cockpit.getTools();
-  
-  if (cmsTools && cmsTools.length > 0) {
-    return cmsTools;
-  }
-  
-  // Fallback to static content
   return staticResume.tools.map((tool, index) => ({
     ...tool,
     order: index,
@@ -218,13 +154,6 @@ export async function getTools(): Promise<Tool[]> {
 // ============================================
 
 export async function getSpokenLanguages(): Promise<SpokenLanguage[]> {
-  const cmsLanguages = await cockpit.getSpokenLanguages();
-  
-  if (cmsLanguages && cmsLanguages.length > 0) {
-    return cmsLanguages;
-  }
-  
-  // Fallback to static content
   return staticResume.languages.map((lang, index) => ({
     ...lang,
     order: index,
@@ -236,13 +165,6 @@ export async function getSpokenLanguages(): Promise<SpokenLanguage[]> {
 // ============================================
 
 export async function getExpertiseAreas(): Promise<ExpertiseArea[]> {
-  const cmsExpertise = await cockpit.getExpertiseAreas();
-  
-  if (cmsExpertise && cmsExpertise.length > 0) {
-    return cmsExpertise;
-  }
-  
-  // Fallback to static content
   return staticResume.expertise.map((exp, index) => ({
     ...exp,
     order: index,
@@ -254,22 +176,15 @@ export async function getExpertiseAreas(): Promise<ExpertiseArea[]> {
 // ============================================
 
 export async function getPersonalInfo(): Promise<PersonalInfo> {
-  const cmsInfo = await cockpit.getPersonalInfo();
-  
-  if (cmsInfo) {
-    return cmsInfo;
-  }
-  
-  // Fallback to static content
   return {
     name: staticResume.personal.name,
     title: staticResume.personal.title,
     image: staticResume.personal.image,
     bio: staticResume.personal.bio,
-    location: staticResume.personal.contact.find((c) => c.icon === "MapPin")?.value || "",
+    location: staticResume.personal.contact.find((c) => c.icon === 'MapPin')?.value || '',
     contact: staticResume.personal.contact.map((c) => ({
       ...c,
-      icon: c.icon as PersonalInfo["contact"][0]["icon"],
+      icon: c.icon as PersonalInfo['contact'][0]['icon'],
     })),
   };
 }
@@ -279,13 +194,6 @@ export async function getPersonalInfo(): Promise<PersonalInfo> {
 // ============================================
 
 export async function getSiteSettings(): Promise<SiteSettings> {
-  const cmsSettings = await cockpit.getSiteSettings();
-  
-  if (cmsSettings) {
-    return cmsSettings;
-  }
-  
-  // Fallback to static content
   return {
     brandText: staticLayout.navigation.brand.text,
     brandHighlight: staticLayout.navigation.brand.highlight,
@@ -295,7 +203,7 @@ export async function getSiteSettings(): Promise<SiteSettings> {
     footerTagline: staticLayout.footer.tagline,
     socialLinks: staticLayout.footer.socialLinks.map((link) => ({
       ...link,
-      icon: link.icon as SiteSettings["socialLinks"][0]["icon"],
+      icon: link.icon as SiteSettings['socialLinks'][0]['icon'],
     })),
     copyrightYear: staticLayout.footer.copyright.year,
     copyrightName: staticLayout.footer.copyright.name,
@@ -310,13 +218,6 @@ export async function getSiteSettings(): Promise<SiteSettings> {
 // ============================================
 
 export async function getHeroContent(): Promise<HeroContent> {
-  const cmsHero = await cockpit.getHeroContent();
-  
-  if (cmsHero) {
-    return cmsHero;
-  }
-  
-  // Fallback to static content
   return {
     badge: staticHome.hero.badge,
     titleLine1: staticHome.hero.title.line1,
@@ -355,11 +256,11 @@ export async function getHomePageContent() {
       runtime: {
         title: staticHome.systemArchitecture.runtime.title,
         experience: experiences.map((exp) => ({
-          status: exp.isCurrent ? "CURRENT" : "PREVIOUS",
+          status: exp.isCurrent ? 'CURRENT' : 'PREVIOUS',
           company: exp.company,
           role: exp.title,
           period: exp.period,
-          description: exp.description || exp.highlights[0] || "",
+          description: exp.description || exp.highlights[0] || '',
           isCurrent: exp.isCurrent,
         })),
       },
@@ -367,22 +268,25 @@ export async function getHomePageContent() {
         title: staticHome.systemArchitecture.packages.title,
         categories: skillCategories.slice(0, 4).map((cat) => ({
           name: cat.name,
-          accentColor: cat.accentColor || "none",
+          accentColor: cat.accentColor || 'none',
           skills: cat.skills,
         })),
       },
     },
-    selectedWork: featuredProjects.length > 0 ? {
-      title: "SELECTED_WORK",
-      projects: featuredProjects.map((p) => ({
-        title: p.title,
-        tags: p.tags,
-        description: p.description,
-        image: p.image,
-        link: p.liveUrl || p.githubUrl || "#",
-      })),
-      viewAllText: "VIEW ALL PROJECTS",
-    } : undefined,
+    selectedWork:
+      featuredProjects.length > 0
+        ? {
+            title: 'SELECTED_WORK',
+            projects: featuredProjects.map((p) => ({
+              title: p.title,
+              tags: p.tags,
+              description: p.description,
+              image: p.image,
+              link: p.liveUrl || p.githubUrl || '#',
+            })),
+            viewAllText: 'VIEW ALL PROJECTS',
+          }
+        : undefined,
   };
 }
 
@@ -391,13 +295,9 @@ export async function getHomePageContent() {
 // ============================================
 
 export async function getAboutPageContent() {
-  const [personalInfo, experiences, education, certifications, skillCategories] = await Promise.all([
-    getPersonalInfo(),
-    getExperiences(),
-    getEducation(),
-    getCertifications(),
-    getSkillCategories(),
-  ]);
+  const [personalInfo, experiences, education, certifications, skillCategories] = await Promise.all(
+    [getPersonalInfo(), getExperiences(), getEducation(), getCertifications(), getSkillCategories()]
+  );
 
   return {
     header: {
@@ -415,7 +315,7 @@ export async function getAboutPageContent() {
         company: exp.company,
         location: exp.location,
         period: exp.period,
-        description: exp.description || exp.highlights.join(" "),
+        description: exp.description || exp.highlights.join(' '),
         isCurrent: exp.isCurrent,
       })),
     },
@@ -423,20 +323,20 @@ export async function getAboutPageContent() {
       title: staticAbout.education.title,
       items: [
         ...education.map((edu) => ({
-          type: "education" as const,
-          icon: "GraduationCap",
+          type: 'education' as const,
+          icon: 'GraduationCap',
           title: edu.institution,
           period: edu.period,
-          description: edu.degree + (edu.gpa ? ` - ${edu.gpa}` : ""),
-          accentColor: "blue" as const,
+          description: edu.degree + (edu.gpa ? ` - ${edu.gpa}` : ''),
+          accentColor: 'blue' as const,
         })),
         ...certifications.map((cert) => ({
-          type: "certification" as const,
-          icon: "Award",
+          type: 'certification' as const,
+          icon: 'Award',
           title: cert.title,
           period: cert.date,
           description: `${cert.issuer} - ${cert.credential}`,
-          accentColor: "red" as const,
+          accentColor: 'red' as const,
         })),
       ],
     },
@@ -444,7 +344,7 @@ export async function getAboutPageContent() {
       image: personalInfo.image,
       location: personalInfo.location,
       role: personalInfo.title,
-      contactLink: "/contact",
+      contactLink: '/contact',
     },
     techStack: {
       title: staticAbout.techStack.title,
@@ -466,10 +366,10 @@ export async function getContactPageContent() {
   return {
     header: staticContact.header,
     contactInfo: personalInfo.contact
-      .filter((c) => c.icon !== "MapPin")
+      .filter((c) => c.icon !== 'MapPin')
       .map((c, index) => ({
         ...c,
-        accentColor: (["blue", "green", "none"] as const)[index % 3],
+        accentColor: (['blue', 'green', 'none'] as const)[index % 3],
       })),
     location: staticContact.location,
     form: staticContact.form,
@@ -551,6 +451,3 @@ export async function getResumeData() {
     keywords: staticResume.keywords,
   };
 }
-
-// Export CMS utilities
-export { isCmsEnabled, getCmsStatus } from "./cockpit";

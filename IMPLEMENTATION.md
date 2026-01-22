@@ -1,14 +1,17 @@
 # Header and Footer Implementation
 
 ## Overview
+
 I've successfully created a dynamic Header (React) and Footer (Astro) for your personal website following Neo-Brutalism design principles.
 
 ## Components Created
 
 ### 1. Header Component (React)
+
 **Location:** `src/components/Header.tsx`
 
 **Features:**
+
 - ✅ Fixed position header with bold 4px border (Neo-Brutalist style)
 - ✅ Dynamic brand logo with hover effects
 - ✅ Desktop navigation with active link highlighting
@@ -20,6 +23,7 @@ I've successfully created a dynamic Header (React) and Footer (Astro) for your p
 - ✅ Full accessibility (aria-labels, aria-expanded)
 
 **Key Design Elements:**
+
 ```typescript
 - Fixed header with z-50
 - Container-based responsive layout
@@ -31,9 +35,11 @@ I've successfully created a dynamic Header (React) and Footer (Astro) for your p
 ```
 
 ### 2. Footer Component (Astro)
+
 **Location:** `src/components/Footer.astro`
 
 **Features:**
+
 - ✅ Black background with white text (high contrast)
 - ✅ Brand name and tagline
 - ✅ Social media links (GitHub, LinkedIn, Email)
@@ -43,17 +49,18 @@ I've successfully created a dynamic Header (React) and Footer (Astro) for your p
 - ✅ Reads data from `src/content/layout.ts`
 
 **Styling:**
+
 ```astro
-- Black footer with 4px top border
-- Hover effects with neon-green color
-- Gray-scale text hierarchy
+- Black footer with 4px top border - Hover effects with neon-green color - Gray-scale text hierarchy
 - Responsive grid (mobile: stack, desktop: row)
 ```
 
 ### 3. Updated Main Layout
+
 **Location:** `src/layouts/main.astro`
 
 **Changes:**
+
 - ✅ Imported Header (with `client:load` for interactivity)
 - ✅ Imported Footer (static Astro component)
 - ✅ Added semantic HTML structure
@@ -69,7 +76,7 @@ Your content is organized in `src/content/`:
 layoutContent = {
   navigation: {
     brand: { text, highlight, suffix },
-    items: [{ name, path }]
+    items: [{ name, path }],
   },
   footer: {
     name,
@@ -77,21 +84,22 @@ layoutContent = {
     socialLinks: [{ icon, href, label }],
     copyright: { year, name, rights },
     designNote,
-    designStyle
-  }
-}
+    designStyle,
+  },
+};
 ```
 
 ## Usage
 
 ### In Astro Pages:
+
 ```astro
 ---
-import MainLayout from "@/layouts/main.astro";
+import MainLayout from '@/layouts/main.astro';
 
 const content = {
-  title: "Page Title",
-  description: "Page description for SEO"
+  title: 'Page Title',
+  description: 'Page description for SEO',
 };
 ---
 
@@ -101,10 +109,11 @@ const content = {
 ```
 
 ### Standalone (if needed):
+
 ```astro
 ---
-import { Header } from "@/components/Header";
-import Footer from "@/components/Footer.astro";
+import { Header } from '@/components/Header';
+import Footer from '@/components/Footer.astro';
 ---
 
 <Header client:load />
@@ -164,6 +173,7 @@ src/
 ## Testing
 
 Run the dev server:
+
 ```bash
 npm run dev
 ```
@@ -173,6 +183,7 @@ Visit: `http://localhost:4322/`
 ## Next Steps
 
 You can now:
+
 1. ✅ Create other pages (about, projects, contact)
 2. ✅ Each page will automatically have Header + Footer
 3. ✅ Update content in `src/content/layout.ts`
@@ -181,7 +192,9 @@ You can now:
 ## Customization
 
 ### Change Colors:
+
 Edit `src/styles/global.css`:
+
 ```css
 --color-neon-green: #00ff41;
 --color-electric-blue: #00d9ff;
@@ -189,17 +202,19 @@ Edit `src/styles/global.css`:
 ```
 
 ### Update Navigation:
+
 Edit `src/content/layout.ts`:
+
 ```typescript
 navigation: {
-  items: [
-    { name: "NEW PAGE", path: "/new-page" }
-  ]
+  items: [{ name: 'NEW PAGE', path: '/new-page' }];
 }
 ```
 
 ### Mobile Menu Behavior:
+
 Modify `src/components/Header.tsx`:
+
 - Change animation duration
 - Adjust overlay opacity
 - Customize menu styling

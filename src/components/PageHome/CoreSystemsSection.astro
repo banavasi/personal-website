@@ -1,10 +1,10 @@
 ---
-import { NeoCard } from "@/components/NeoCard";
-import { homeContent } from "@/content/home";
-import type { CoreSystem, AccentColor } from "@/types/content";
+import { NeoCard } from '@/components/NeoCard';
+import { homeContent } from '@/content/home';
+import type { CoreSystem, AccentColor } from '@/types/content';
 
 // Import icons from lucide-react
-import { Terminal, Code, Database, Layers } from "lucide-react";
+import { Terminal, Code, Database, Layers } from 'lucide-react';
 
 interface Props {
   content?: {
@@ -26,49 +26,47 @@ const iconMap: Record<string, any> = {
 };
 ---
 
-<section class="py-20 bg-concrete dark:bg-zinc-900">
+<section class="bg-concrete py-20 dark:bg-zinc-900">
   <div class="container mx-auto px-4">
-    <div class="flex items-end justify-between mb-12">
-      <h2 class="font-display font-bold text-5xl md:text-6xl">
+    <div class="mb-12 flex items-end justify-between">
+      <h2 class="font-display text-5xl font-bold md:text-6xl">
         {coreSystems.title}
       </h2>
-      <div class="hidden md:block w-32 h-4 bg-black dark:bg-white"></div>
+      <div class="hidden h-4 w-32 bg-black md:block dark:bg-white"></div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-      {coreSystems.skills.map((skill) => {
-        const IconComponent = iconMap[skill.icon];
-        const accentColors = {
-          green: "text-neon-green",
-          blue: "text-electric-blue",
-          red: "text-alert-red",
-          none: "",
-        };
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+      {
+        coreSystems.skills.map((skill) => {
+          const IconComponent = iconMap[skill.icon];
+          const accentColors = {
+            green: 'text-neon-green',
+            blue: 'text-electric-blue',
+            red: 'text-alert-red',
+            none: '',
+          };
 
-        return (
-          <NeoCard
-            client:load
-            accentColor={skill.accentColor}
-            className={`h-full ${
-              skill.accentColor === "none"
-                ? "bg-black text-white dark:bg-white dark:text-black"
-                : ""
-            }`}
-          >
-            {IconComponent && (
-              <IconComponent
-                className={`w-12 h-12 mb-6 ${
-                  accentColors[skill.accentColor] || ""
-                }`}
-              />
-            )}
-            <h3 class="font-display font-bold text-2xl mb-4">
-              {skill.title}
-            </h3>
-            <p class="font-mono text-sm">{skill.description}</p>
-          </NeoCard>
-        );
-      })}
+          return (
+            <NeoCard
+              client:load
+              accentColor={skill.accentColor}
+              className={`h-full ${
+                skill.accentColor === 'none'
+                  ? 'bg-black text-white dark:bg-white dark:text-black'
+                  : ''
+              }`}
+            >
+              {IconComponent && (
+                <IconComponent
+                  className={`mb-6 h-12 w-12 ${accentColors[skill.accentColor] || ''}`}
+                />
+              )}
+              <h3 class="font-display mb-4 text-2xl font-bold">{skill.title}</h3>
+              <p class="font-mono text-sm">{skill.description}</p>
+            </NeoCard>
+          );
+        })
+      }
     </div>
   </div>
 </section>

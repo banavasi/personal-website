@@ -13,13 +13,13 @@ export function ThemeToggle() {
   const toggleTheme = () => {
     const newTheme = theme === 'dark' ? 'light' : 'dark';
     const html = document.documentElement;
-    
+
     if (newTheme === 'dark') {
       html.classList.add('dark');
     } else {
       html.classList.remove('dark');
     }
-    
+
     // Save to localStorage
     localStorage.setItem('theme', newTheme);
     setTheme(newTheme);

@@ -9,6 +9,7 @@ This directory contains two n8n workflows that create an automated blog research
 **Triggers:** Daily at 8 AM
 
 **What it does:**
+
 1. Fetches trending content from multiple sources:
    - Google News RSS (AI, ML, Frontend, Design Systems)
    - Reddit (r/MachineLearning, r/reactjs, r/webdev, r/Frontend)
@@ -23,6 +24,7 @@ This directory contains two n8n workflows that create an automated blog research
 **Triggers:** Monitors Gmail for replies/requests (every 5 minutes)
 
 **What it does:**
+
 1. Watches for emails with subjects containing "Re: Daily Blog Ideas", "Create Blog", or "Write Blog"
 2. Parses your request to extract the idea number or custom topic
 3. Uses OpenRouter to write a full blog post (1500-2500 words)
@@ -53,6 +55,7 @@ This directory contains two n8n workflows that create an automated blog research
 ### Step 2: Configure Credentials
 
 #### OpenRouter API
+
 1. Go to [OpenRouter](https://openrouter.ai/) and get an API key
 2. In n8n, create a new **HTTP Header Auth** credential:
    - Name: `OpenRouter API`
@@ -60,6 +63,7 @@ This directory contains two n8n workflows that create an automated blog research
    - Header Value: `Bearer YOUR_OPENROUTER_API_KEY`
 
 #### Gmail OAuth2
+
 1. In n8n, go to **Credentials** > **Add Credential** > **Gmail OAuth2 API**
 2. Follow the OAuth2 setup flow to connect your Gmail account
 3. Ensure you grant permissions for:
@@ -68,6 +72,7 @@ This directory contains two n8n workflows that create an automated blog research
    - Modifying labels
 
 #### Cockpit CMS API
+
 1. In your Cockpit CMS, go to **Settings** > **API Keys**
 2. Create a new API key with permissions for the `blogs` collection
 3. In n8n, create a new **HTTP Header Auth** credential:
@@ -76,6 +81,7 @@ This directory contains two n8n workflows that create an automated blog research
    - Header Value: `YOUR_COCKPIT_API_KEY`
 
 #### LinkedIn OAuth2
+
 1. In n8n, go to **Credentials** > **Add Credential** > **LinkedIn OAuth2 API**
 2. Follow the setup to connect your LinkedIn account
 3. Ensure you grant permissions for posting
@@ -98,20 +104,20 @@ In each workflow, you'll need to update the credential references to match your 
 
 Create a `blogs` collection in Cockpit CMS with the following fields:
 
-| Field Name | Type | Required |
-|------------|------|----------|
-| title | Text | Yes |
-| slug | Text | Yes |
-| excerpt | Textarea | Yes |
-| content | Markdown/WYSIWYG | Yes |
-| tags | Tags | No |
-| seoTitle | Text | No |
-| seoDescription | Textarea | No |
-| estimatedReadTime | Text | No |
-| author | Text | No |
-| publishedAt | Date | No |
-| status | Select (draft/published) | No |
-| createdAt | Date | No |
+| Field Name        | Type                     | Required |
+| ----------------- | ------------------------ | -------- |
+| title             | Text                     | Yes      |
+| slug              | Text                     | Yes      |
+| excerpt           | Textarea                 | Yes      |
+| content           | Markdown/WYSIWYG         | Yes      |
+| tags              | Tags                     | No       |
+| seoTitle          | Text                     | No       |
+| seoDescription    | Textarea                 | No       |
+| estimatedReadTime | Text                     | No       |
+| author            | Text                     | No       |
+| publishedAt       | Date                     | No       |
+| status            | Select (draft/published) | No       |
+| createdAt         | Date                     | No       |
 
 ### Step 6: Activate Workflows
 
@@ -131,16 +137,19 @@ Every day at 8 AM, you'll receive an email with 5 blog ideas based on trending t
 Reply to the ideas email (or send a new email with subject "Create Blog") with:
 
 **Option 1: Select an idea by number**
+
 ```
 Idea #2
 ```
 
 **Option 2: Provide a custom topic**
+
 ```
 Topic: How to build a design system with React and Tailwind CSS
 ```
 
 **Option 3: Add additional instructions**
+
 ```
 Idea #3
 
@@ -161,6 +170,7 @@ Please include code examples in TypeScript and focus on performance optimization
 ### Change Research Sources
 
 Edit the RSS feed URLs in the first workflow to add/remove sources:
+
 - Update the `RSS - AI & Tech News` node URL
 - Modify the Reddit subreddits in `RSS - Reddit Tech Subs`
 - Change Dev.to tags in `RSS - Dev.to`
@@ -168,6 +178,7 @@ Edit the RSS feed URLs in the first workflow to add/remove sources:
 ### Adjust AI Prompts
 
 The AI prompts can be customized in:
+
 - `OpenRouter - Generate Ideas` node (for idea generation)
 - `OpenRouter - Write Blog` node (for blog writing)
 
@@ -178,6 +189,7 @@ Edit the `Daily 8 AM Trigger` node to change when ideas are generated.
 ### Add More Platforms
 
 You can extend the publishing workflow to post to:
+
 - Twitter/X
 - Medium
 - Dev.to
@@ -188,16 +200,19 @@ You can extend the publishing workflow to post to:
 ## Troubleshooting
 
 ### No Ideas Received
+
 - Check if the RSS feeds are working
 - Verify your Gmail OAuth2 credentials
 - Check n8n execution logs
 
 ### Blog Not Publishing
+
 - Verify Cockpit CMS API credentials
 - Check if the `blogs` collection exists
 - Review the collection field structure
 
 ### LinkedIn Not Posting
+
 - Refresh LinkedIn OAuth2 credentials
 - Ensure you have posting permissions
 - Check LinkedIn API rate limits
@@ -207,6 +222,7 @@ You can extend the publishing workflow to post to:
 ## Support
 
 If you encounter issues:
+
 1. Check n8n execution logs for detailed error messages
 2. Verify all credentials are properly configured
 3. Ensure environment variables are set correctly

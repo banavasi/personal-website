@@ -2,6 +2,16 @@ import React from 'react';
 import { Document, Page, Text, View, Image, StyleSheet, Font } from '@react-pdf/renderer';
 import type { ResumeData, Project } from '@/types/content';
 
+// Type declaration for Node.js process in this context
+declare const process:
+  | {
+      env?: {
+        PUBLIC_URL?: string;
+        SITE_URL?: string;
+      };
+    }
+  | undefined;
+
 interface ResumePDFProps {
   resumeData: ResumeData;
   projects: Project[];
@@ -318,22 +328,32 @@ const styles = StyleSheet.create({
 });
 
 export const ResumePDF: React.FC<ResumePDFProps> = ({ resumeData, projects }) => {
+  // Guard against undefined data
+  if (!resumeData || !resumeData.personal || !resumeData.experience) {
+    return null;
+  }
+
   const getImageSrc = (imagePath: string) => {
     if (imagePath.startsWith('/')) {
-      const baseUrl = process.env.PUBLIC_URL || 
-                     process.env.SITE_URL || 
-                     'http://localhost:4321';
+      const baseUrl = process?.env?.PUBLIC_URL || process?.env?.SITE_URL || 'http://localhost:4321';
       return `${baseUrl}${imagePath}`;
     }
     return imagePath;
   };
 
   // Split experience: First 4 on Page 1 (includes Software Engineer 2018-2020), rest on Page 2
-  const page1Experience = resumeData.experience.slice(0, 4);
-  const page2Experience = resumeData.experience.slice(4);
-  
+  const page1Experience = (resumeData.experience || []).slice(0, 4);
+  const page2Experience = (resumeData.experience || []).slice(4);
+
   // Ensure we have projects data
   const projectsList = projects || [];
+
+  // Ensure we have all required nested data
+  const personal = resumeData.personal || {};
+  const education = resumeData.education || [];
+  const certifications = resumeData.certifications || [];
+  const skills = resumeData.skills || {};
+  const expertise = resumeData.expertise || [];
 
   return (
     <Document>
@@ -345,19 +365,19 @@ export const ResumePDF: React.FC<ResumePDFProps> = ({ resumeData, projects }) =>
             <View style={styles.headerContent}>
               <View style={styles.profileImageContainer}>
                 <Image
-                  src={getImageSrc(resumeData.personal.image)}
+                  src={getImageSrc(personal.image || '')}
                   style={styles.profileImage}
                   cache={false}
                 />
               </View>
               <View style={styles.headerText}>
-                <Text style={styles.name}>{resumeData.personal.name}</Text>
-                <Text style={styles.title}>{resumeData.personal.title}</Text>
-                
+                <Text style={styles.name}>{personal.name || ''}</Text>
+                <Text style={styles.title}>{personal.title || ''}</Text>
+
                 {/* Enhanced Bio with Impact */}
                 <View style={{ marginBottom: '6px' }}>
                   <Text style={styles.bio}>
-                    {resumeData.personal.bio.split('.')[0]}. Delivered{' '}
+                    {personal.bio ? personal.bio.split('.')[0] : ''}. Delivered{' '}
                     <Text style={styles.bioHighlight}>40% faster releases</Text>,{' '}
                     <Text style={styles.bioHighlight}>60% reduced operations</Text>, serving{' '}
                     <Text style={styles.bioHighlight}>50K+ users</Text> with{' '}
@@ -368,7 +388,7 @@ export const ResumePDF: React.FC<ResumePDFProps> = ({ resumeData, projects }) =>
 
                 {/* Core Expertise Badges */}
                 <View style={styles.expertiseContainer}>
-                  {resumeData.expertise.map((area, index) => (
+                  {expertise.map((area, index) => (
                     <View key={index} style={styles.expertiseBadge}>
                       <Text style={styles.expertiseBadgeText}>{area.title}</Text>
                     </View>
@@ -376,7 +396,7 @@ export const ResumePDF: React.FC<ResumePDFProps> = ({ resumeData, projects }) =>
                 </View>
 
                 <View style={styles.contactContainer}>
-                  {resumeData.personal.contact.map((contact, index) => (
+                  {(personal.contact || []).map((contact, index) => (
                     <View key={index} style={styles.contactBadge}>
                       <Text style={styles.contactBadgeText}>{contact.value}</Text>
                     </View>
@@ -414,13 +434,18 @@ export const ResumePDF: React.FC<ResumePDFProps> = ({ resumeData, projects }) =>
             <View style={styles.rightColumn}>
               {/* Education */}
               <Text style={styles.sectionTitleBlue}>EDUCATION</Text>
-              {resumeData.education.map((edu, index) => (
+              {education.map((edu, index) => (
                 <View key={index} style={styles.educationItem}>
                   <Text style={styles.educationPeriod}>{edu.period}</Text>
                   <Text style={styles.educationTitle}>{edu.degree}</Text>
                   <Text style={styles.educationInstitution}>{edu.institution}</Text>
                   {edu.gpa && (
-                    <Text style={[styles.educationInstitution, { color: '#00D9FF', fontWeight: 'bold', marginTop: '2px' }]}>
+                    <Text
+                      style={[
+                        styles.educationInstitution,
+                        { color: '#00D9FF', fontWeight: 'bold', marginTop: '2px' },
+                      ]}
+                    >
                       {edu.gpa}
                     </Text>
                   )}
@@ -429,8 +454,11 @@ export const ResumePDF: React.FC<ResumePDFProps> = ({ resumeData, projects }) =>
 
               {/* Certifications */}
               <Text style={[styles.sectionTitle, { marginTop: '8px' }]}>CERTIFICATIONS</Text>
-              {resumeData.certifications.slice(0, 2).map((cert, index) => (
-                <View key={`cert-${index}`} style={[styles.educationItem, { backgroundColor: '#E6FFE6' }]}>
+              {certifications.slice(0, 2).map((cert, index) => (
+                <View
+                  key={`cert-${index}`}
+                  style={[styles.educationItem, { backgroundColor: '#E6FFE6' }]}
+                >
                   <Text style={[styles.educationPeriod, { color: '#00FF41' }]}>{cert.date}</Text>
                   <Text style={styles.educationTitle}>{cert.title}</Text>
                   <Text style={styles.educationInstitution}>{cert.issuer}</Text>
@@ -439,11 +467,11 @@ export const ResumePDF: React.FC<ResumePDFProps> = ({ resumeData, projects }) =>
 
               {/* Technical Skills - Languages and Frameworks on Page 1 */}
               <Text style={[styles.sectionTitleRed, { marginTop: '8px' }]}>TECHNICAL SKILLS</Text>
-              
+
               <View style={styles.skillSection}>
                 <Text style={[styles.skillCategory, { color: '#00FF41' }]}>LANGUAGES</Text>
                 <View style={styles.skillBadgeContainer}>
-                  {resumeData.skills.languages?.map((skill, index) => (
+                  {(skills.languages || []).map((skill, index) => (
                     <View key={index} style={styles.skillBadge}>
                       <Text style={styles.skillBadgeText}>{skill}</Text>
                     </View>
@@ -454,7 +482,7 @@ export const ResumePDF: React.FC<ResumePDFProps> = ({ resumeData, projects }) =>
               <View style={styles.skillSection}>
                 <Text style={styles.skillCategory}>FRAMEWORKS</Text>
                 <View style={styles.skillBadgeContainer}>
-                  {resumeData.skills.frameworks?.map((skill, index) => (
+                  {(skills.frameworks || []).map((skill, index) => (
                     <View key={index} style={styles.skillBadge}>
                       <Text style={styles.skillBadgeText}>{skill}</Text>
                     </View>
@@ -517,12 +545,17 @@ export const ResumePDF: React.FC<ResumePDFProps> = ({ resumeData, projects }) =>
             {/* Right Column - Certifications (Continued) → Technical Skills (Continued) → Core Expertise */}
             <View style={styles.rightColumn}>
               {/* Certifications Continued */}
-              {resumeData.certifications.length > 2 && (
+              {certifications.length > 2 && (
                 <>
                   <Text style={styles.sectionTitle}>CERTIFICATIONS (CONTINUED)</Text>
-                  {resumeData.certifications.slice(2).map((cert, index) => (
-                    <View key={`cert-${index}`} style={[styles.educationItem, { backgroundColor: '#E6FFE6' }]}>
-                      <Text style={[styles.educationPeriod, { color: '#00FF41' }]}>{cert.date}</Text>
+                  {certifications.slice(2).map((cert, index) => (
+                    <View
+                      key={`cert-${index}`}
+                      style={[styles.educationItem, { backgroundColor: '#E6FFE6' }]}
+                    >
+                      <Text style={[styles.educationPeriod, { color: '#00FF41' }]}>
+                        {cert.date}
+                      </Text>
                       <Text style={styles.educationTitle}>{cert.title}</Text>
                       <Text style={styles.educationInstitution}>{cert.issuer}</Text>
                     </View>
@@ -531,12 +564,19 @@ export const ResumePDF: React.FC<ResumePDFProps> = ({ resumeData, projects }) =>
               )}
 
               {/* Technical Skills Continued - Infrastructure, Data & AI, DevOps, Architecture */}
-              <Text style={[styles.sectionTitleRed, { marginTop: resumeData.certifications.length > 2 ? '8px' : '0px' }]}>TECHNICAL SKILLS (CONTINUED)</Text>
+              <Text
+                style={[
+                  styles.sectionTitleRed,
+                  { marginTop: certifications.length > 2 ? '8px' : '0px' },
+                ]}
+              >
+                TECHNICAL SKILLS (CONTINUED)
+              </Text>
 
               <View style={styles.skillSection}>
                 <Text style={[styles.skillCategory, { color: '#00D9FF' }]}>INFRASTRUCTURE</Text>
                 <View style={styles.skillBadgeContainer}>
-                  {resumeData.skills.infrastructure?.map((skill, index) => (
+                  {(skills.infrastructure || []).map((skill, index) => (
                     <View key={index} style={styles.skillBadge}>
                       <Text style={styles.skillBadgeText}>{skill}</Text>
                     </View>
@@ -547,7 +587,7 @@ export const ResumePDF: React.FC<ResumePDFProps> = ({ resumeData, projects }) =>
               <View style={styles.skillSection}>
                 <Text style={[styles.skillCategory, { color: '#FF3333' }]}>DATA & AI</Text>
                 <View style={styles.skillBadgeContainer}>
-                  {resumeData.skills.dataAI?.map((skill, index) => (
+                  {(skills.dataAI || []).map((skill, index) => (
                     <View key={index} style={styles.skillBadge}>
                       <Text style={styles.skillBadgeText}>{skill}</Text>
                     </View>
@@ -558,7 +598,7 @@ export const ResumePDF: React.FC<ResumePDFProps> = ({ resumeData, projects }) =>
               <View style={styles.skillSection}>
                 <Text style={[styles.skillCategory, { color: '#00FF41' }]}>DEVOPS</Text>
                 <View style={styles.skillBadgeContainer}>
-                  {resumeData.skills.devops?.map((skill, index) => (
+                  {(skills.devops || []).map((skill, index) => (
                     <View key={index} style={styles.skillBadge}>
                       <Text style={styles.skillBadgeText}>{skill}</Text>
                     </View>
@@ -569,7 +609,7 @@ export const ResumePDF: React.FC<ResumePDFProps> = ({ resumeData, projects }) =>
               <View style={styles.skillSection}>
                 <Text style={[styles.skillCategory, { color: '#00D9FF' }]}>ARCHITECTURE</Text>
                 <View style={styles.skillBadgeContainer}>
-                  {resumeData.skills.architecture?.map((skill, index) => (
+                  {(skills.architecture || []).map((skill, index) => (
                     <View key={index} style={styles.skillBadge}>
                       <Text style={styles.skillBadgeText}>{skill}</Text>
                     </View>

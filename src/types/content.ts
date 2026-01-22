@@ -1,15 +1,24 @@
 // ============================================
 // Content Type Definitions
 // These types define the structure of all content
-// used across the website and stored in Cockpit CMS
+// used across the website and stored in local content files
 // ============================================
 
 // Common types
-export type AccentColor = "green" | "blue" | "red" | "none";
-export type LucideIconName = 
-  | "Mail" | "Linkedin" | "Github" | "MapPin" 
-  | "Terminal" | "Code" | "Database" | "Layers"
-  | "GraduationCap" | "Award" | "Briefcase" | "Building";
+export type AccentColor = 'green' | 'blue' | 'red' | 'none';
+export type LucideIconName =
+  | 'Mail'
+  | 'Linkedin'
+  | 'Github'
+  | 'MapPin'
+  | 'Terminal'
+  | 'Code'
+  | 'Database'
+  | 'Layers'
+  | 'GraduationCap'
+  | 'Award'
+  | 'Briefcase'
+  | 'Building';
 
 // ============================================
 // Projects
@@ -48,7 +57,7 @@ export interface Experience {
   title: string;
   company: string;
   location: string;
-  type: "Full Time" | "Part Time" | "Contract" | "Internship";
+  type: 'Full Time' | 'Part Time' | 'Contract' | 'Internship';
   description?: string;
   highlights: string[];
   isCurrent: boolean;
@@ -306,18 +315,4 @@ export interface ResumeData {
   achievements: Achievement[];
   expertise: ExpertiseArea[];
   keywords: string[];
-}
-
-// ============================================
-// Cockpit CMS Response Types
-// ============================================
-export interface CockpitResponse<T> {
-  data: T[];
-  meta?: {
-    total: number;
-  };
-}
-
-export interface CockpitSingletonResponse<T> {
-  data: T;
 }

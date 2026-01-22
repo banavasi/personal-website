@@ -230,19 +230,13 @@
   ],
   "connections": {
     "Gmail Trigger - Blog Requests": {
-      "main": [
-        [{ "node": "Parse Blog Request", "type": "main", "index": 0 }]
-      ]
+      "main": [[{ "node": "Parse Blog Request", "type": "main", "index": 0 }]]
     },
     "Parse Blog Request": {
-      "main": [
-        [{ "node": "OpenRouter - Write Blog", "type": "main", "index": 0 }]
-      ]
+      "main": [[{ "node": "OpenRouter - Write Blog", "type": "main", "index": 0 }]]
     },
     "OpenRouter - Write Blog": {
-      "main": [
-        [{ "node": "Parse Blog Content", "type": "main", "index": 0 }]
-      ]
+      "main": [[{ "node": "Parse Blog Content", "type": "main", "index": 0 }]]
     },
     "Parse Blog Content": {
       "main": [
@@ -254,9 +248,7 @@
       ]
     },
     "Publish to Cockpit CMS": {
-      "main": [
-        [{ "node": "Prepare LinkedIn Post", "type": "main", "index": 0 }]
-      ]
+      "main": [[{ "node": "Prepare LinkedIn Post", "type": "main", "index": 0 }]]
     },
     "Prepare LinkedIn Post": {
       "main": [
@@ -267,26 +259,17 @@
       ]
     },
     "Send Confirmation Email": {
-      "main": [
-        [{ "node": "Mark Email as Read", "type": "main", "index": 0 }]
-      ]
+      "main": [[{ "node": "Mark Email as Read", "type": "main", "index": 0 }]]
     },
     "Check Blog Valid": {
-      "main": [
-        [],
-        [{ "node": "Send Error Email", "type": "main", "index": 0 }]
-      ]
+      "main": [[], [{ "node": "Send Error Email", "type": "main", "index": 0 }]]
     }
   },
   "settings": {
     "executionOrder": "v1"
   },
   "staticData": null,
-  "tags": [
-    { "name": "blog-automation" },
-    { "name": "publishing" },
-    { "name": "content-pipeline" }
-  ],
+  "tags": [{ "name": "blog-automation" }, { "name": "publishing" }, { "name": "content-pipeline" }],
   "triggerCount": 1,
   "pinData": {}
 }

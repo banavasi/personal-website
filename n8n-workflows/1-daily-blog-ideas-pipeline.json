@@ -198,34 +198,22 @@
       ]
     },
     "RSS - AI & Tech News": {
-      "main": [
-        [{ "node": "Merge All Feeds", "type": "main", "index": 0 }]
-      ]
+      "main": [[{ "node": "Merge All Feeds", "type": "main", "index": 0 }]]
     },
     "RSS - Reddit Tech Subs": {
-      "main": [
-        [{ "node": "Merge All Feeds", "type": "main", "index": 0 }]
-      ]
+      "main": [[{ "node": "Merge All Feeds", "type": "main", "index": 0 }]]
     },
     "RSS - Hacker News": {
-      "main": [
-        [{ "node": "Merge All Feeds", "type": "main", "index": 0 }]
-      ]
+      "main": [[{ "node": "Merge All Feeds", "type": "main", "index": 0 }]]
     },
     "RSS - Dev.to": {
-      "main": [
-        [{ "node": "Merge All Feeds", "type": "main", "index": 0 }]
-      ]
+      "main": [[{ "node": "Merge All Feeds", "type": "main", "index": 0 }]]
     },
     "Merge All Feeds": {
-      "main": [
-        [{ "node": "Process & Deduplicate Feeds", "type": "main", "index": 0 }]
-      ]
+      "main": [[{ "node": "Process & Deduplicate Feeds", "type": "main", "index": 0 }]]
     },
     "Process & Deduplicate Feeds": {
-      "main": [
-        [{ "node": "OpenRouter - Generate Ideas", "type": "main", "index": 0 }]
-      ]
+      "main": [[{ "node": "OpenRouter - Generate Ideas", "type": "main", "index": 0 }]]
     },
     "OpenRouter - Generate Ideas": {
       "main": [
@@ -236,26 +224,17 @@
       ]
     },
     "Format Email Content": {
-      "main": [
-        [{ "node": "Send Ideas via Gmail", "type": "main", "index": 0 }]
-      ]
+      "main": [[{ "node": "Send Ideas via Gmail", "type": "main", "index": 0 }]]
     },
     "Check AI Response Valid": {
-      "main": [
-        [],
-        [{ "node": "Send Error Notification", "type": "main", "index": 0 }]
-      ]
+      "main": [[], [{ "node": "Send Error Notification", "type": "main", "index": 0 }]]
     }
   },
   "settings": {
     "executionOrder": "v1"
   },
   "staticData": null,
-  "tags": [
-    { "name": "blog-automation" },
-    { "name": "research" },
-    { "name": "content-pipeline" }
-  ],
+  "tags": [{ "name": "blog-automation" }, { "name": "research" }, { "name": "content-pipeline" }],
   "triggerCount": 1,
   "pinData": {}
 }

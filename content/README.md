@@ -17,42 +17,42 @@ This directory contains all the content for the portfolio website. All text, dat
 ```typescript
 export const homeContent = {
   hero: {
-    badge: "SENIOR TECHNICAL LEAD @ ONEORIGIN", // Update your role/badge
+    badge: 'SENIOR TECHNICAL LEAD @ ONEORIGIN', // Update your role/badge
     title: {
-      line1: "DELIVERING",
-      line2: "EXCELLENCE",
-      line3: "ACROSS THE STACK.",
+      line1: 'DELIVERING',
+      line2: 'EXCELLENCE',
+      line3: 'ACROSS THE STACK.',
     },
-    description: "8+ years building...", // Update your description
+    description: '8+ years building...', // Update your description
     cta: {
-      primary: { text: "VIEW WORK", link: "/projects" },
-      secondary: { text: "CONTACT ME", link: "/contact" },
+      primary: { text: 'VIEW WORK', link: '/projects' },
+      secondary: { text: 'CONTACT ME', link: '/contact' },
     },
   },
   marquee: {
-    text: "AI AUTOMATION • CLOUD NATIVE • ...", // Update skills marquee
+    text: 'AI AUTOMATION • CLOUD NATIVE • ...', // Update skills marquee
   },
   coreSystems: {
-    title: "CORE_SYSTEMS",
+    title: 'CORE_SYSTEMS',
     skills: [
       {
-        icon: "Terminal", // Icon name (must match lucide-react icon)
-        title: "AI & Automation",
-        description: "Your description here...",
-        accentColor: "green", // Options: "green", "blue", "red", "none"
+        icon: 'Terminal', // Icon name (must match lucide-react icon)
+        title: 'AI & Automation',
+        description: 'Your description here...',
+        accentColor: 'green', // Options: "green", "blue", "red", "none"
       },
       // Add more skills...
     ],
   },
   selectedWork: {
-    title: "SELECTED_WORK",
+    title: 'SELECTED_WORK',
     projects: [
       {
-        title: "Project Name",
-        tags: ["TAG1", "TAG2"],
-        description: "Project description...",
-        image: "/images/project-image.png",
-        link: "/projects",
+        title: 'Project Name',
+        tags: ['TAG1', 'TAG2'],
+        description: 'Project description...',
+        image: '/images/project-image.png',
+        link: '/projects',
       },
       // Add more projects...
     ],
@@ -128,20 +128,20 @@ export const aboutContent = {
 ```typescript
 export const projectsContent = {
   header: {
-    title: "PROJECTS",
-    description: "Your projects description...",
+    title: 'PROJECTS',
+    description: 'Your projects description...',
   },
   projects: [
     {
-      title: "Project Name",
-      role: "Your Role",
-      period: "2014 - 2017",
-      description: "Project description...",
-      tags: ["Tag1", "Tag2", "Tag3"],
-      image: "/images/project-image.png", // or null for no image
-      accent: "green", // Options: "green", "blue", "red", "none"
-      githubUrl: "", // Optional: GitHub repository URL
-      liveUrl: "", // Optional: Live demo URL
+      title: 'Project Name',
+      role: 'Your Role',
+      period: '2014 - 2017',
+      description: 'Project description...',
+      tags: ['Tag1', 'Tag2', 'Tag3'],
+      image: '/images/project-image.png', // or null for no image
+      accent: 'green', // Options: "green", "blue", "red", "none"
+      githubUrl: '', // Optional: GitHub repository URL
+      liveUrl: '', // Optional: Live demo URL
     },
     // Add more projects...
   ],
@@ -155,33 +155,33 @@ export const contactContent = {
   header: {
     title: {
       line1: "LET'S",
-      line2: "CONNECT",
+      line2: 'CONNECT',
     },
-    description: "Your contact description...",
+    description: 'Your contact description...',
   },
   contactInfo: [
     {
-      icon: "Mail", // Must match lucide-react icon
-      label: "Email",
-      value: "your-email@example.com",
-      href: "mailto:your-email@example.com",
-      accentColor: "blue", // Options: "blue", "green", "none"
+      icon: 'Mail', // Must match lucide-react icon
+      label: 'Email',
+      value: 'your-email@example.com',
+      href: 'mailto:your-email@example.com',
+      accentColor: 'blue', // Options: "blue", "green", "none"
     },
     // Add more contact methods...
   ],
   location: {
-    text: "Based in Your City, State",
+    text: 'Based in Your City, State',
   },
   form: {
-    title: "SEND A MESSAGE",
+    title: 'SEND A MESSAGE',
     fields: {
-      name: { label: "Name", placeholder: "JOHN DOE" },
-      email: { label: "Email", placeholder: "JOHN@EXAMPLE.COM", type: "email" },
-      subject: { label: "Subject", placeholder: "PROJECT INQUIRY" },
-      message: { label: "Message", placeholder: "TELL ME ABOUT YOUR PROJECT..." },
+      name: { label: 'Name', placeholder: 'JOHN DOE' },
+      email: { label: 'Email', placeholder: 'JOHN@EXAMPLE.COM', type: 'email' },
+      subject: { label: 'Subject', placeholder: 'PROJECT INQUIRY' },
+      message: { label: 'Message', placeholder: 'TELL ME ABOUT YOUR PROJECT...' },
     },
     submitButton: {
-      text: "SEND MESSAGE",
+      text: 'SEND MESSAGE',
     },
   },
 };
@@ -193,35 +193,35 @@ export const contactContent = {
 export const layoutContent = {
   navigation: {
     brand: {
-      text: "SHASHANK",
-      highlight: ".",
-      suffix: "DEV",
+      text: 'SHASHANK',
+      highlight: '.',
+      suffix: 'DEV',
     },
     items: [
-      { name: "HOME", path: "/" },
-      { name: "ABOUT", path: "/about" },
-      { name: "PROJECTS", path: "/projects" },
-      { name: "CONTACT", path: "/contact" },
+      { name: 'HOME', path: '/' },
+      { name: 'ABOUT', path: '/about' },
+      { name: 'PROJECTS', path: '/projects' },
+      { name: 'CONTACT', path: '/contact' },
     ],
   },
   footer: {
-    name: "YOUR NAME",
-    tagline: "Your Tagline",
+    name: 'YOUR NAME',
+    tagline: 'Your Tagline',
     socialLinks: [
       {
-        icon: "Github", // Must match lucide-react icon
-        href: "https://github.com/yourusername",
-        label: "GitHub",
+        icon: 'Github', // Must match lucide-react icon
+        href: 'https://github.com/yourusername',
+        label: 'GitHub',
       },
       // Add more social links...
     ],
     copyright: {
-      year: "2026",
-      name: "Your Name",
-      rights: "All rights reserved.",
+      year: '2026',
+      name: 'Your Name',
+      rights: 'All rights reserved.',
     },
-    designNote: "Designed with",
-    designStyle: "Neo-Brutalism",
+    designNote: 'Designed with',
+    designStyle: 'Neo-Brutalism',
   },
 };
 ```
@@ -238,6 +238,7 @@ When specifying icons in content files, use the exact name from [lucide-react](h
 ## Accent Colors
 
 Available accent colors:
+
 - `"green"` - Neon green accent
 - `"blue"` - Electric blue accent
 - `"red"` - Alert red accent

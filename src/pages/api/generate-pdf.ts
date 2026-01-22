@@ -12,10 +12,7 @@ export const GET: APIRoute = async ({ request, url }) => {
     process.env.SITE_URL = baseUrl;
 
     // Fetch resume data and projects
-    const [resumeData, projects] = await Promise.all([
-      getResumeData(),
-      getProjects(),
-    ]);
+    const [resumeData, projects] = await Promise.all([getResumeData(), getProjects()]);
 
     // Render PDF using React.createElement since we can't use JSX in .ts files
     const pdfBuffer = await renderToBuffer(
@@ -33,7 +30,10 @@ export const GET: APIRoute = async ({ request, url }) => {
   } catch (error) {
     console.error('Error generating PDF:', error);
     return new Response(
-      JSON.stringify({ error: 'Failed to generate PDF', details: error instanceof Error ? error.message : String(error) }),
+      JSON.stringify({
+        error: 'Failed to generate PDF',
+        details: error instanceof Error ? error.message : String(error),
+      }),
       {
         status: 500,
         headers: { 'Content-Type': 'application/json' },

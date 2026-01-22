@@ -1,25 +1,25 @@
 /// <reference types="react" />
 /// <reference types="react-dom" />
-import { useState, useEffect } from "react";
-import type React from "react";
-import { cn } from "@/lib/utils";
-import { Menu, X } from "lucide-react";
-import { NeoButton } from "./NeoButton";
-import { ThemeToggle } from "./ThemeToggle";
-import { GithubIcon } from "./GithubIcon";
-import { layoutContent } from "@/content/layout";
+import { useState, useEffect } from 'react';
+import type React from 'react';
+import { cn } from '@/lib/utils';
+import { Menu, X } from 'lucide-react';
+import { NeoButton } from './NeoButton';
+import { ThemeToggle } from './ThemeToggle';
+import { GithubIcon } from './GithubIcon';
+import { layoutContent } from '@/content/layout';
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [currentPath, setCurrentPath] = useState("/");
+  const [currentPath, setCurrentPath] = useState('/');
   const { navigation, footer } = layoutContent;
 
   // Update current path on mount and when route changes
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       // Normalize path by removing trailing slash (except for root)
       const path = window.location.pathname;
-      const normalizedPath = path === "/" ? "/" : path.replace(/\/$/, "");
+      const normalizedPath = path === '/' ? '/' : path.replace(/\/$/, '');
       setCurrentPath(normalizedPath);
     }
   }, []);
@@ -27,30 +27,28 @@ export function Header() {
   return (
     <>
       {/* Top Navigation Bar */}
-      <header className="fixed top-0 left-0 right-0 z-50 border-b-4 border-black dark:border-white bg-background">
-        <div className="container mx-auto h-20 flex items-center justify-between">
+      <header className="bg-background fixed top-0 right-0 left-0 z-50 border-b-4 border-black dark:border-white">
+        <div className="container mx-auto flex h-20 items-center justify-between">
           {/* Brand/Logo */}
           <a href="/" className="group">
-            <div className="font-display font-bold text-lg sm:text-xl md:text-2xl tracking-tighter cursor-pointer transition-colors group-hover:text-neon-green">
+            <div className="font-display group-hover:text-neon-green cursor-pointer text-lg font-bold tracking-tighter transition-colors sm:text-xl md:text-2xl">
               {navigation.brand.text}
-              <span className="text-neon-green">
-                {navigation.brand.highlight}
-              </span>
+              <span className="text-neon-green">{navigation.brand.highlight}</span>
               {navigation.brand.suffix}
             </div>
           </a>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-6">
+          <nav className="hidden items-center gap-6 md:flex">
             {navigation.items.map((item) => (
               <a
                 key={item.path}
                 href={item.path}
                 className={cn(
-                  "font-mono font-bold text-sm md:text-xl transition-all relative px-3 py-2",
-                  "hover:underline decoration-4 decoration-neon-green underline-offset-4",
-                  currentPath === item.path && 
-                    "text-neon-green underline decoration-neon-green bg-black dark:bg-white dark:text-neon-green border-2 border-black dark:border-white shadow-[2px_2px_0px_0px_rgba(0,255,65,1)]",
+                  'relative px-3 py-2 font-mono text-sm font-bold transition-all md:text-xl',
+                  'decoration-neon-green decoration-4 underline-offset-4 hover:underline',
+                  currentPath === item.path &&
+                    'text-neon-green decoration-neon-green dark:text-neon-green border-2 border-black bg-black underline shadow-[2px_2px_0px_0px_rgba(0,255,65,1)] dark:border-white dark:bg-white'
                 )}
               >
                 {item.name}
@@ -64,13 +62,8 @@ export function Header() {
               aria-label={footer.socialLinks[0].label}
               className="inline-block"
             >
-              <div className="h-10 w-10 border-2 border-black dark:border-white bg-white dark:bg-black 
-                 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]
-                 hover:translate-x-[2px] hover:translate-y-[2px] 
-                 hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]
-                 active:translate-x-[4px] active:translate-y-[4px] active:shadow-none
-                 transition-all duration-200 flex items-center justify-center p-1.5 cursor-pointer">
-                <GithubIcon className="w-full h-full text-black dark:text-white" />
+              <div className="flex h-10 w-10 cursor-pointer items-center justify-center border-2 border-black bg-white p-1.5 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none dark:border-white dark:bg-black dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] dark:hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]">
+                <GithubIcon className="h-full w-full text-black dark:text-white" />
               </div>
             </a>
           </nav>
@@ -79,7 +72,7 @@ export function Header() {
           <div className="flex items-center gap-2 md:hidden">
             <ThemeToggle />
             <button
-              className="p-2 border-2 border-black dark:border-white active:bg-neon-green transition-colors ml-2"
+              className="active:bg-neon-green ml-2 border-2 border-black p-2 transition-colors dark:border-white"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label="Toggle menu"
               aria-expanded={isMenuOpen}
@@ -97,7 +90,7 @@ export function Header() {
       {/* Mobile Menu Overlay */}
       {isMenuOpen && (
         <div
-          className="fixed inset-0 z-40 bg-background pt-24 px-4 md:hidden overflow-y-auto"
+          className="bg-background fixed inset-0 z-40 overflow-y-auto px-4 pt-24 md:hidden"
           onClick={(e: React.MouseEvent<HTMLDivElement>) => {
             // Close menu when clicking on background
             if (e.target === e.currentTarget) {
@@ -111,9 +104,8 @@ export function Header() {
                 key={item.path}
                 href={item.path}
                 className={cn(
-                  "font-display font-bold text-4xl cursor-pointer hover:text-neon-green transition-colors border-b-2 border-black/10 dark:border-white/10 pb-4",
-                  currentPath === item.path &&
-                    "text-neon-green border-neon-green",
+                  'font-display hover:text-neon-green cursor-pointer border-b-2 border-black/10 pb-4 text-4xl font-bold transition-colors dark:border-white/10',
+                  currentPath === item.path && 'text-neon-green border-neon-green'
                 )}
                 onClick={() => setIsMenuOpen(false)}
               >
@@ -122,7 +114,7 @@ export function Header() {
             ))}
 
             {/* Social Links */}
-            <div className="flex gap-4 mt-8">
+            <div className="mt-8 flex gap-4">
               {footer.socialLinks.slice(0, 2).map((social) => (
                 <a
                   key={social.href}

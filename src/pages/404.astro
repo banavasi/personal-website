@@ -1,46 +1,52 @@
 ---
-import MainLayout from "@/layouts/main.astro";
+import MainLayout from '@/layouts/main.astro';
 
 const content = {
-  title: "404 - Page Not Found",
+  title: '404 - Page Not Found',
   description: "The page you're looking for doesn't exist.",
 };
 ---
 
 <MainLayout content={content}>
-  <div class="min-h-[calc(100vh-80px)] flex items-center justify-center px-4 bg-concrete dark:bg-zinc-900">
-    <div class="max-w-2xl w-full">
+  <div
+    class="bg-concrete flex min-h-[calc(100vh-80px)] items-center justify-center px-4 dark:bg-zinc-900"
+  >
+    <div class="w-full max-w-2xl">
       <!-- Error Card -->
-      <div class="border-8 border-black dark:border-white bg-white dark:bg-black shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] dark:shadow-[16px_16px_0px_0px_rgba(255,255,255,1)] p-8 md:p-12">
-        
+      <div
+        class="border-8 border-black bg-white p-8 shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] md:p-12 dark:border-white dark:bg-black dark:shadow-[16px_16px_0px_0px_rgba(255,255,255,1)]"
+      >
         <!-- Error Code -->
         <div class="mb-8">
-          <div class="font-display font-black text-9xl md:text-[12rem] leading-none bg-alert-red text-black inline-block px-6 py-4 border-8 border-black transform -rotate-2">
+          <div
+            class="font-display bg-alert-red inline-block -rotate-2 transform border-8 border-black px-6 py-4 text-9xl leading-none font-black text-black md:text-[12rem]"
+          >
             404
           </div>
         </div>
 
         <!-- Error Message -->
         <div class="space-y-6">
-          <h1 class="font-display font-black text-4xl md:text-5xl">
-            PAGE_NOT_FOUND
-          </h1>
-          
+          <h1 class="font-display text-4xl font-black md:text-5xl">PAGE_NOT_FOUND</h1>
+
           <p class="font-mono text-lg">
-            <span class="text-alert-red font-bold">ERROR:</span> The requested resource does not exist in the current runtime environment.
+            <span class="text-alert-red font-bold">ERROR:</span> The requested resource does not exist
+            in the current runtime environment.
           </p>
 
-          <div class="border-4 border-black dark:border-white bg-concrete dark:bg-zinc-800 p-4 font-mono text-sm">
-            <p class="text-neon-green">$ ls /pages/{"{requested_path}"}</p>
-            <p class="text-alert-red">ls: cannot access '/pages/{"{requested_path}"}': No such file or directory</p>
+          <div
+            class="bg-concrete border-4 border-black p-4 font-mono text-sm dark:border-white dark:bg-zinc-800"
+          >
+            <p class="text-neon-green">$ ls /pages/{'{requested_path}'}</p>
+            <p class="text-alert-red">
+              ls: cannot access '/pages/{'{requested_path}'}': No such file or directory
+            </p>
           </div>
 
           <!-- Suggestions -->
           <div class="space-y-3">
-            <p class="font-mono text-sm font-bold">
-              SUGGESTED_ACTIONS:
-            </p>
-            <ul class="space-y-2 font-mono text-sm pl-6">
+            <p class="font-mono text-sm font-bold">SUGGESTED_ACTIONS:</p>
+            <ul class="space-y-2 pl-6 font-mono text-sm">
               <li class="flex items-start gap-2">
                 <span class="text-neon-green font-bold">●</span>
                 <span>Check the URL for typos</span>
@@ -58,15 +64,15 @@ const content = {
 
           <!-- CTA Buttons -->
           <div class="flex flex-wrap gap-4 pt-4">
-            <a 
-              href="/" 
-              class="inline-flex items-center justify-center h-12 px-6 py-2 font-mono font-bold uppercase bg-neon-green text-black border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
+            <a
+              href="/"
+              class="bg-neon-green inline-flex h-12 items-center justify-center border-4 border-black px-6 py-2 font-mono font-bold text-black uppercase shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
             >
               GO HOME
             </a>
-            <a 
-              href="/contact" 
-              class="inline-flex items-center justify-center h-12 px-6 py-2 font-mono font-bold uppercase bg-electric-blue text-black border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
+            <a
+              href="/contact"
+              class="bg-electric-blue inline-flex h-12 items-center justify-center border-4 border-black px-6 py-2 font-mono font-bold text-black uppercase shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
             >
               CONTACT
             </a>
@@ -76,8 +82,14 @@ const content = {
 
       <!-- Floating Decorative Elements -->
       <div class="relative">
-        <div class="absolute -top-4 -right-4 w-16 h-16 bg-neon-green border-4 border-black transform rotate-12 hidden md:block"></div>
-        <div class="absolute -bottom-4 -left-4 w-12 h-12 bg-electric-blue border-4 border-black transform -rotate-12 hidden md:block"></div>
+        <div
+          class="bg-neon-green absolute -top-4 -right-4 hidden h-16 w-16 rotate-12 transform border-4 border-black md:block"
+        >
+        </div>
+        <div
+          class="bg-electric-blue absolute -bottom-4 -left-4 hidden h-12 w-12 -rotate-12 transform border-4 border-black md:block"
+        >
+        </div>
       </div>
     </div>
   </div>
