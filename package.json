@@ -47,9 +47,7 @@
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "tailwind-merge": "^3.4.0",
-    "tailwindcss": "^4.1.18"
-  },
-  "devDependencies": {
+    "tailwindcss": "^4.1.18",
     "prettier": "^3.8.1",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
