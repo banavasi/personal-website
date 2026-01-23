@@ -334,6 +334,11 @@ export const ResumePDF: React.FC<ResumePDFProps> = ({ resumeData, projects }) =>
   }
 
   const getImageSrc = (imagePath: string) => {
+    // If it's already a data URL (base64), return it as-is
+    if (imagePath.startsWith('data:')) {
+      return imagePath;
+    }
+    // If it's a relative path, try to construct absolute URL
     if (imagePath.startsWith('/')) {
       const baseUrl = process?.env?.PUBLIC_URL || process?.env?.SITE_URL || 'http://localhost:4321';
       return `${baseUrl}${imagePath}`;
