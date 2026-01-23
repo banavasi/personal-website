@@ -1,0 +1,25 @@
+---
+import MainLayout from '@/layouts/main.astro';
+import HeroSection from '@/components/PageHome/HeroSection.astro';
+import MarqueeSection from '@/components/PageHome/MarqueeSection.astro';
+import CoreSystemsSection from '@/components/PageHome/CoreSystemsSection.astro';
+import SystemArchitectureSection from '@/components/PageHome/SystemArchitectureSection.astro';
+import { getHomePageContent } from '@/lib/cms/content-service';
+import { getYearsOfExperience } from '@/lib/utils';
+
+// Fetch content from CMS with fallback to static
+const homePageContent = await getHomePageContent();
+const yearsOfExperience = getYearsOfExperience(2016);
+
+const content = {
+  title: 'Shashank Shandilya | Senior Technical Lead | AI & Cloud Architecture Expert',
+  description: `Senior Technical Lead with ${yearsOfExperience} building AI-powered automation, cloud-native platforms, and scalable microservices. Expert in Python, TypeScript, AWS, Kubernetes, and leading high-performing engineering teams to deliver enterprise solutions.`,
+};
+---
+
+<MainLayout content={content}>
+  <HeroSection content={homePageContent.hero} />
+  <MarqueeSection text={homePageContent.hero.marqueeText} />
+  <CoreSystemsSection content={homePageContent.coreSystems} />
+  <SystemArchitectureSection content={homePageContent.systemArchitecture} />
+</MainLayout>

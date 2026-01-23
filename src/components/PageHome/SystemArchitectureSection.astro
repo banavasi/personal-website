@@ -1,0 +1,141 @@
+---
+import { NeoCard } from '@/components/NeoCard';
+import { homeContent } from '@/content/home';
+import type { AccentColor } from '@/types/content';
+
+interface RuntimeExperience {
+  status: string;
+  company: string;
+  role: string;
+  period: string;
+  description: string;
+  isCurrent: boolean;
+}
+
+interface PackageCategory {
+  name: string;
+  accentColor: AccentColor;
+  skills: string[];
+}
+
+interface Props {
+  content?: {
+    title: string;
+    runtime: {
+      title: string;
+      experience: RuntimeExperience[];
+    };
+    packages: {
+      title: string;
+      categories: PackageCategory[];
+    };
+  };
+}
+
+const { content } = Astro.props;
+
+// Use props or fallback to static content
+const systemArchitecture = content || homeContent.systemArchitecture;
+---
+
+<section class="border-t-4 border-black py-20 dark:border-white">
+  <div class="container mx-auto px-4">
+    <h2 class="font-display mb-16 text-right text-5xl font-bold md:text-6xl">
+      {systemArchitecture.title}
+    </h2>
+
+    <div class="grid grid-cols-1 gap-12 lg:grid-cols-2">
+      <!-- Runtime Environment (Experience) -->
+      <div>
+        <h3 class="mb-8 flex items-center font-mono text-2xl font-bold">
+          <span class="bg-neon-green mr-4 h-4 w-4 animate-pulse"></span>
+          {systemArchitecture.runtime.title}
+        </h3>
+
+        <div class="space-y-6">
+          {
+            systemArchitecture.runtime.experience.map((exp) => (
+              <div
+                class={`border-4 ${exp.isCurrent ? 'border-neon-green bg-neon-green/10' : 'border-black dark:border-white'} p-6 transition-all hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]`}
+              >
+                <div class="mb-3 flex items-start justify-between">
+                  <div class="font-mono text-sm font-bold">
+                    {exp.isCurrent ? (
+                      <span class="text-neon-green flex items-center gap-2">
+                        <span class="relative flex h-3 w-3">
+                          <span class="bg-neon-green absolute inline-flex h-full w-full animate-ping rounded-full opacity-75" />
+                          <span class="bg-neon-green relative inline-flex h-3 w-3 rounded-full" />
+                        </span>
+                        {exp.status}
+                      </span>
+                    ) : (
+                      <span class="text-gray-500">{exp.status}</span>
+                    )}
+                  </div>
+                  <div class="font-mono text-xs text-gray-500">{exp.period}</div>
+                </div>
+                <h4 class="font-display mb-1 text-3xl font-bold">{exp.company}</h4>
+                <p class="mb-3 font-mono text-lg">{exp.role}</p>
+                <p class="font-body text-gray-600 dark:text-gray-400">{exp.description}</p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Installed Packages (Skills) -->
+      <div>
+        <h3 class="mb-8 flex items-center font-mono text-2xl font-bold">
+          <span class="bg-alert-red mr-4 h-4 w-4"></span>
+          {systemArchitecture.packages.title}
+        </h3>
+
+        <div class="grid grid-cols-1 gap-6">
+          {
+            systemArchitecture.packages.categories.map((category) => {
+              const accentColors = {
+                green: 'text-neon-green',
+                blue: 'text-electric-blue',
+                red: 'text-alert-red',
+                none: 'text-black dark:text-white',
+              };
+
+              const hoverBorders = {
+                green: 'hover:border-neon-green',
+                blue: 'hover:border-electric-blue',
+                red: 'hover:border-alert-red',
+                none: 'hover:border-gray-400',
+              };
+
+              return (
+                <NeoCard
+                  client:load
+                  className={
+                    category.accentColor === 'green'
+                      ? 'bg-black text-white dark:bg-white dark:text-black'
+                      : ''
+                  }
+                >
+                  <h4
+                    class={`font-mono font-bold ${accentColors[category.accentColor]} mb-4 border-b ${category.accentColor === 'green' ? 'border-gray-700 dark:border-gray-300' : 'border-gray-200 dark:border-gray-700'} pb-2`}
+                  >
+                    {category.name}
+                  </h4>
+                  <div class="flex flex-wrap gap-2">
+                    {category.skills.map((skill) => (
+                      <span
+                        class={`${category.accentColor === 'green' ? 'bg-white text-black dark:bg-black dark:text-white' : 'bg-gray-100 text-black dark:bg-gray-800 dark:text-white'} border-2 border-transparent px-3 py-1 font-mono text-sm font-bold ${hoverBorders[category.accentColor]} cursor-default transition-colors`}
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </NeoCard>
+              );
+            })
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
