@@ -1,137 +1,91 @@
 ---
-import MainLayout from '@/layouts/main.astro';
-import { ProjectIcons } from '@/components/ProjectIcons';
-import { getProjectsPageContent } from '@/lib/cms/content-service';
-
-// Fetch content from CMS with fallback to static
-const projectsContent = await getProjectsPageContent();
-
-const content = {
-  title: 'Projects Portfolio | Shashank Shandilya - AI, Cloud & Full-Stack Solutions',
-  description:
-    'Explore my portfolio of AI-powered automation systems, cloud-native platforms, and full-stack applications. Experience in building scalable enterprise solutions with React, Python, AWS, and modern technologies.',
-};
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE_TITLE } from '../consts';
+import { Card, CardContent } from '../components/ui/card';
 ---
 
-<MainLayout content={content}>
-  <!-- Projects Header -->
-  <section class="container mx-auto px-4 py-12">
-    <div
-      class="mb-16 flex flex-col items-end justify-between gap-6 border-b-4 border-black pb-8 md:flex-row dark:border-white"
-    >
-      <div>
-        <h1 class="font-display mb-4 text-6xl font-bold md:text-8xl">
-          {projectsContent.header.title}
-        </h1>
-        <p class="max-w-2xl font-mono text-xl md:text-2xl">
-          {projectsContent.header.description}
-        </p>
-      </div>
-      <div
-        class="bg-neon-green border-2 border-black px-4 py-2 font-mono text-xl font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:border-white dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]"
-      >
-        {projectsContent.projects.length} WORKS
-      </div>
-    </div>
+<BaseLayout title={`Projects | ${SITE_TITLE}`} description="Featured projects and work">
+	<div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
+		<!-- Page Header -->
+		<section class="py-16 sm:py-20 header-section opacity-0 translate-y-10">
+			<div class="max-w-3xl">
+				<h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 bg-gradient-to-r from-white via-white/90 to-white/70 bg-clip-text text-transparent">
+					Projects & Work
+				</h1>
+				<p class="text-xl text-gray-400 leading-relaxed">
+					A showcase of featured projects, contributions, and the impact they've made. Each project represents a unique challenge solved with innovative solutions.
+				</p>
+			</div>
+		</section>
 
-    <!-- Projects Grid -->
-    <div class="grid grid-cols-1 gap-16">
-      {
-        projectsContent.projects.map((project) => {
-          const accentBorderColors = {
-            green: 'border-neon-green',
-            blue: 'border-electric-blue',
-            red: 'border-alert-red',
-            none: 'border-black dark:border-white',
-          };
+		<!-- Placeholder Note -->
+		<section class="pb-20 content-section opacity-0 translate-y-10">
+			<Card client:load className="border-white/10 bg-white/5 backdrop-blur-sm">
+				<CardContent className="pt-6">
+					<div class="text-center py-12">
+						<div class="text-6xl mb-6 animate-pulse">🚧</div>
+						<h2 class="text-2xl font-bold mb-4 text-white">Projects Coming Soon</h2>
+						<p class="text-lg text-gray-400 max-w-2xl mx-auto">
+							I'm currently curating a selection of my best work to showcase here. Check back soon to see detailed case studies of enterprise platforms, AI automation frameworks, and open-source contributions.
+						</p>
+						<p class="text-gray-500 mt-6">
+							In the meantime, feel free to explore my <a href="https://github.com/banavasi" target="_blank" rel="noopener noreferrer" class="text-white hover:underline">GitHub profile</a> for open-source contributions.
+						</p>
+					</div>
+				</CardContent>
+			</Card>
+		</section>
 
-          const accentOverlayColors = {
-            green: 'bg-neon-green',
-            blue: 'bg-electric-blue',
-            red: 'bg-alert-red',
-            none: 'bg-gray-500',
-          };
+		<!-- Navigation -->
+		<section class="py-12 border-t border-white/10 nav-section opacity-0 translate-y-10">
+			<div class="flex justify-between items-center flex-wrap gap-4">
+				<a href="/about" class="text-gray-400 hover:text-white transition-colors flex items-center gap-2 group">
+					<span class="group-hover:-translate-x-1 transition-transform">←</span>
+					<span>About</span>
+				</a>
+				<a href="/skills" class="text-gray-400 hover:text-white transition-colors flex items-center gap-2 group">
+					<span>Skills</span>
+					<span class="group-hover:translate-x-1 transition-transform">→</span>
+				</a>
+			</div>
+		</section>
+	</div>
+</BaseLayout>
 
-          const borderColor = accentBorderColors[project.accent];
-          const overlayColor = accentOverlayColors[project.accent];
+<script>
+	import gsap from 'gsap';
+	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-          return (
-            <article
-              class={`border-4 ${borderColor} group flex flex-col overflow-hidden bg-white transition-all hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] lg:flex-row dark:bg-black dark:hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]`}
-            >
-              {/* Image Section - Left Side */}
-              <div
-                class={`border-b-4 lg:w-1/2 lg:border-r-4 lg:border-b-0 ${borderColor} relative min-h-[300px] bg-gray-100 dark:bg-zinc-900`}
-              >
-                {project.image ? (
-                  <>
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      class="absolute inset-0 h-full w-full object-cover grayscale transition-all duration-500 group-hover:grayscale-0"
-                    />
-                    <div
-                      class={`absolute inset-0 opacity-20 mix-blend-multiply transition-opacity duration-300 group-hover:opacity-0 ${overlayColor}`}
-                    />
-                    {project.featured && (
-                      <div class="bg-neon-green absolute top-4 left-4 border-2 border-black px-3 py-1.5 font-mono text-xs font-bold text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                        ⭐ FEATURED
-                      </div>
-                    )}
-                  </>
-                ) : (
-                  <div class="bg-concrete absolute inset-0 flex items-center justify-center dark:bg-zinc-900">
-                    <div class="font-display rotate-12 text-4xl font-bold text-gray-300 uppercase">
-                      {project.title}
-                    </div>
-                  </div>
-                )}
-              </div>
+	gsap.registerPlugin(ScrollTrigger);
 
-              {/* Content Section - Right Side */}
-              <div class="flex flex-col justify-between p-8 lg:w-1/2 lg:p-12">
-                <div>
-                  {/* Header with Period/Role and Icon Buttons */}
-                  <div class="mb-6 flex items-start justify-between">
-                    <div class="font-mono text-sm font-bold tracking-wider text-gray-500 uppercase dark:text-gray-400">
-                      {project.period} • {project.role}
-                    </div>
-                    <ProjectIcons
-                      githubUrl={project.githubUrl}
-                      liveUrl={project.liveUrl}
-                      client:load
-                    />
-                  </div>
+	// Header Animation
+	gsap.to('.header-section', {
+		opacity: 1,
+		y: 0,
+		duration: 1,
+		ease: 'power3.out',
+		delay: 0.2
+	});
 
-                  {/* Project Title */}
-                  <h2 class="font-display group-hover:text-neon-green mb-6 text-4xl font-bold transition-colors">
-                    {project.title}
-                  </h2>
+	// Content Animation
+	gsap.to('.content-section', {
+		opacity: 1,
+		y: 0,
+		duration: 1,
+		ease: 'power3.out',
+		delay: 0.4
+	});
 
-                  {/* Description */}
-                  <p class="font-body mb-8 text-lg leading-relaxed text-gray-700 dark:text-gray-300">
-                    {project.description}
-                  </p>
-                </div>
-
-                {/* Technologies Section */}
-                <div>
-                  <div class="mb-3 font-mono text-xs font-bold text-gray-400 uppercase">
-                    Technologies
-                  </div>
-                  <div class="flex flex-wrap gap-2">
-                    {project.tags.map((tag) => (
-                      <span class="cursor-default border-2 border-black px-3 py-1 font-mono text-sm font-bold transition-colors hover:bg-black hover:text-white dark:border-white dark:hover:bg-white dark:hover:text-black">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </article>
-          );
-        })
-      }
-    </div>
-  </section>
-</MainLayout>
+	// Nav Section
+	gsap.to('.nav-section', {
+		scrollTrigger: {
+			trigger: '.nav-section',
+			start: 'top 95%',
+			toggleActions: 'play none none reverse'
+		},
+		opacity: 1,
+		y: 0,
+		duration: 1,
+		ease: 'power3.out'
+	});
+</script>
