@@ -17,11 +17,11 @@ export function NeoButton({
 }: NeoButtonProps) {
   const variants = {
     primary:
-      'bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-[4px_4px_0px_0px_var(--color-neon-green)]',
+      'bg-black text-neon-green dark:bg-white dark:text-black hover:bg-black/90 dark:hover:bg-white/90 hover:shadow-[4px_4px_0px_0px_var(--color-neon-green)]',
     secondary:
       'bg-secondary text-secondary-foreground hover:bg-secondary/80 hover:shadow-[4px_4px_0px_0px_var(--color-electric-blue)]',
     outline:
-      'bg-transparent border-4 border-black dark:border-white hover:bg-accent hover:text-accent-foreground hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]',
+      'bg-transparent border-4 border-black dark:border-white text-black dark:text-white hover:bg-accent hover:text-accent-foreground hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]',
     ghost: 'hover:bg-accent hover:text-accent-foreground',
   };
 
